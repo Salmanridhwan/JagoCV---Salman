@@ -1,0 +1,1304 @@
+<button
+  id="btn-back-dashboard-resume"
+  class="flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-slate-900 hover:bg-slate-100 dark:hover:bg-white/5 dark:hover:text-white mb-6 transition-colors font-medium text-sm"
+>
+  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M10 19l-7-7m0 0l7-7m-7 7h18"
+    ></path>
+  </svg>
+  Kembali ke Dasbor
+</button>
+
+<!-- Builder Header -->
+<header
+  class="mb-8 pb-6 border-b border-slate-200 dark:border-slate-800 flex flex-col md:flex-row md:items-end justify-between gap-4"
+>
+  <div>
+    <div
+      class="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 text-[10px] font-bold uppercase tracking-wider mb-3"
+    >
+      Visual Dokumen
+    </div>
+    <h1
+      class="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-2"
+    >
+      Desain Resume Visual Anda
+    </h1>
+    <p class="text-slate-500 dark:text-slate-400 text-sm max-w-2xl">
+      Buat resume PDF yang memukau dan tertata indah untuk memikat rekruter.
+      Tampil menonjol dengan tipografi, warna, dan tata letak modern.
+    </p>
+  </div>
+  <button
+    class="flex items-center justify-center gap-2 px-5 py-2.5 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white rounded-xl font-medium text-sm transition-all shadow-sm shrink-0"
+  >
+    <svg
+      class="w-5 h-5 text-indigo-400"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+      ></path>
+    </svg>
+    Impor Data ATS
+  </button>
+</header>
+
+<div class="flex flex-col lg:flex-row gap-10 items-start w-full relative">
+  <!-- Left Col: Form Inputs -->
+  <div class="w-full lg:w-[60%] space-y-6">
+    <!-- Input Mode Toggle (Resume) -->
+    <div
+      class="dash-card rounded-2xl p-1.5 flex items-center mb-2 bg-white/80 dark:bg-[#0B1221]/80 border-slate-200 dark:border-slate-800"
+    >
+      <button
+        id="tab-resume-manual"
+        class="flex-1 py-2.5 rounded-xl bg-indigo-600 shadow-[0_0_15px_rgba(79,70,229,0.4)] text-white text-sm font-semibold transition-all"
+      >
+        Form Manual
+      </button>
+      <button
+        id="tab-resume-ai"
+        class="flex-1 py-2.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-900 hover:bg-slate-100 dark:hover:bg-white/5 dark:hover:text-white text-sm font-semibold transition-all flex items-center justify-center gap-2 group"
+      >
+        <svg
+          class="w-4 h-4 text-indigo-500 group-hover:animate-pulse"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
+          ></path>
+        </svg>
+        Otomatis Buat via AI
+      </button>
+    </div>
+
+
+    <!-- CONTAINER: MANUAL FORMS (RESUME) -->
+    <div
+      id="container-resume-manual"
+      class="space-y-6 block animate-[fadeIn_0.3s_ease_forwards]"
+    >
+      <!-- Wizard Progress Animation -->
+      <div id="resume-wizard-progress" class="w-full mb-8 pt-4">
+        <div class="flex items-center justify-between relative">
+          <div
+            class="absolute left-0 top-5 -translate-y-1/2 w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full z-0"
+          ></div>
+          <div
+            id="resume-progress-bar"
+            class="absolute left-0 top-5 -translate-y-1/2 h-1.5 bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.5)] rounded-full z-0 transition-all duration-700 ease-out w-0"
+          ></div>
+
+          <div
+            class="relative z-10 flex flex-col items-center gap-2 group resume-step-indicator active"
+            id="resume-indicator-step-1"
+            data-step="1"
+          >
+            <div
+              class="w-10 h-10 rounded-full bg-indigo-500 text-white flex items-center justify-center font-bold text-sm shadow-[0_0_15px_rgba(99,102,241,0.4)] transition-all duration-500 scale-110"
+            >
+              1
+            </div>
+            <span
+              class="text-[11px] font-bold text-indigo-500 mt-1 transition-colors uppercase tracking-wider"
+              >Profil</span
+            >
+          </div>
+          <div
+            class="relative z-10 flex flex-col items-center gap-2 group resume-step-indicator"
+            id="resume-indicator-step-2"
+            data-step="2"
+          >
+            <div
+              class="w-10 h-10 rounded-full bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 text-slate-400 flex items-center justify-center font-bold text-sm transition-all duration-500"
+            >
+              2
+            </div>
+            <span
+              class="text-[11px] font-bold text-slate-400 mt-1 transition-colors uppercase tracking-wider hidden sm:block"
+              >Pengalaman</span
+            >
+          </div>
+          <div
+            class="relative z-10 flex flex-col items-center gap-2 group resume-step-indicator"
+            id="resume-indicator-step-3"
+            data-step="3"
+          >
+            <div
+              class="w-10 h-10 rounded-full bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 text-slate-400 flex items-center justify-center font-bold text-sm transition-all duration-500"
+            >
+              3
+            </div>
+            <span
+              class="text-[11px] font-bold text-slate-400 mt-1 transition-colors uppercase tracking-wider hidden sm:block"
+              >Pendidikan</span
+            >
+          </div>
+          <div
+            class="relative z-10 flex flex-col items-center gap-2 group resume-step-indicator"
+            id="resume-indicator-step-4"
+            data-step="4"
+          >
+            <div
+              class="w-10 h-10 rounded-full bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 text-slate-400 flex items-center justify-center font-bold text-sm transition-all duration-500"
+            >
+              4
+            </div>
+            <span
+              class="text-[11px] font-bold text-slate-400 mt-1 transition-colors uppercase tracking-wider hidden sm:block"
+              >Keahlian</span
+            >
+          </div>
+          <div
+            class="relative z-10 flex flex-col items-center gap-2 group resume-step-indicator"
+            id="resume-indicator-step-5"
+            data-step="5"
+          >
+            <div
+              class="w-10 h-10 rounded-full bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 text-slate-400 flex items-center justify-center font-bold text-sm transition-all duration-500"
+            >
+              5
+            </div>
+            <span
+              class="text-[11px] font-bold text-slate-400 mt-1 transition-colors uppercase tracking-wider hidden sm:block"
+              >Layout</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Personal Info & Photo -->
+      <div
+        id="resume-step-1"
+        class="resume-step block dash-card rounded-3xl p-6 md:p-8"
+      >
+        <h2
+          class="text-lg font-bold text-slate-900 dark:text-white mb-5 flex items-center gap-2"
+        >
+          <span
+            class="w-6 h-6 rounded-md bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-indigo-600 dark:text-indigo-400 text-xs"
+            >1</span
+          >
+          Info Profil &amp; Identitas Visual
+        </h2>
+
+        <div class="flex flex-col md:flex-row gap-6 mb-6">
+          <!-- Photo Upload Simulation -->
+          <label
+            class="flex flex-col items-center justify-center w-32 h-32 rounded-full border-2 border-dashed border-slate-400 dark:border-slate-600 bg-slate-100 dark:bg-[#0B1221]/50 hover:bg-slate-100 dark:hover:bg-slate-800 hover:border-indigo-500 cursor-pointer transition-all group shrink-0 relative overflow-hidden"
+          >
+            <input
+              type="file"
+              accept="image/*"
+              class="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+              title="Unggah Foto"
+            />
+            <svg
+              class="w-8 h-8 text-slate-500 group-hover:text-indigo-400 mb-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"
+              ></path>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"
+              ></path>
+            </svg>
+            <span
+              class="text-[10px] text-slate-500 dark:text-slate-400 font-medium"
+              >Unggah Foto</span
+            >
+          </label>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 flex-1">
+            <div class="space-y-1.5">
+              <label
+                class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
+                >Nama Tampilan *</label
+              >
+              <input
+                type="text"
+                placeholder="John Doe"
+                class="w-full bg-slate-100 dark:bg-[#0B1221]/50 border border-slate-300 dark:border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-800 dark:text-slate-200 placeholder-slate-600 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all"
+              />
+            </div>
+            <div class="space-y-1.5">
+              <label
+                class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
+                >Headline / Peran *</label
+              >
+              <input
+                type="text"
+                placeholder="Creative Frontend Engineer"
+                class="w-full bg-slate-100 dark:bg-[#0B1221]/50 border border-slate-300 dark:border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-800 dark:text-slate-200 placeholder-slate-600 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all"
+              />
+            </div>
+            <div class="space-y-1.5 sm:col-span-2">
+              <label
+                class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
+                >Website Portofolio / Linktree</label
+              >
+              <input
+                type="url"
+                placeholder="https://johndoe.com"
+                class="w-full bg-slate-100 dark:bg-[#0B1221]/50 border border-slate-300 dark:border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-800 dark:text-slate-200 placeholder-slate-600 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-6">
+          <div class="space-y-1.5">
+            <label
+              class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
+              >Alamat Email</label
+            >
+            <input
+              type="email"
+              placeholder="john@example.com"
+              class="w-full bg-slate-100 dark:bg-[#0B1221]/50 border border-slate-300 dark:border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-800 dark:text-slate-200 placeholder-slate-600 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all"
+            />
+          </div>
+          <div class="space-y-1.5">
+            <label
+              class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
+              >Nomor Telepon</label
+            >
+            <input
+              type="tel"
+              placeholder="+62 812 3456 7890"
+              class="w-full bg-slate-100 dark:bg-[#0B1221]/50 border border-slate-300 dark:border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-800 dark:text-slate-200 placeholder-slate-600 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all"
+            />
+          </div>
+          <div class="space-y-1.5">
+            <label
+              class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
+              >Lokasi / Remote</label
+            >
+            <input
+              type="text"
+              placeholder="Jakarta, ID (Remote)"
+              class="w-full bg-slate-100 dark:bg-[#0B1221]/50 border border-slate-300 dark:border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-800 dark:text-slate-200 placeholder-slate-600 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all"
+            />
+          </div>
+          <div class="space-y-1.5 sm:col-span-3">
+            <label
+              class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
+              >LinkedIn URL</label
+            >
+            <input
+              type="url"
+              placeholder="linkedin.com/in/johndoe"
+              class="w-full bg-slate-100 dark:bg-[#0B1221]/50 border border-slate-300 dark:border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-800 dark:text-slate-200 placeholder-slate-600 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all"
+            />
+          </div>
+        </div>
+
+        <div class="space-y-1.5">
+          <label
+            class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
+            >Tentang Saya (Bio Utama)</label
+          >
+          <textarea
+            rows="4"
+            placeholder="Tulis bio singkat yang menarik sesuai kepribadian karir Anda. Fokus pada keunikan dan value visual Anda..."
+            class="w-full bg-slate-100 dark:bg-[#0B1221]/50 border border-slate-300 dark:border-slate-700/80 rounded-xl px-4 py-3 text-sm text-slate-800 dark:text-slate-200 placeholder-slate-600 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all resize-none"
+          ></textarea>
+        </div>
+        <div
+          class="flex justify-end mt-8 pt-6 border-t border-slate-200 dark:border-slate-800/50"
+        >
+          <button
+            type="button"
+            onclick="goToResumeStep(2)"
+            class="bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-3 rounded-xl font-bold transition-all shadow-lg shadow-indigo-500/25 flex items-center gap-2 active:scale-95"
+          >
+            Selanjutnya
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Pengalaman Kerja (Resume) -->
+      <div
+        id="resume-step-2"
+        class="resume-step hidden dash-card rounded-3xl p-6 md:p-8"
+      >
+        <div class="flex items-center justify-between mb-5">
+          <h2
+            class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2"
+          >
+            <span
+              class="w-6 h-6 rounded-md bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-indigo-600 dark:text-indigo-400 text-xs"
+              >2</span
+            >
+            Pengalaman Kerja
+          </h2>
+          <button
+            class="text-xs font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 flex items-center gap-1 bg-indigo-100 dark:bg-indigo-900/20 hover:bg-indigo-200 dark:hover:bg-indigo-900/40 px-3 py-1.5 rounded-lg transition-colors"
+          >
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 4v16m8-8H4"
+              ></path>
+            </svg>
+            Tambah Peran
+          </button>
+        </div>
+
+        <div
+          class="border border-slate-300/50 dark:border-slate-700/50 rounded-2xl p-5 bg-slate-100 dark:bg-[#0B1221]/30 mb-4 group relative"
+        >
+          <button
+            class="absolute top-4 right-4 text-slate-500 hover:text-rose-400 opacity-0 group-hover:opacity-100 transition-all"
+            title="Hapus"
+          >
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+              ></path>
+            </svg>
+          </button>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div class="space-y-1.5">
+              <label
+                class="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
+                >Nama Perusahaan</label
+              >
+              <input
+                type="text"
+                placeholder="Creative Agency Inc"
+                class="w-full bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-600 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all"
+              />
+            </div>
+            <div class="space-y-1.5">
+              <label
+                class="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
+                >Jabatan</label
+              >
+              <input
+                type="text"
+                placeholder="Senior UI/UX Designer"
+                class="w-full bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-600 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all"
+              />
+            </div>
+            <div class="space-y-1.5">
+              <label
+                class="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
+                >Bulan / Tahun Mulai</label
+              >
+              <input
+                type="month"
+                class="w-full bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-600 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all"
+              />
+            </div>
+            <div class="space-y-1.5">
+              <label
+                class="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
+                >Bulan / Tahun Selesai</label
+              >
+              <input
+                type="month"
+                class="w-full bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-600 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all"
+              />
+            </div>
+          </div>
+          <div class="flex items-center gap-2 mb-4">
+            <input
+              type="checkbox"
+              id="current_job_resume"
+              class="w-4 h-4 rounded border-slate-300 text-indigo-500 focus:ring-indigo-500 bg-transparent"
+            />
+            <label
+              for="current_job_resume"
+              class="text-xs text-slate-600 dark:text-slate-400"
+              >Saya masih bekerja di sini</label
+            >
+          </div>
+          <div class="space-y-1.5">
+            <label
+              class="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
+              >Deskripsi &amp; Dampak Proyek</label
+            >
+            <textarea
+              rows="4"
+              placeholder="Jelaskan peran komprehensif Anda, dan tonjolkan metrik atau project penting yang punya nilai visual atau fungsional tinggi..."
+              class="w-full bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700/80 rounded-xl px-4 py-3 text-sm text-slate-800 dark:text-slate-200 placeholder-slate-600 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all resize-none"
+            ></textarea>
+          </div>
+        </div>
+
+        <div
+          class="flex justify-between mt-8 pt-6 border-t border-slate-200 dark:border-slate-800/50"
+        >
+          <button
+            type="button"
+            onclick="goToResumeStep(1)"
+            class="bg-slate-100 dark:bg-[#0B1221]/50 hover:bg-slate-200 dark:hover:bg-[#1A2133] text-slate-700 dark:text-slate-300 px-6 py-3 rounded-xl font-bold transition-all flex items-center gap-2 active:scale-95"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 19l-7-7 7-7"
+              ></path>
+            </svg>
+            Sebelumnya
+          </button>
+          <button
+            type="button"
+            onclick="goToResumeStep(3)"
+            class="bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-3 rounded-xl font-bold transition-all shadow-lg shadow-indigo-500/25 flex items-center gap-2 active:scale-95"
+          >
+            Selanjutnya
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Pendidikan (Resume) -->
+      <div
+        id="resume-step-3"
+        class="resume-step hidden dash-card rounded-3xl p-6 md:p-8"
+      >
+        <div class="flex items-center justify-between mb-5">
+          <h2
+            class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2"
+          >
+            <span
+              class="w-6 h-6 rounded-md bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-indigo-600 dark:text-indigo-400 text-xs"
+              >3</span
+            >
+            Pendidikan Terakhir
+          </h2>
+          <button
+            class="text-xs font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 flex items-center gap-1 bg-indigo-100 dark:bg-indigo-900/20 hover:bg-indigo-200 dark:hover:bg-indigo-900/40 px-3 py-1.5 rounded-lg transition-colors"
+          >
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 4v16m8-8H4"
+              ></path>
+            </svg>
+            Tambah Pendidikan
+          </button>
+        </div>
+
+        <div
+          class="border border-slate-300/50 dark:border-slate-700/50 rounded-2xl p-5 bg-slate-100 dark:bg-[#0B1221]/30 mb-4 group relative"
+        >
+          <button
+            class="absolute top-4 right-4 text-slate-500 hover:text-rose-400 opacity-0 group-hover:opacity-100 transition-all"
+            title="Hapus"
+          >
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+              ></path>
+            </svg>
+          </button>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div class="space-y-1.5 md:col-span-2">
+              <label
+                class="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
+                >Nama Institusi / Universitas</label
+              >
+              <input
+                type="text"
+                placeholder="Institut Teknologi Bandung"
+                class="w-full bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-600 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all"
+              />
+            </div>
+            <div class="space-y-1.5">
+              <label
+                class="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
+                >Gelar / Konsentrasi</label
+              >
+              <input
+                type="text"
+                placeholder="Sarjana Desain Visual"
+                class="w-full bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-600 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all"
+              />
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="space-y-1.5">
+                <label
+                  class="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
+                  >Tahun Mulai</label
+                >
+                <input
+                  type="text"
+                  placeholder="2018"
+                  class="w-full bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-600 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all"
+                />
+              </div>
+              <div class="space-y-1.5">
+                <label
+                  class="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
+                  >Tahun Lulus</label
+                >
+                <input
+                  type="text"
+                  placeholder="2022"
+                  class="w-full bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-600 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="flex justify-between mt-8 pt-6 border-t border-slate-200 dark:border-slate-800/50"
+        >
+          <button
+            type="button"
+            onclick="goToResumeStep(2)"
+            class="bg-slate-100 dark:bg-[#0B1221]/50 hover:bg-slate-200 dark:hover:bg-[#1A2133] text-slate-700 dark:text-slate-300 px-6 py-3 rounded-xl font-bold transition-all flex items-center gap-2 active:scale-95"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 19l-7-7 7-7"
+              ></path>
+            </svg>
+            Sebelumnya
+          </button>
+          <button
+            type="button"
+            onclick="goToResumeStep(4)"
+            class="bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-3 rounded-xl font-bold transition-all shadow-lg shadow-indigo-500/25 flex items-center gap-2 active:scale-95"
+          >
+            Selanjutnya
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Proyek & Keterampilan (Resume) -->
+      <div
+        id="resume-step-4"
+        class="resume-step hidden dash-card rounded-3xl p-6 md:p-8"
+      >
+        <h2
+          class="text-lg font-bold text-slate-900 dark:text-white mb-5 flex items-center gap-2"
+        >
+          <span
+            class="w-6 h-6 rounded-md bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-indigo-600 dark:text-indigo-400 text-xs"
+            >4</span
+          >
+          Keterampilan Unggulan
+        </h2>
+
+        <!-- CARD: Pilih Tema Visual Resume (Removed from Step 4) -->
+        <div class="space-y-6">
+          <!-- Proyek -->
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <h3
+                class="text-sm font-semibold text-slate-700 dark:text-slate-300"
+              >
+                Sorotan Proyek
+              </h3>
+              <button
+                class="text-xs font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 flex items-center gap-1 bg-indigo-100 dark:bg-indigo-900/20 hover:bg-indigo-200 dark:hover:bg-indigo-900/40 px-2.5 py-1.5 rounded-lg transition-colors"
+              >
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 4v16m8-8H4"
+                  ></path>
+                </svg>
+                Tambah Proyek
+              </button>
+            </div>
+
+            <div
+              class="border border-slate-300/50 dark:border-slate-700/50 rounded-2xl p-4 bg-slate-100 dark:bg-[#0B1221]/30 relative group mb-4"
+            >
+              <button
+                class="absolute top-3 right-3 text-slate-500 hover:text-rose-400 opacity-0 group-hover:opacity-100 transition-all"
+                title="Hapus"
+              >
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                  ></path>
+                </svg>
+              </button>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+                <input
+                  type="text"
+                  placeholder="Nama Proyek (misal: Taskify App)"
+                  class="w-full bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-600 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
+                />
+                <input
+                  type="url"
+                  placeholder="Tautan Proyek / Demo URL"
+                  class="w-full bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-600 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
+                />
+              </div>
+              <textarea
+                rows="2"
+                placeholder="Jelaskan tujuan proyek, stack teknologi, peran dan visualisasi Anda..."
+                class="w-full bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700/80 rounded-xl px-4 py-3 text-sm text-slate-800 dark:text-slate-200 placeholder-slate-600 outline-none resize-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- Keahlian -->
+          <div class="border-t border-slate-200 dark:border-slate-700/50 pt-5">
+            <div
+              class="space-y-1.5 focus-within:text-indigo-500 transition-colors"
+            >
+              <label
+                class="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider inherit"
+                >Keahlian Relevan (Teknis &amp; Desain)</label
+              >
+              <textarea
+                rows="2"
+                placeholder="Graphic Design, Figma, React, Prototyping, Adobe CC..."
+                class="w-full bg-slate-100 dark:bg-[#0B1221]/50 border border-slate-300 dark:border-slate-700/80 rounded-xl px-4 py-3 text-sm text-slate-800 dark:text-slate-200 placeholder-slate-600 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all resize-none"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="flex justify-between mt-8 pt-6 border-t border-slate-200 dark:border-slate-800/50"
+        >
+          <button
+            type="button"
+            onclick="goToResumeStep(3)"
+            class="bg-slate-100 dark:bg-[#0B1221]/50 hover:bg-slate-200 dark:hover:bg-[#1A2133] text-slate-700 dark:text-slate-300 px-6 py-3 rounded-xl font-bold transition-all flex items-center gap-2 active:scale-95"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 19l-7-7 7-7"
+              ></path>
+            </svg>
+            Sebelumnya
+          </button>
+          <button
+            type="button"
+            onclick="goToResumeStep(5)"
+            class="bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-3 rounded-xl font-bold transition-all shadow-lg shadow-indigo-500/25 flex items-center gap-2 active:scale-95"
+          >
+            Selanjutnya
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+
+      <!-- Step 5: Layout Selection -->
+      <div
+        id="resume-step-5"
+        class="resume-step hidden dash-card rounded-3xl p-6 md:p-8"
+      >
+        <h2
+          class="text-lg font-bold text-slate-900 dark:text-white mb-5 flex items-center gap-2"
+        >
+          <span
+            class="w-6 h-6 rounded-md bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-indigo-600 dark:text-indigo-400 text-xs"
+            >5</span
+          >
+          Pilih Layout Visual
+        </h2>
+
+        <!-- CARD: Pilih Tema Visual Resume -->
+        <div
+          id="resume-theme-selector"
+          class="dash-card rounded-[24px] p-6 border border-slate-200 dark:border-slate-800 bg-slate-50/30 dark:bg-[#0B1221]/30 flex flex-col mb-6"
+        >
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
+            <!-- Tema 1 -->
+            <label
+              class="relative flex items-center justify-between p-4 border rounded-2xl border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20 cursor-pointer overflow-hidden transition-all filter hover:brightness-110 shadow-[0_0_15px_rgba(99,102,241,0.15)]"
+            >
+              <div class="flex items-center gap-4">
+                <div
+                  class="w-10 h-14 bg-gradient-to-br from-indigo-100 to-white dark:from-indigo-900 dark:to-slate-800 rounded border border-indigo-200 dark:border-indigo-700/50 flex flex-col gap-1.5 p-1.5 shrink-0 overflow-hidden shadow-inner"
+                >
+                  <div class="w-5 h-5 bg-indigo-500/80 rounded-full mx-auto"></div>
+                  <div class="w-full h-1 bg-indigo-400/50 rounded-sm"></div>
+                  <div class="w-full h-1 bg-slate-400/30 rounded-sm"></div>
+                  <div class="w-full h-1 bg-slate-400/30 rounded-sm"></div>
+                </div>
+                <div>
+                  <p class="font-bold text-slate-900 dark:text-white text-sm">
+                    Prisma Modern
+                  </p>
+                  <p
+                    class="text-[10px] text-indigo-600 dark:text-indigo-300 mt-0.5"
+                  >
+                    Warna tegas &amp; dinamis
+                  </p>
+                </div>
+              </div>
+              <div
+                class="w-5 h-5 rounded-full border-2 border-indigo-500 flex items-center justify-center shrink-0"
+              >
+                <div class="w-2.5 h-2.5 bg-indigo-500 rounded-full"></div>
+              </div>
+            </label>
+
+            <!-- Tema 2 -->
+            <label
+              class="relative flex items-center justify-between p-4 border rounded-2xl border-slate-300 dark:border-slate-700 hover:border-slate-500 bg-slate-50 dark:bg-[#0B1221]/50 cursor-pointer transition-all"
+            >
+              <div class="flex items-center gap-4">
+                <div
+                  class="w-10 h-14 bg-white dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-600 flex flex-row gap-1 p-1.5 shrink-0 overflow-hidden"
+                >
+                  <div
+                    class="w-1/3 h-full bg-slate-200 dark:bg-slate-700 rounded-sm flex flex-col gap-1 p-0.5"
+                  >
+                    <div
+                      class="w-full aspect-square bg-slate-300 dark:bg-slate-600 rounded-sm"
+                    ></div>
+                    <div
+                      class="w-full h-0.5 bg-slate-300 dark:bg-slate-600 rounded-sm"
+                    ></div>
+                  </div>
+                  <div class="flex-1 flex flex-col gap-1">
+                    <div
+                      class="w-full h-1 bg-slate-300 dark:bg-slate-600 rounded-sm"
+                    ></div>
+                    <div
+                      class="w-full h-0.5 bg-slate-200 dark:bg-slate-700 rounded-sm"
+                    ></div>
+                    <div
+                      class="w-full h-0.5 bg-slate-200 dark:bg-slate-700 rounded-sm"
+                    ></div>
+                  </div>
+                </div>
+                <div>
+                  <p class="font-bold text-slate-800 dark:text-slate-200 text-sm">
+                    Dua Kolom Klasik
+                  </p>
+                  <p class="text-[10px] text-slate-500 mt-0.5">
+                    Besih &amp; Minimalis
+                  </p>
+                </div>
+              </div>
+              <div
+                class="w-5 h-5 rounded-full border-2 border-slate-400 dark:border-slate-600 shrink-0"
+              ></div>
+            </label>
+
+            <!-- Tema 3 -->
+            <label
+              class="relative flex items-center justify-between p-4 border rounded-2xl border-slate-300 dark:border-slate-700 hover:border-slate-500 bg-slate-50 dark:bg-[#0B1221]/50 cursor-pointer transition-all"
+            >
+              <div class="flex items-center gap-4">
+                <div
+                  class="w-10 h-14 bg-[#1E293B] rounded border border-slate-700 flex flex-col gap-1.5 p-1.5 shrink-0 overflow-hidden relative"
+                >
+                  <div
+                    class="w-full h-1/3 bg-gradient-to-r from-purple-500 to-pink-500 absolute top-0 left-0"
+                  ></div>
+                  <div
+                    class="w-4 h-4 bg-white/20 backdrop-blur border border-white/30 rounded-full z-10 mt-1"
+                  ></div>
+                  <div class="w-full h-1 bg-white/40 rounded-full z-10 mt-1"></div>
+                  <div class="w-3/4 h-1 bg-white/20 rounded-full z-10"></div>
+                </div>
+                <div>
+                  <p class="font-bold text-slate-800 dark:text-slate-200 text-sm">
+                    Mode Gelap Kreatif
+                  </p>
+                  <p class="text-[10px] text-slate-500 mt-0.5">
+                    Untuk desainer &amp; engineer
+                  </p>
+                </div>
+              </div>
+              <div
+                class="w-5 h-5 rounded-full border-2 border-slate-400 dark:border-slate-600 shrink-0"
+              ></div>
+            </label>
+
+            <!-- Tema 4 -->
+            <label
+              class="relative flex items-center justify-between p-4 border rounded-2xl border-slate-300 dark:border-slate-700 hover:border-slate-500 bg-slate-50 dark:bg-[#0B1221]/50 cursor-pointer transition-all"
+            >
+              <div class="flex items-center gap-4">
+                <div
+                  class="w-10 h-14 bg-white dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-600 flex flex-col gap-1 p-1.5 shrink-0 overflow-hidden"
+                >
+                  <div class="grid grid-cols-2 gap-1 w-full h-full">
+                    <div class="bg-rose-100 dark:bg-rose-900/30 rounded-sm"></div>
+                    <div class="bg-blue-100 dark:bg-blue-900/30 rounded-sm"></div>
+                    <div class="bg-amber-100 dark:bg-amber-900/30 rounded-sm"></div>
+                    <div
+                      class="bg-emerald-100 dark:bg-emerald-900/30 rounded-sm"
+                    ></div>
+                  </div>
+                </div>
+                <div>
+                  <p class="font-bold text-slate-800 dark:text-slate-200 text-sm">
+                    Grid Portofolio
+                  </p>
+                  <p class="text-[10px] text-slate-500 mt-0.5">
+                    Menyorot gambar proyek
+                  </p>
+                </div>
+              </div>
+              <div
+                class="w-5 h-5 rounded-full border-2 border-slate-400 dark:border-slate-600 shrink-0"
+              ></div>
+            </label>
+
+            <!-- Tema 5 -->
+            <label
+              class="relative flex items-center justify-between p-4 border rounded-2xl border-slate-300 dark:border-slate-700 hover:border-slate-500 bg-slate-50 dark:bg-[#0B1221]/50 cursor-pointer transition-all"
+            >
+              <div class="flex items-center gap-4">
+                <div
+                  class="w-10 h-14 bg-white dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-600 flex flex-col gap-1 shrink-0 overflow-hidden"
+                >
+                  <div class="w-full h-3 bg-emerald-500"></div>
+                  <div class="px-1 space-y-1 mt-1">
+                    <div class="w-full h-1 bg-slate-300 dark:bg-slate-600"></div>
+                    <div class="w-full h-0.5 bg-slate-200 dark:bg-slate-700"></div>
+                    <div class="w-full h-0.5 bg-slate-200 dark:bg-slate-700"></div>
+                  </div>
+                </div>
+                <div>
+                  <p class="font-bold text-slate-800 dark:text-slate-200 text-sm">
+                    Banner Korporat
+                  </p>
+                  <p class="text-[10px] text-slate-500 mt-0.5">
+                    Tegas dengan header warna
+                  </p>
+                </div>
+              </div>
+              <div
+                class="w-5 h-5 rounded-full border-2 border-slate-400 dark:border-slate-600 shrink-0"
+              ></div>
+            </label>
+
+            <!-- Tema 6 -->
+            <label
+              class="relative flex items-center justify-between p-4 border rounded-2xl border-slate-300 dark:border-slate-700 hover:border-slate-500 bg-slate-50 dark:bg-[#0B1221]/50 cursor-pointer transition-all"
+            >
+              <div class="flex items-center gap-4">
+                <div
+                  class="w-10 h-14 bg-white dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-600 flex flex-row gap-1 p-1 shrink-0 overflow-hidden"
+                >
+                  <div class="w-0.5 h-full bg-slate-300 dark:bg-slate-600 ml-1"></div>
+                  <div class="flex-1 flex flex-col gap-2 py-1">
+                    <div class="w-2 h-2 rounded-full bg-indigo-400 -ml-2"></div>
+                    <div class="w-full h-1 bg-slate-200 dark:bg-slate-700"></div>
+                    <div class="w-2 h-2 rounded-full bg-indigo-400 -ml-2"></div>
+                    <div class="w-full h-1 bg-slate-200 dark:bg-slate-700"></div>
+                  </div>
+                </div>
+                <div>
+                  <p class="font-bold text-slate-800 dark:text-slate-200 text-sm">
+                    Timeline Akademik
+                  </p>
+                  <p class="text-[10px] text-slate-500 mt-0.5">
+                    Cocok untuk riwayat padat
+                  </p>
+                </div>
+              </div>
+              <div
+                class="w-5 h-5 rounded-full border-2 border-slate-400 dark:border-slate-600 shrink-0"
+              ></div>
+            </label>
+          </div>
+        </div>
+
+        <div
+          class="flex justify-between mt-8 pt-6 border-t border-slate-200 dark:border-slate-800/50"
+        >
+          <button
+            type="button"
+            onclick="goToResumeStep(4)"
+            class="bg-slate-100 dark:bg-[#0B1221]/50 hover:bg-slate-200 dark:hover:bg-[#1A2133] text-slate-700 dark:text-slate-300 px-6 py-3 rounded-xl font-bold transition-all flex items-center gap-2 active:scale-95"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 19l-7-7 7-7"
+              ></path>
+            </svg>
+            Sebelumnya
+          </button>
+          <button
+            type="button"
+            id="btn-manual-generate-resume"
+            class="bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-3 rounded-xl font-bold transition-all shadow-lg shadow-indigo-500/25 flex items-center gap-2 active:scale-95"
+          >
+            Hasilkan Resume Visual
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- END CONTAINER: MANUAL FORMS (RESUME) -->
+
+  <!-- CONTAINER: AI MAGIC STORY (RESUME) -->
+  <div
+    id="container-resume-ai"
+    class="hidden animate-[fadeIn_0.3s_ease_forwards]"
+  >
+    <div
+      class="dash-card rounded-3xl p-6 md:p-8 border border-indigo-500/30 relative overflow-hidden"
+    >
+      <!-- Decorative Glow -->
+      <div
+        class="absolute -top-10 -right-10 w-32 h-32 bg-indigo-500/20 blur-[40px] rounded-full pointer-events-none"
+      ></div>
+
+      <div class="relative z-10 mb-6 flex items-start gap-4">
+        <div
+          class="w-12 h-12 rounded-2xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center shrink-0 shadow-inner"
+        >
+          <svg
+            class="w-6 h-6 text-indigo-600 dark:text-indigo-400"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
+            ></path>
+          </svg>
+        </div>
+        <div>
+          <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-1.5">
+            Kisah Ajaib AI: Desain Identitas Anda 🎨
+          </h2>
+          <p class="text-sm text-slate-600 dark:text-slate-400">
+            Bagikan visi, sentuhan warna yang Anda suka, dan karakter
+            profesional yang ingin ditonjolkan. AI akan merancang resume visual
+            yang sangat eye-catching khusus untuk Anda.
+          </p>
+        </div>
+      </div>
+
+      <!-- Chat Prompt UI -->
+      <div
+        class="relative z-10 bg-white/80 dark:bg-[#0B1221]/80 border border-slate-200 dark:border-slate-700/50 rounded-2xl overflow-hidden shadow-sm flex flex-col focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 transition-all"
+      >
+        <div
+          class="p-3 bg-slate-50/50 dark:bg-[#070B19]/50 border-b border-slate-200 dark:border-slate-800/50 flex gap-2 overflow-x-auto hide-scrollbar"
+        >
+          <button
+            class="shrink-0 px-3 py-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 text-[11px] font-semibold hover:bg-indigo-100 dark:hover:bg-indigo-900/50 border border-indigo-200 dark:border-indigo-700/30 transition-colors whitespace-nowrap"
+          >
+            🌟 Buatkan contoh prompt
+          </button>
+          <button
+            class="shrink-0 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-[#0B1221] text-slate-600 dark:text-slate-400 text-[11px] font-medium hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 transition-colors whitespace-nowrap"
+          >
+            UX Designer
+          </button>
+          <button
+            class="shrink-0 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-[#0B1221] text-slate-600 dark:text-slate-400 text-[11px] font-medium hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 transition-colors whitespace-nowrap"
+          >
+            Creative Director
+          </button>
+        </div>
+        <textarea
+          rows="6"
+          placeholder="Ketik prompt Anda di sini... (misal: Saya seorang Senior UX Designer dengan pengalaman 5 tahun di bidang FinTech. Saya ingin resume ini terlihat modern dan berani untuk melamar di agensi kreatif.)"
+          class="w-full bg-transparent p-5 text-sm text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 outline-none resize-none leading-relaxed"
+        ></textarea>
+
+        <div
+          class="px-5 py-3 bg-slate-50/80 dark:bg-[#070B19]/80 border-t border-slate-200 dark:border-slate-800/50 flex justify-between items-center"
+        >
+          <div class="flex items-center gap-2">
+            <input
+              type="file"
+              id="resume-file-input"
+              class="hidden"
+              accept=".doc,.docx,.pdf,.jpg,.jpeg,.png,.txt"
+              onchange="
+                window.showToast('File ditambahkan: ' + this.files[0]?.name)
+              "
+            />
+            <button
+              type="button"
+              class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 relative group"
+              title="Lampirkan File"
+              onclick="document.getElementById('resume-file-input').click()"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"
+                ></path>
+              </svg>
+            </button>
+            <button
+              type="button"
+              class="p-2 text-slate-400 hover:text-indigo-500 transition-colors rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-500/10"
+              title="Impor dari LinkedIn"
+              onclick="
+                window.showToast(
+                  'Fitur Impor LinkedIn belum tersedia saat ini.',
+                )
+              "
+            >
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
+                ></path>
+              </svg>
+            </button>
+          </div>
+          <button
+            type="button"
+            onclick="goToResumeStep(5)"
+            class="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-xl text-sm font-bold transition-all flex items-center gap-2 shadow-lg shadow-indigo-500/20 active:scale-95"
+          >
+            Simpan
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 13l4 4L19 7"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END CONTAINER: AI MAGIC STORY (RESUME) -->
+
+  </div>
+
+  <!-- Right Col: Live Preview -->
+  <div class="hidden lg:block lg:w-[40%] sticky top-8">
+    <div
+      class="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-5 border border-slate-200 dark:border-slate-700"
+    >
+      <h3
+        class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-4 flex items-center gap-2"
+      >
+        <svg
+          class="w-4 h-4 text-indigo-500"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+          ></path>
+        </svg>
+        Pratinjau Live Resume
+      </h3>
+      <div
+        class="bg-white dark:bg-slate-200 rounded shadow-md border border-slate-200 aspect-[1/1.414] overflow-hidden flex flex-row pointer-events-none relative"
+      >
+        <!-- Sidebar -->
+        <div class="w-1/3 bg-indigo-900 h-full p-3 flex flex-col gap-3">
+          <div class="w-10 h-10 rounded-full bg-indigo-200 mx-auto mt-2"></div>
+          <div class="w-full h-1.5 bg-indigo-400 rounded-sm mt-3"></div>
+          <div class="w-2/3 h-1 bg-indigo-300 rounded-sm mb-4"></div>
+
+          <div class="w-4/5 h-1 bg-indigo-400 rounded-sm"></div>
+          <div class="w-full h-1 bg-indigo-400 rounded-sm"></div>
+          <div class="w-3/4 h-1 bg-indigo-400 rounded-sm"></div>
+        </div>
+        <!-- Main -->
+        <div class="w-2/3 h-full p-4 flex flex-col gap-3">
+          <div class="w-1/2 h-4 bg-gray-600 rounded-sm mt-2"></div>
+          <div class="w-1/3 h-2 bg-indigo-500 rounded-sm mb-2"></div>
+
+          <div class="w-1/4 h-2 bg-gray-500 rounded-sm mt-2"></div>
+          <div class="w-full h-1.5 bg-gray-300 rounded-sm"></div>
+          <div class="w-11/12 h-1.5 bg-gray-300 rounded-sm"></div>
+          <div class="w-full h-1.5 bg-gray-300 rounded-sm"></div>
+
+          <div class="w-1/4 h-2 bg-gray-500 rounded-sm mt-2"></div>
+          <div class="w-full h-1.5 bg-gray-300 rounded-sm"></div>
+          <div class="w-11/12 h-1.5 bg-gray-300 rounded-sm"></div>
+        </div>
+      </div>
+      <p class="text-[11px] text-center text-slate-500 mt-4">
+        Pratinjau ini diperbarui secara otomatis.
+      </p>
+    </div>
+  </div>
+</div>

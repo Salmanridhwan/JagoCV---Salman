@@ -1,0 +1,65 @@
+<div
+  class="bg-white dark:bg-[#0B1221] w-full max-w-lg rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col scale-95 opacity-0 transition-all duration-300"
+  id="generic-modal-content"
+>
+  <div
+    class="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-[#0B1221]"
+  >
+    <h3
+      class="text-xl font-bold text-slate-900 dark:text-white"
+      id="generic-modal-title"
+    >
+      Judul Mode
+    </h3>
+    <button
+      onclick="
+        document.getElementById('generic-modal').classList.add('hidden');
+        setTimeout(() => {
+          document
+            .getElementById('generic-modal-content')
+            .classList.remove('scale-100', 'opacity-100');
+        }, 10);
+      "
+      class="text-slate-400 hover:text-slate-600 transition-colors p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800"
+    >
+      <svg
+        class="w-5 h-5"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M6 18L18 6M6 6l12 12"
+        ></path>
+      </svg>
+    </button>
+  </div>
+  <div
+    class="px-6 py-5 text-sm text-slate-600 dark:text-slate-300"
+    id="generic-modal-body"
+  >
+    <!-- Modal Body -->
+  </div>
+  <div
+    class="px-6 py-4 border-t border-slate-100 dark:border-slate-800 flex justify-end gap-3 bg-slate-50 dark:bg-[#0B1221]"
+  >
+    <button
+      onclick="document.getElementById('generic-modal').classList.add('hidden')"
+      class="px-4 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl font-bold text-sm transition-colors"
+    >
+      Tutup
+    </button>
+    <button
+      onclick="
+        document.getElementById('generic-modal').classList.add('hidden');
+        window.showToast('Perubahan disimpan!');
+      "
+      class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-sm transition-colors shadow-lg shadow-blue-500/30"
+    >
+      Simpan
+    </button>
+  </div>
+</div>

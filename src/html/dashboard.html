@@ -1,0 +1,454 @@
+<!-- Generator Hero -->
+<header
+  class="mb-14 flex flex-col items-center text-center max-w-3xl mx-auto pt-8"
+>
+  <div
+    class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-100 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700/50 text-blue-700 dark:text-blue-400 text-xs font-bold uppercase tracking-widest mb-6"
+  >
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
+      ></path>
+    </svg>
+    jagoCV AI Engine
+  </div>
+  <h1
+    class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-5"
+  >
+    Apa yang ingin Anda buat?
+  </h1>
+  <p
+    class="text-slate-500 dark:text-slate-400 text-base md:text-lg leading-relaxed"
+  >
+    Pilih format dokumen di bawah untuk mulai membuat. Masukkan detail Anda
+    sekali, dan biarkan sistem menghasilkan materi berformat sempurna untuk
+    lamaran Anda.
+  </p>
+</header>
+
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+  <!-- 1. ATS CV Template Card -->
+  <article
+    class="bg-white/5 dark:bg-[#0a0f1c]/40 rounded-3xl p-7 flex flex-col group cursor-pointer relative overflow-hidden border border-slate-200 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-none transition-all duration-300 hover:-translate-y-1 hover:border-blue-500/50 dark:hover:border-blue-500/50"
+  >
+    <!-- Hover Glow -->
+    <div
+      class="absolute -top-16 -left-16 w-48 h-48 bg-blue-500/20 rounded-full blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+    ></div>
+
+    <div
+      class="w-14 h-14 bg-blue-500/5 dark:bg-blue-500/10 rounded-2xl flex items-center justify-center border border-blue-200/50 dark:border-blue-500/30 mb-6 text-blue-600 dark:text-blue-500 relative z-10"
+    >
+      <svg
+        class="w-6 h-6"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.5"
+          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+        ></path>
+      </svg>
+    </div>
+    <h3
+      class="text-xl font-bold text-slate-900 dark:text-white mb-3 relative z-10"
+    >
+      CV Optimal ATS
+    </h3>
+    <p
+      class="text-[15px] text-slate-600 dark:text-slate-400 mb-8 flex-1 leading-relaxed relative z-10"
+    >
+      Dokumen berbasis teks yang semantik dan bersih, dirancang khusus untuk
+      melewati Sistem Pelacakan Pelamar (ATS) di perusahaan teknologi top.
+    </p>
+    <div class="flex items-center gap-3 mt-auto relative z-10 w-full">
+      <button
+        id="btn-preview-dash-cv"
+        class="w-[46px] h-[46px] flex items-center justify-center bg-transparent hover:bg-slate-800/80 rounded-xl text-slate-400 hover:text-slate-300 transition-colors border border-slate-200/10 dark:border-slate-700/50"
+        title="Pratinjau"
+      >
+        <svg
+          class="w-5 h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+          ></path>
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+          ></path>
+        </svg>
+      </button>
+      <button
+        id="btn-create-cv"
+        class="flex-1 bg-[#1E5EFF] hover:bg-blue-600 text-white font-bold py-3 rounded-xl transition-all text-sm"
+      >
+        Buat CV ATS
+      </button>
+    </div>
+  </article>
+
+  <!-- 2. Visual Resume Template Card -->
+  <article
+    class="bg-white/5 dark:bg-[#0a0f1c]/40 rounded-3xl p-7 flex flex-col group cursor-pointer relative overflow-hidden border border-slate-200 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-none transition-all duration-300 hover:-translate-y-1 hover:border-indigo-500/50 dark:hover:border-indigo-500/50"
+  >
+    <div
+      class="absolute -top-16 -left-16 w-48 h-48 bg-indigo-500/20 rounded-full blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+    ></div>
+
+    <div
+      class="w-14 h-14 bg-indigo-500/5 dark:bg-indigo-500/10 rounded-2xl flex items-center justify-center border border-indigo-200/50 dark:border-indigo-500/30 mb-6 text-indigo-600 dark:text-indigo-400 relative z-10"
+    >
+      <svg
+        class="w-6 h-6"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.5"
+          d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"
+        ></path>
+      </svg>
+    </div>
+    <h3
+      class="text-xl font-bold text-slate-900 dark:text-white mb-3 relative z-10"
+    >
+      Resume Visual Modern
+    </h3>
+    <p
+      class="text-[15px] text-slate-600 dark:text-slate-400 mb-8 flex-1 leading-relaxed relative z-10"
+    >
+      Resume PDF yang diformat indah dengan tata letak modern, tipografi, dan
+      hierarki visual yang jelas untuk perekrut.
+    </p>
+    <div class="flex items-center gap-3 mt-auto relative z-10 w-full">
+      <button
+        id="btn-preview-dash-resume"
+        class="w-[46px] h-[46px] flex items-center justify-center bg-transparent hover:bg-slate-800/80 rounded-xl text-slate-400 hover:text-slate-300 transition-colors border border-slate-200/10 dark:border-slate-700/50"
+        title="Pratinjau"
+      >
+        <svg
+          class="w-5 h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+          ></path>
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+          ></path>
+        </svg>
+      </button>
+      <button
+        id="btn-design-resume"
+        class="flex-1 bg-[#1E5EFF] hover:bg-blue-600 text-white font-bold py-3 rounded-xl transition-all text-sm"
+      >
+        Desain Resume
+      </button>
+    </div>
+  </article>
+
+  <!-- 3. Web Portfolio Card (The Linktree we just made) -->
+  <article
+    class="bg-white/5 dark:bg-[#0a0f1c]/40 rounded-3xl p-7 flex flex-col group cursor-pointer relative overflow-hidden border border-slate-200 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-none transition-all duration-300 hover:-translate-y-1 hover:border-cyan-500/50 dark:hover:border-cyan-500/50"
+  >
+    <div
+      class="absolute -top-16 -left-16 w-48 h-48 bg-cyan-500/20 rounded-full blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+    ></div>
+
+    <div
+      class="w-14 h-14 bg-cyan-500/5 dark:bg-cyan-500/10 rounded-2xl flex items-center justify-center border border-cyan-200/50 dark:border-cyan-500/30 mb-6 text-cyan-600 dark:text-cyan-400 relative z-10"
+    >
+      <svg
+        class="w-6 h-6"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.5"
+          d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+        ></path>
+      </svg>
+    </div>
+    <h3
+      class="text-xl font-bold text-slate-900 dark:text-white mb-3 relative z-10"
+    >
+      Portofolio Interaktif
+    </h3>
+    <p
+      class="text-[15px] text-slate-600 dark:text-slate-400 mb-8 flex-1 leading-relaxed relative z-10"
+    >
+      Dasbor web Bento-grid interaktif yang ramah seluler untuk memamerkan
+      proyek dan bio Anda secara online.
+    </p>
+    <div class="flex items-center gap-3 mt-auto relative z-10 w-full">
+      <button
+        id="btn-preview-dash-portfolio"
+        class="w-[46px] h-[46px] flex items-center justify-center bg-transparent hover:bg-slate-800/80 rounded-xl text-slate-400 hover:text-slate-300 transition-colors border border-slate-200/10 dark:border-slate-700/50"
+        title="Pratinjau"
+      >
+        <svg
+          class="w-5 h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+          ></path>
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+          ></path>
+        </svg>
+      </button>
+      <button
+        id="btn-build-portfolio"
+        class="flex-1 bg-[#1E5EFF] hover:bg-blue-600 text-white font-bold py-3 rounded-xl transition-all text-sm"
+      >
+        Buat Portofolio
+      </button>
+    </div>
+  </article>
+</section>
+
+<!-- Recent Dokumens List -->
+<!-- Recent Dokumens List -->
+<div
+  class="mt-16 mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4 px-2 relative z-10"
+>
+  <h2
+    class="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-3"
+  >
+    <div
+      class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center text-blue-600 dark:text-blue-400"
+    >
+      <svg
+        class="w-5 h-5"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+        ></path>
+      </svg>
+    </div>
+    Desain Terakhir Anda
+  </h2>
+
+  <!-- Controls: Filters & Toggle -->
+  <div class="flex items-center gap-4 hidden sm:flex">
+    <!-- Filter Bar -->
+    <div
+      class="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 hide-scrollbar w-[calc(100vw-48px)] md:w-auto"
+    >
+      <button
+        class="px-4 py-1.5 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-sm font-medium whitespace-nowrap transition-colors"
+      >
+        Semua
+      </button>
+      <button
+        class="px-4 py-1.5 rounded-full bg-white/60 dark:bg-[#0B1221]/60 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 text-sm font-medium whitespace-nowrap transition-colors"
+      >
+        CV ATS
+      </button>
+      <button
+        class="px-4 py-1.5 rounded-full bg-white/60 dark:bg-[#0B1221]/60 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 text-sm font-medium whitespace-nowrap transition-colors"
+      >
+        Web Portfolio
+      </button>
+      <button
+        class="px-4 py-1.5 rounded-full bg-white/60 dark:bg-[#0B1221]/60 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 text-sm font-medium whitespace-nowrap transition-colors"
+      >
+        Cover Letter
+      </button>
+    </div>
+
+    <!-- View Toggle -->
+    <div
+      class="flex items-center bg-white/60 dark:bg-[#0B1221]/60 border border-slate-200 dark:border-slate-800 rounded-full p-1"
+      id="view-toggle"
+    >
+      <button
+        id="btn-view-grid"
+        class="p-1.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white shadow-sm transition-colors"
+        aria-label="Grid View"
+      >
+        <svg
+          class="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+          ></path>
+        </svg>
+      </button>
+      <button
+        id="btn-view-list"
+        class="p-1.5 rounded-full text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+        aria-label="List View"
+      >
+        <svg
+          class="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          ></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Filters (No toggle) -->
+  <div
+    class="flex sm:hidden items-center gap-2 overflow-x-auto pb-2 hide-scrollbar w-[calc(100vw-48px)]"
+  >
+    <button
+      class="px-4 py-1.5 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-sm font-medium whitespace-nowrap transition-colors"
+    >
+      Semua
+    </button>
+    <button
+      class="px-4 py-1.5 rounded-full bg-white/60 dark:bg-[#0B1221]/60 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 text-sm font-medium whitespace-nowrap transition-colors"
+    >
+      CV ATS
+    </button>
+    <button
+      class="px-4 py-1.5 rounded-full bg-white/60 dark:bg-[#0B1221]/60 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 text-sm font-medium whitespace-nowrap transition-colors"
+    >
+      Web Portfolio
+    </button>
+    <button
+      class="px-4 py-1.5 rounded-full bg-white/60 dark:bg-[#0B1221]/60 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 text-sm font-medium whitespace-nowrap transition-colors"
+    >
+      Cover Letter
+    </button>
+  </div>
+</div>
+
+<div
+  class="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6 relative z-10"
+  id="recent-docs-grid"
+>
+  <!-- Create Blank Card -->
+  <div
+    class="group relative bg-[#F8FAFC]/80 dark:bg-[#0a0f1c]/50 border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-blue-500 dark:hover:border-blue-500 rounded-2xl overflow-hidden aspect-[3/4] flex flex-col items-center justify-center cursor-pointer transition-all hover:bg-blue-50/50 dark:hover:bg-blue-900/10"
+  >
+    <div
+      class="w-12 h-12 rounded-full bg-white dark:bg-slate-800 shadow-sm flex items-center justify-center text-blue-600 dark:text-blue-400 mb-3 group-hover:scale-110 transition-transform"
+    >
+      <svg
+        class="w-6 h-6"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M12 4v16m8-8H4"
+        ></path>
+      </svg>
+    </div>
+    <span class="text-sm font-bold text-slate-700 dark:text-slate-300"
+      >Buat Kosong</span
+    >
+  </div>
+</div>
+
+<!-- List View (Hidden by default) -->
+<div
+  id="recent-docs-list-container"
+  class="hidden bg-white/80 dark:bg-[#0B1221]/80 backdrop-blur-md rounded-3xl overflow-hidden border border-slate-200/60 dark:border-slate-800/60 shadow-lg shadow-slate-200/40 dark:shadow-none relative z-10"
+>
+  <div class="overflow-x-auto">
+    <table class="w-full text-left whitespace-nowrap">
+      <thead
+        class="bg-slate-50/50 dark:bg-slate-800/30 border-b border-slate-200/60 dark:border-slate-800/60"
+      >
+        <tr>
+          <th
+            class="px-8 py-5 text-[12px] font-bold tracking-widest text-slate-500 dark:text-slate-400 uppercase"
+          >
+            Nama Dokumen
+          </th>
+          <th
+            class="px-8 py-5 text-[12px] font-bold tracking-widest text-slate-500 dark:text-slate-400 uppercase"
+          >
+            Tipe
+          </th>
+          <th
+            class="px-8 py-5 text-[12px] font-bold tracking-widest text-slate-500 dark:text-slate-400 uppercase"
+          >
+            Status
+          </th>
+          <th
+            class="px-8 py-5 text-[12px] font-bold tracking-widest text-slate-500 dark:text-slate-400 uppercase"
+          >
+            Terakhir Diubah
+          </th>
+          <th
+            class="px-8 py-5 text-[12px] font-bold tracking-widest text-slate-500 dark:text-slate-400 uppercase text-right"
+          >
+            Aksi
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        id="recent-docs-list"
+        class="divide-y divide-slate-100 dark:divide-slate-800/50"
+      >
+        <!-- Injected by main.ts -->
+      </tbody>
+    </table>
+  </div>
+</div>
