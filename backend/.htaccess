@@ -1,0 +1,6 @@
+# Pastikan header Authorization (Bearer token) diteruskan ke PHP.
+# Tanpa baris ini, beberapa setup Apache/XAMPP menghapus header tersebut.
+
+<IfModule mod_setenvif.c>
+    SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
+</IfModule>

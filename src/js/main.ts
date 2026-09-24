@@ -1,8 +1,10 @@
 import { initTheme, bindThemeToggles } from "./utils/theme";
 import { registerGlobalToast } from "./utils/toast";
+import { checkSession, getStoredUser, type AuthUser } from "./utils/auth";
 import { mockDashboardData } from "./data";
 
 import { bindRouterEvents } from "./views/router";
+import { bindAuthEvents } from "./views/auth";
 import { populateDashboard } from "./views/dashboard";
 import {
   bindCvBuilderEvents,
@@ -48,4 +50,40 @@ document.addEventListener("DOMContentLoaded", () => {
   bindGalleryEvents();
   bindChatWidget();
   bindModalEvents();
+
+  // Bind auth forms & buttons (login, register, Google Sign-In)
+  bindAuthEvents();
+
+  // Restore session: bila user sudah pernah login, langsung tampilkan
+  // datanya di dashboard. (Sesi divalidasi ulang ke server oleh checkSession.)
+  restoreSession();
 });
+
+/** Pulihkan sesi tersimpan dan sinkronkan data user ke UI. */
+function restoreSession(): void {
+  const stored = getStoredUser() as AuthUser | null;
+  checkSession().then((user) => {
+    const active = user ?? stored;
+    if (active) {
+      applyStoredUser(active);
+    }
+  });
+}
+
+/** Isi data user ke elemen navbar/profil tanpa memaksa pindah view. */
+function applyStoredUser(user: AuthUser): void {
+  const fullName = `${user.first_name} ${user.last_name}`.trim() || user.email;
+  const elName = document.getElementById("nav-user-name");
+  const elRole = document.getElementById("nav-user-role");
+  const elImg = document.getElementById("nav-profile-img") as HTMLImageElement | null;
+  const pfName = document.getElementById("profile-page-name");
+  const pfRole = document.getElementById("profile-page-role");
+  const pfImg = document.getElementById("profile-page-img") as HTMLImageElement | null;
+
+  if (elName) elName.textContent = fullName;
+  if (elRole) elRole.textContent = user.role ?? "Member jagoCV";
+  if (elImg && user.avatar_url) elImg.src = user.avatar_url;
+  if (pfName) pfName.textContent = fullName;
+  if (pfRole) pfRole.textContent = user.role ?? "Member jagoCV";
+  if (pfImg && user.avatar_url) pfImg.src = user.avatar_url;
+}

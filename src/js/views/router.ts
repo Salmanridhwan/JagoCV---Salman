@@ -1,5 +1,7 @@
 // Router: view switching helpers
 
+import { clearSession } from "../utils/auth";
+
 const ALL_VIEW_IDS = [
   "view-dashboard",
   "view-create-cv",
@@ -111,10 +113,6 @@ export function bindRouterEvents(): void {
   const btnNavLogin = document.getElementById("btn-nav-login");
   const btnLaunchApp = document.getElementById("btn-launch-app");
   const btnCtaLaunch = document.getElementById("btn-cta-launch");
-  const btnLoginGoogle = document.getElementById("btn-login-google");
-  const btnLoginSubmit = document.getElementById("btn-login-submit");
-  const btnRegisterGoogle = document.getElementById("btn-register-google");
-  const btnRegisterSubmit = document.getElementById("btn-register-submit");
   const linkToRegister = document.getElementById("link-to-register");
   const linkToLogin = document.getElementById("link-to-login");
 
@@ -165,12 +163,8 @@ export function bindRouterEvents(): void {
   if (btnNavLogin) btnNavLogin.addEventListener("click", launchLoginApp);
   if (btnLaunchApp) btnLaunchApp.addEventListener("click", launchLoginApp);
   if (btnCtaLaunch) btnCtaLaunch.addEventListener("click", launchLoginApp);
-  if (btnLoginGoogle)
-    btnLoginGoogle.addEventListener("click", launchDashboardApp);
-  if (btnLoginSubmit)
-    btnLoginSubmit.addEventListener("click", launchDashboardApp);
-  if (btnRegisterSubmit)
-    btnRegisterSubmit.addEventListener("click", launchDashboardApp);
+  // Catatan: submit login/register & tombol Google ditangani di views/auth.ts
+  // agar melewati autentikasi backend sebelum masuk dashboard.
 
   if (linkToRegister) {
     linkToRegister.addEventListener("click", (e) => {
@@ -219,6 +213,7 @@ export function bindRouterEvents(): void {
   // ── Logout ───────────────────────────
   if (btnLogout) {
     btnLogout.addEventListener("click", () => {
+      clearSession();
       if (appWrapper) {
         appWrapper.classList.add("hidden");
         appWrapper.classList.remove("flex");

@@ -133,6 +133,12 @@
         </p>
       </div>
 
+      <!-- Kotak pesan error login (diisi oleh views/auth.ts) -->
+      <div
+        id="login-error"
+        class="hidden mb-4 rounded-xl bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/30 text-red-600 dark:text-red-400 text-sm font-semibold px-4 py-3"
+      ></div>
+
       <!-- Login Wrapper -->
       <div class="space-y-6">
         <button
@@ -173,7 +179,7 @@
           ></div>
         </div>
 
-        <form class="space-y-4 text-left" onsubmit="event.preventDefault()">
+        <form id="form-login" class="space-y-4 text-left" onsubmit="event.preventDefault()">
           <div>
             <label
               class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2"
@@ -181,6 +187,7 @@
             >
             <input
               type="email"
+              id="login-email"
               class="w-full bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 sm:py-3.5 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all shadow-sm"
               placeholder="nama@email.com"
             />
@@ -199,6 +206,7 @@
             </div>
             <input
               type="password"
+              id="login-password"
               class="w-full bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 sm:py-3.5 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all shadow-sm"
               placeholder="••••••••"
             />

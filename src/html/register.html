@@ -193,6 +193,12 @@
         </p>
       </div>
 
+      <!-- Kotak pesan error registrasi (diisi oleh views/auth.ts) -->
+      <div
+        id="register-error"
+        class="hidden mb-4 rounded-xl bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/30 text-red-600 dark:text-red-400 text-sm font-semibold px-4 py-3"
+      ></div>
+
       <!-- Form Wrapper -->
       <div class="space-y-6">
         <button
@@ -233,7 +239,7 @@
           ></div>
         </div>
 
-        <form class="space-y-4 text-left" onsubmit="event.preventDefault()">
+        <form id="form-register" class="space-y-4 text-left" onsubmit="event.preventDefault()">
           <div class="grid grid-cols-2 gap-3 sm:gap-4">
             <div>
               <label
@@ -242,6 +248,7 @@
               >
               <input
                 type="text"
+                id="register-first-name"
                 class="w-full bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 sm:py-3.5 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all shadow-sm"
                 placeholder="Budi"
               />
@@ -253,6 +260,7 @@
               >
               <input
                 type="text"
+                id="register-last-name"
                 class="w-full bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 sm:py-3.5 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all shadow-sm"
                 placeholder="S."
               />
@@ -265,6 +273,7 @@
             >
             <input
               type="email"
+              id="register-email"
               class="w-full bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 sm:py-3.5 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all shadow-sm"
               placeholder="nama@email.com"
             />
@@ -276,6 +285,7 @@
             >
             <input
               type="password"
+              id="register-password"
               class="w-full bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 sm:py-3.5 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all shadow-sm"
               placeholder="Minimal 8 karakter"
             />
