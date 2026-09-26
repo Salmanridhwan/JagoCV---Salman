@@ -6,7 +6,25 @@
 
 const API_BASE =
   (import.meta.env?.VITE_API_BASE_URL as string | undefined) ??
-  "http://localhost/jagoCV---Salman/backend";
+  resolveBackendBase();
+
+function resolveBackendBase(): string {
+  const { origin, pathname } = window.location;
+  const idx = pathname.toLowerCase().indexOf("/jagocv---salman");
+  if (idx >= 0) {
+    return `${origin}${pathname.slice(0, idx)}/jagoCV---Salman/backend`;
+  }
+  return `${origin}/backend`;
+}
+
+/** Ubah path app ("/") menjadi URL absolut yang benar. */
+function toAbsoluteAppUrl(url: string): string {
+  if (/^https?:\/\//i.test(url)) return url;
+  const { origin, pathname } = window.location;
+  const idx = pathname.toLowerCase().indexOf("/jagocv---salman");
+  const base = idx >= 0 ? pathname.slice(0, idx) + "/jagoCV---Salman" : "";
+  return `${origin}${base}${url}`;
+}
 
 const TOKEN_KEY = "jagocv_token";
 
@@ -40,7 +58,7 @@ btnPay.addEventListener("click", async () => {
 // ── Batalkan pembayaran ──────────────────────────────────────────────
 btnCancel.addEventListener("click", async () => {
   if (!paymentRef) {
-    window.location.href = "/";
+    window.location.href = toAbsoluteAppUrl("/");
     return;
   }
   setLoading(true);
@@ -123,6 +141,9 @@ function showResult(success: boolean, message: string, points = 0): void {
       '<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
     title.textContent = "Pembayaran Gagal";
     pointsEl.textContent = "—";
-  }
-  desc.textContent = message;
+  }    desc.textContent = message;
 }
+
+// Perbaiki link kembali agar benar saat diakses lewat Apache/XAMPP
+// (path "/" saja akan 404 bila project ada di subfolder htdocs).
+document.getElementById("btn-pay-back")?.setAttribute("href", toAbsoluteAppUrl("/"));

@@ -11,7 +11,17 @@ import { showToast } from "../utils/toast";
 
 const API_BASE =
   (import.meta.env?.VITE_API_BASE_URL as string | undefined) ??
-  "http://localhost/jagoCV---Salman/backend";
+  resolveBackendBase();
+
+function resolveBackendBase(): string {
+  if (typeof window === "undefined") return "";
+  const { origin, pathname } = window.location;
+  const idx = pathname.toLowerCase().indexOf("/jagocv---salman");
+  if (idx >= 0) {
+    return `${origin}${pathname.slice(0, idx)}/jagoCV---Salman/backend`;
+  }
+  return `${origin}/backend`;
+}
 
 interface TopUpPackage {
   code: string;
@@ -163,7 +173,10 @@ async function startCheckout(packageCode: string): Promise<void> {
 
     if (data.ok && data.payment_url) {
       // Arahkan ke halaman simulasi payment gateway.
-      window.location.href = data.payment_url;
+      // payment_url dari backend bisa absolut ataupun path "/src/html/...";
+      // saat app diakses lewat Apache (htdocs/jagoAI/JagoCV---Salman),
+      // path perlu diawali folder project agar tidak 404.
+      window.location.href = toAbsoluteAppUrl(data.payment_url);
       return;
     }
     showToast(data.message ?? "Gagal membuat transaksi. Coba lagi.");
@@ -194,6 +207,15 @@ async function syncPointsAfterPayment(): Promise<void> {
   } catch {
     /* biarkan nilai lama */
   }
+}
+
+/** Ubah path app ("/", "/src/html/x.html") menjadi URL absolut yang benar. */
+function toAbsoluteAppUrl(url: string): string {
+  if (/^https?:\/\//i.test(url)) return url;
+  const { origin, pathname } = window.location;
+  const idx = pathname.toLowerCase().indexOf("/jagocv---salman");
+  const base = idx >= 0 ? pathname.slice(0, idx) + "/jagoCV---Salman" : "";
+  return `${origin}${base}${url}`;
 }
 
 export function bindPricingEvents(): void {

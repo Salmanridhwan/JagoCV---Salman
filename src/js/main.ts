@@ -27,6 +27,7 @@ import {
   cachePoints,
   initPointsUi,
   setPointsDisplay,
+  showNewUserAlertIfNeeded,
 } from "./utils/points";
 
 import { injectHtmlTemplates } from "./views/templateInjector";
@@ -80,6 +81,9 @@ function restoreSession(): void {
       // Sinkronkan chip poin & alert pengguna baru di bawah topbar.
       setPointsDisplay(active.points ?? 0);
       cachePoints(active.points ?? 0);
+      // Tampilkan alert "pengguna baru" segera dari data yang tersimpan,
+      // tanpa menunggu respons server (penting saat backend belum dijangkau).
+      showNewUserAlertIfNeeded(Boolean(active.is_new_user));
       void initPointsUi();
     }
   });

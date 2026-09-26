@@ -9,11 +9,22 @@
 
 // ── Konfigurasi ──────────────────────────────────────────────────────
 // URL dasar backend PHP yang berjalan di Apache/XAMPP (bukan di Vite).
-// Default mengasumsikan folder project di-symlink/copy ke htdocs dengan
-// nama "jagoCV---Salman". Bisa dioverride lewat .env: VITE_API_BASE_URL
+// Bisa dioverride lewat .env: VITE_API_BASE_URL. Bila tidak diisi,
+// base diresolusi otomatis dari origin aktif sehingga bekerja baik di
+// Vite dev server maupun lewat Apache (htdocs/jagoAI/JagoCV---Salman).
 const API_BASE =
   (import.meta.env?.VITE_API_BASE_URL as string | undefined) ??
-  "http://localhost/jagoCV---Salman/backend";
+  resolveBackendBase();
+
+function resolveBackendBase(): string {
+  if (typeof window === "undefined") return "";
+  const { origin, pathname } = window.location;
+  const idx = pathname.toLowerCase().indexOf("/jagocv---salman");
+  if (idx >= 0) {
+    return `${origin}${pathname.slice(0, idx)}/jagoCV---Salman/backend`;
+  }
+  return `${origin}/backend`;
+}
 
 const TOKEN_KEY = "jagocv_token";
 const USER_KEY = "jagocv_user";
@@ -64,6 +75,12 @@ export function getStoredUser(): AuthUser | null {
 export function clearSession(): void {
   localStorage.removeItem(TOKEN_KEY);
   localStorage.removeItem(USER_KEY);
+}
+
+/** Bersihkan cache poin & penanda alert (dipakai saat logout / ganti akun). */
+export function clearPointsCache(): void {
+  localStorage.removeItem("jagocv_points_cache");
+  localStorage.removeItem("jagocv_newuser_alert_shown");
 }
 
 // ── Permintaan API ───────────────────────────────────────────────────

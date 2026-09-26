@@ -7,6 +7,7 @@ import {
   cachePoints,
   initPointsUi,
   setPointsDisplay,
+  showNewUserAlertIfNeeded,
 } from "../utils/points";
 import { launchDashboardApp } from "./router";
 import {
@@ -63,6 +64,7 @@ function enterApp(user: AuthUser): void {
   // dan alert "PENGGUNA BARU" di bawah topbar bila masih ditandai baru.
   setPointsDisplay(user.points ?? 0);
   cachePoints(user.points ?? 0);
+  showNewUserAlertIfNeeded(Boolean(user.is_new_user));
   void initPointsUi();
 
   showToast(`Halo, ${user.first_name}! Anda berhasil masuk ke jagoCV.`);

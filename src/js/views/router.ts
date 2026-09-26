@@ -1,6 +1,6 @@
 // Router: view switching helpers
 
-import { clearSession } from "../utils/auth";
+import { clearPointsCache, clearSession } from "../utils/auth";
 import { spendPointForGenerate } from "../utils/points";
 
 const ALL_VIEW_IDS = [
@@ -215,6 +215,7 @@ export function bindRouterEvents(): void {
   if (btnLogout) {
     btnLogout.addEventListener("click", () => {
       clearSession();
+      clearPointsCache();
       if (appWrapper) {
         appWrapper.classList.add("hidden");
         appWrapper.classList.remove("flex");
