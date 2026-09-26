@@ -3,6 +3,11 @@
 // termasuk tombol "Lanjutkan dengan Google" via Google Identity Services.
 
 import { showToast } from "../utils/toast";
+import {
+  cachePoints,
+  initPointsUi,
+  setPointsDisplay,
+} from "../utils/points";
 import { launchDashboardApp } from "./router";
 import {
   apiGoogleLogin,
@@ -53,6 +58,13 @@ function inputValue(id: string): string {
 /** Setelah login/register sukses: tampilkan nama user di UI lalu masuk dashboard. */
 function enterApp(user: AuthUser): void {
   applyUserToDashboard(user);
+
+  // Payment gateway: tampilkan saldo poin (pengguna baru dapat 2 poin gratis)
+  // dan alert "PENGGUNA BARU" di bawah topbar bila masih ditandai baru.
+  setPointsDisplay(user.points ?? 0);
+  cachePoints(user.points ?? 0);
+  void initPointsUi();
+
   showToast(`Halo, ${user.first_name}! Anda berhasil masuk ke jagoCV.`);
   launchDashboardApp();
 }

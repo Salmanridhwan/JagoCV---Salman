@@ -93,13 +93,24 @@ if ($existing) {
     $message = 'Login Google berhasil. Selamat datang kembali, ' . $user['first_name'] . '!';
 } else {
     $stmt = db()->prepare(
-        'INSERT INTO users (first_name, last_name, email, password_hash, google_sub, avatar_url, auth_provider)
-         VALUES (?, ?, ?, NULL, ?, ?, \'google\')'
+        'INSERT INTO users (first_name, last_name, email, password_hash, google_sub, avatar_url, auth_provider, points, is_new_user)
+         VALUES (?, ?, ?, NULL, ?, ?, \'google\', 2, 1)'
     );
     $stmt->execute([$firstName, $lastName, $email, $googleSub, $avatarUrl !== '' ? $avatarUrl : null]);
 
+    $newUserId = (int) db()->lastInsertId();
+
+    // Catat bonus 2 poin pengguna baru (abaikan bila tabel belum ada).
+    try {
+        db()->prepare(
+            'INSERT INTO point_transactions (user_id, type, points, description) VALUES (?, \'signup_bonus\', 2, \'Bonus pengguna baru: 2 poin gratis\')'
+        )->execute([$newUserId]);
+    } catch (PDOException $e) {
+        // Tabel point_transactions belum ada (migrasi belum dijalankan) — abaikan.
+    }
+
     $stmt = db()->prepare('SELECT * FROM users WHERE id = ?');
-    $stmt->execute([(int) db()->lastInsertId()]);
+    $stmt->execute([$newUserId]);
     $user    = $stmt->fetch() ?: [];
     $message = 'Akun Google berhasil dibuat. Selamat datang di jagoCV!';
 }

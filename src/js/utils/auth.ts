@@ -29,6 +29,8 @@ export interface AuthUser {
   role: string | null;
   plan: string;
   portfolio_views: number;
+  points: number;
+  is_new_user: boolean;
   auth_provider: "local" | "google";
 }
 

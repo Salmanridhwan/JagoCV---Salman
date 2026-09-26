@@ -1,6 +1,7 @@
 // Router: view switching helpers
 
 import { clearSession } from "../utils/auth";
+import { spendPointForGenerate } from "../utils/points";
 
 const ALL_VIEW_IDS = [
   "view-dashboard",
@@ -294,7 +295,10 @@ export function bindRouterEvents(): void {
   );
 
   if (btnGenerateCv) {
-    btnGenerateCv.addEventListener("click", () => {
+    btnGenerateCv.addEventListener("click", async () => {
+      // Payment gate: pakai 1 poin; bila habis, modal top up ditampilkan.
+      const allowed = await spendPointForGenerate();
+      if (!allowed) return;
       const original = btnGenerateCv.innerHTML;
       btnGenerateCv.innerHTML = `<svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg> Membuat...`;
       setTimeout(() => {
@@ -305,7 +309,10 @@ export function bindRouterEvents(): void {
     });
   }
   if (btnGenerateResume) {
-    btnGenerateResume.addEventListener("click", () => {
+    btnGenerateResume.addEventListener("click", async () => {
+      // Payment gate: pakai 1 poin; bila habis, modal top up ditampilkan.
+      const allowed = await spendPointForGenerate();
+      if (!allowed) return;
       const original = btnGenerateResume.innerHTML;
       btnGenerateResume.innerHTML = `<svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg> Menyusun Desain...`;
       setTimeout(() => {
@@ -316,7 +323,10 @@ export function bindRouterEvents(): void {
     });
   }
   if (btnGeneratePortfolio) {
-    btnGeneratePortfolio.addEventListener("click", () => {
+    btnGeneratePortfolio.addEventListener("click", async () => {
+      // Payment gate: pakai 1 poin; bila habis, modal top up ditampilkan.
+      const allowed = await spendPointForGenerate();
+      if (!allowed) return;
       const original = btnGeneratePortfolio.innerHTML;
       btnGeneratePortfolio.innerHTML = `<svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg> Mempublikasikan...`;
       setTimeout(() => {

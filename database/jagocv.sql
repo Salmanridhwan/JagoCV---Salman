@@ -82,3 +82,63 @@ CREATE TABLE IF NOT EXISTS `subscriptions` (
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_unicode_ci;
+
+-- ---------------------------------------------------------------------
+-- ALTER: sistem poin (payment gateway)
+-- Jalankan bagian ini juga bila tabel sudah ada dari impor lama.
+-- ---------------------------------------------------------------------
+ALTER TABLE `users`
+  ADD COLUMN `points` INT UNSIGNED NOT NULL DEFAULT 0 AFTER `portfolio_views`,
+  ADD COLUMN `is_new_user` TINYINT(1) NOT NULL DEFAULT 1 AFTER `points`;
+
+-- ---------------------------------------------------------------------
+-- Tabel: topup_packages
+-- 3 paket utama topup poin (sesuai dokumen paket berlangganan):
+--   Basic   : Rp 19.000 ->  1 poin (1x generate)
+--   Pro     : Rp 49.000 ->  3 poin (3x generate)
+--   Premium : Rp 99.000 -> 10 poin (10x generate)
+-- ---------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS `topup_packages` (
+  `id`         INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `code`       VARCHAR(20)  NOT NULL COMMENT 'basic | pro | premium',
+  `name`       VARCHAR(50)  NOT NULL,
+  `price`      INT UNSIGNED NOT NULL COMMENT 'Harga dalam Rupiah',
+  `points`     INT UNSIGNED NOT NULL COMMENT 'Jumlah poin yang diterima',
+  `features`   TEXT         DEFAULT NULL COMMENT 'Daftar fitur, dipisah baris baru',
+  `is_active`  TINYINT(1)   NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_topup_packages_code` (`code`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_unicode_ci;
+
+INSERT INTO `topup_packages` (`code`, `name`, `price`, `points`, `features`) VALUES
+('basic', 'Basic', 19000, 1, '1x generate dokumen (CV / Resume / Portfolio)\nPilihan template dasar\nExport PDF standar'),
+('pro', 'Pro', 49000, 3, '3x generate dokumen (CV / Resume / Portfolio)\nSemua template premium\nExport PDF kualitas tinggi\nPrioritas antrian AI'),
+('premium', 'Premium', 99000, 10, '10x generate dokumen (CV / Resume / Portfolio)\nSemua template premium\nExport PDF kualitas tinggi\nPrioritas antrian AI tertinggi\nDukungan khusus 24/7');
+
+-- ---------------------------------------------------------------------
+-- Tabel: point_transactions
+-- Riwayat poin: topup (purchase), bonus pendaftaran (signup_bonus),
+-- dan pemakaian generate (usage).
+-- ---------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS `point_transactions` (
+  `id`          BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id`     BIGINT UNSIGNED NOT NULL,
+  `type`        ENUM('purchase','signup_bonus','usage') NOT NULL,
+  `points`      INT NOT NULL COMMENT 'Positif = tambah poin, negatif = pakai poin',
+  `description` VARCHAR(255) NOT NULL DEFAULT '',
+  `package_code` VARCHAR(20) DEFAULT NULL,
+  `payment_method` VARCHAR(30) DEFAULT NULL,
+  `payment_ref` VARCHAR(64) DEFAULT NULL,
+  `amount`      INT UNSIGNED DEFAULT NULL COMMENT 'Nominal Rupiah (untuk purchase)',
+  `status`      ENUM('success','pending','failed') NOT NULL DEFAULT 'success',
+  `created_at`  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_point_transactions_user` (`user_id`),
+  CONSTRAINT `fk_point_transactions_user`
+    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+    ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_unicode_ci;

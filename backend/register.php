@@ -51,11 +51,20 @@ if ($existing) {
 $passwordHash = password_hash($password, PASSWORD_BCRYPT);
 
 $stmt = db()->prepare(
-    'INSERT INTO users (first_name, last_name, email, password_hash, auth_provider) VALUES (?, ?, ?, ?, \'local\')'
+    'INSERT INTO users (first_name, last_name, email, password_hash, auth_provider, points, is_new_user) VALUES (?, ?, ?, ?, \'local\', 2, 1)'
 );
 $stmt->execute([$firstName, $lastName, $email, $passwordHash]);
 
 $userId = (int) db()->lastInsertId();
+
+// Catat bonus 2 poin pengguna baru ke riwayat transaksi (abaikan bila tabel belum ada).
+try {
+    db()->prepare(
+        'INSERT INTO point_transactions (user_id, type, points, description) VALUES (?, \'signup_bonus\', 2, \'Bonus pengguna baru: 2 poin gratis\')'
+    )->execute([$userId]);
+} catch (PDOException $e) {
+    // Tabel point_transactions belum ada (migrasi belum dijalankan) — abaikan.
+}
 
 // ── Auto-login: keluarkan token sesi ─────────────────────────────────
 $user = [
@@ -73,6 +82,8 @@ json_response(true, [
         'role'            => null,
         'plan'            => 'free',
         'portfolio_views' => 0,
+        'points'          => 2,
+        'is_new_user'     => true,
         'auth_provider'   => 'local',
     ])),
 ]);

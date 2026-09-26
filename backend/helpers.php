@@ -107,7 +107,7 @@ function require_user(): array
         json_fail('Sesi tidak valid atau sudah kedaluwarsa. Silakan login kembali.', 401);
     }
 
-    $stmt = db()->prepare('SELECT id, first_name, last_name, email, google_sub, avatar_url, role, plan, portfolio_views, auth_provider FROM users WHERE id = ?');
+    $stmt = db()->prepare('SELECT id, first_name, last_name, email, google_sub, avatar_url, role, plan, portfolio_views, points, is_new_user, auth_provider FROM users WHERE id = ?');
     $stmt->execute([(int) $payload['sub']]);
     $user = $stmt->fetch();
 
@@ -130,6 +130,8 @@ function public_user(array $user): array
         'role'            => $user['role'] ?? null,
         'plan'            => (string) ($user['plan'] ?? 'free'),
         'portfolio_views' => (int) ($user['portfolio_views'] ?? 0),
+        'points'          => (int) ($user['points'] ?? 0),
+        'is_new_user'     => (bool) ($user['is_new_user'] ?? false),
         'auth_provider'   => (string) ($user['auth_provider'] ?? 'local'),
     ];
 }

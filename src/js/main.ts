@@ -21,6 +21,13 @@ import {
 import { bindGalleryEvents } from "./views/gallery";
 import { bindChatWidget } from "./views/chat";
 import { bindModalEvents, registerModalGlobals } from "./views/modal";
+import { bindPricingEvents } from "./views/pricing";
+import {
+  bindPointsChip,
+  cachePoints,
+  initPointsUi,
+  setPointsDisplay,
+} from "./utils/points";
 
 import { injectHtmlTemplates } from "./views/templateInjector";
 
@@ -51,6 +58,10 @@ document.addEventListener("DOMContentLoaded", () => {
   bindChatWidget();
   bindModalEvents();
 
+  // Payment gateway: halaman pricing/topup & chip poin di topbar
+  bindPricingEvents();
+  bindPointsChip();
+
   // Bind auth forms & buttons (login, register, Google Sign-In)
   bindAuthEvents();
 
@@ -66,6 +77,10 @@ function restoreSession(): void {
     const active = user ?? stored;
     if (active) {
       applyStoredUser(active);
+      // Sinkronkan chip poin & alert pengguna baru di bawah topbar.
+      setPointsDisplay(active.points ?? 0);
+      cachePoints(active.points ?? 0);
+      void initPointsUi();
     }
   });
 }

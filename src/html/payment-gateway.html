@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>jagoCV — Pembayaran</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/index.css" />
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body class="bg-slate-50 dark:bg-[#070B19] text-slate-700 dark:text-slate-300 min-h-screen flex items-center justify-center p-4 antialiased">
+  <main class="w-full max-w-md">
+    <div class="bg-white dark:bg-[#0B1221] rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+      <!-- Header -->
+      <div class="px-6 py-5 border-b border-slate-200 dark:border-slate-800 flex items-center gap-3 bg-gradient-to-r from-blue-600/10 to-cyan-500/10">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-400 flex items-center justify-center text-white font-bold shadow-[0_0_15px_rgba(37,99,235,0.4)]">J</div>
+        <div>
+          <h1 class="font-bold text-slate-900 dark:text-white">jagoCV Payment</h1>
+          <p class="text-xs text-slate-500 dark:text-slate-400">Payment Gateway (Simulasi)</p>
+        </div>
+        <span id="pay-status-badge" class="ml-auto px-2.5 py-1 rounded-full bg-amber-100 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 text-[11px] font-bold uppercase tracking-wide">Menunggu</span>
+      </div>
+
+      <!-- Ringkasan transaksi -->
+      <div class="px-6 py-6" id="pay-detail">
+        <div class="rounded-2xl border border-slate-200 dark:border-slate-800 divide-y divide-slate-100 dark:divide-slate-800 mb-6">
+          <div class="flex justify-between items-center px-4 py-3">
+            <span class="text-sm text-slate-500 dark:text-slate-400">Paket</span>
+            <span id="pay-package" class="text-sm font-bold text-slate-900 dark:text-white">—</span>
+          </div>
+          <div class="flex justify-between items-center px-4 py-3">
+            <span class="text-sm text-slate-500 dark:text-slate-400">Poin didapat</span>
+            <span id="pay-points" class="text-sm font-bold text-blue-500">—</span>
+          </div>
+          <div class="flex justify-between items-center px-4 py-3">
+            <span class="text-sm text-slate-500 dark:text-slate-400">Metode</span>
+            <span id="pay-method" class="text-sm font-bold text-slate-900 dark:text-white">—</span>
+          </div>
+          <div class="flex justify-between items-center px-4 py-3">
+            <span class="text-sm text-slate-500 dark:text-slate-400">No. Referensi</span>
+            <span id="pay-ref" class="text-xs font-mono text-slate-600 dark:text-slate-300">—</span>
+          </div>
+        </div>
+
+        <div class="text-center mb-6">
+          <p class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide font-semibold mb-1">Total Pembayaran</p>
+          <p id="pay-amount" class="text-4xl font-extrabold text-slate-900 dark:text-white">—</p>
+        </div>
+
+        <button id="btn-pay-now" class="w-full px-5 py-3.5 bg-gradient-to-r from-blue-600 to-cyan-500 hover:opacity-90 text-white rounded-xl font-bold transition-all shadow-lg shadow-blue-500/30 mb-3">
+          Bayar Sekarang
+        </button>
+        <button id="btn-pay-cancel" class="w-full px-5 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl font-bold text-sm transition-colors">
+          Batalkan Pembayaran
+        </button>
+      </div>
+
+      <!-- Hasil pembayaran (disembunyikan awalnya) -->
+      <div class="px-6 py-10 text-center hidden" id="pay-result">
+        <div id="pay-result-icon" class="w-16 h-16 mx-auto mb-4 rounded-full bg-green-100 dark:bg-green-500/10 flex items-center justify-center text-green-500">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        </div>
+        <h2 id="pay-result-title" class="text-xl font-bold text-slate-900 dark:text-white mb-2">Pembayaran Berhasil!</h2>
+        <p id="pay-result-desc" class="text-sm text-slate-500 dark:text-slate-400 mb-6">Poin Anda sudah masuk dan siap digunakan.</p>
+        <p class="text-4xl font-extrabold text-blue-500 mb-1" id="pay-result-points">+0 poin</p>
+        <p class="text-xs text-slate-400 mb-8">saldo poin terbaru</p>
+        <a href="/" class="inline-block w-full px-5 py-3.5 bg-gradient-to-r from-blue-600 to-cyan-500 hover:opacity-90 text-white rounded-xl font-bold transition-all shadow-lg shadow-blue-500/30">
+          Kembali ke jagoCV
+        </a>
+      </div>
+    </div>
+
+    <p class="text-center text-xs text-slate-400 dark:text-slate-500 mt-6">
+      Halaman ini adalah simulasi payment gateway untuk keperluan pengembangan. Tidak ada uang sungguhan yang diproses.
+    </p>
+  </main>
+
+  <script type="module" src="/src/js/payment-gateway.ts"></script>
+</body>
+</html>

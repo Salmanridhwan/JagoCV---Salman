@@ -25,7 +25,7 @@ if ($password === '') {
 }
 
 $stmt = db()->prepare(
-    'SELECT id, first_name, last_name, email, password_hash, google_sub, avatar_url, role, plan, portfolio_views, auth_provider
+    'SELECT id, first_name, last_name, email, password_hash, google_sub, avatar_url, role, plan, portfolio_views, points, is_new_user, auth_provider
      FROM users WHERE email = ?'
 );
 $stmt->execute([$email]);
