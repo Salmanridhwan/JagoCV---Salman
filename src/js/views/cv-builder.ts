@@ -1,5 +1,12 @@
 // CV Builder Logic
 
+import {
+  bindCvLivePreview,
+  generateCvFromManualForm,
+  updateCvLivePreview,
+} from "../utils/cvData";
+import { getRememberedCvStep, rememberCvStep } from "../utils/navigation";
+
 // Make goToCvStep available globally for inline onclick handlers
 export function registerCvBuilderGlobals(): void {
   (window as any).goToCvStep = goToCvStep;
@@ -47,6 +54,9 @@ function goToCvStep(stepIndex: number): void {
   const progressPercent = ((stepIndex - 1) / (totalSteps - 1)) * 100;
   const progressBar = document.getElementById("cv-progress-bar");
   if (progressBar) progressBar.style.width = progressPercent + "%";
+
+  // Ingat step wizard agar refresh tetap di step yang sama.
+  rememberCvStep(stepIndex);
 
   // Update indicators
   for (let i = 1; i <= totalSteps; i++) {
@@ -347,17 +357,119 @@ export function bindCvBuilderEvents(): void {
     });
   }
 
-  // Manual Generate Button
-  const btnManualGenerate = document.getElementById("btn-manual-generate");
-  if (btnManualGenerate) {
-    btnManualGenerate.addEventListener("click", () => {
-      if ((window as any).showToast) {
-        (window as any).showToast("Mempersiapkan CV ATS Anda... ✨");
+  // ── Blok dinamis: Tambah Peran (pengalaman kerja) ────────────────
+  const btnAddExp = document.getElementById("btn-add-experience");
+  if (btnAddExp) {
+    btnAddExp.addEventListener("click", () => {
+      const step2 = document.getElementById("cv-step-2");
+      const template = step2?.querySelector<HTMLElement>(".cv-exp-block");
+      if (!step2 || !template) return;
+
+      const clone = template.cloneNode(true) as HTMLElement;
+      // Bersihkan nilai input pada klon baru.
+      clone
+        .querySelectorAll("input, textarea")
+        .forEach((el) => {
+          if ((el as HTMLInputElement).type === "checkbox") {
+            (el as HTMLInputElement).checked = false;
+          } else {
+            (el as HTMLInputElement).value = "";
+          }
+        });
+      // ID checkbox harus unik agar label "Saya masih bekerja di sini" tetap berfungsi.
+      const cb = clone.querySelector('input[name="exp_current"]') as HTMLInputElement | null;
+      if (cb) {
+        cb.id = `current_job_${Date.now()}`;
+        const lbl = clone.querySelector('label[for="current_job_1"]');
+        if (lbl) lbl.setAttribute("for", cb.id);
       }
+      // Tambah tombol hapus pada blok tambahan.
+      const removeBtn = document.createElement("button");
+      removeBtn.type = "button";
+      removeBtn.className =
+        "mt-3 text-[11px] font-bold text-red-500 hover:text-red-600 transition-colors";
+      removeBtn.textContent = "✕ Hapus blok ini";
+      removeBtn.addEventListener("click", () => {
+        clone.remove();
+        updateCvLivePreview();
+      });
+      clone.appendChild(removeBtn);
+
+      template.parentElement?.insertBefore(clone, template.nextSibling);
+      updateCvLivePreview();
     });
   }
 
-  // Theme Selector Logic for CV
+  // ── Blok dinamis: Tambah Pendidikan ─────────────────────────────
+  const btnAddEdu = document.getElementById("btn-add-education");
+  if (btnAddEdu) {
+    btnAddEdu.addEventListener("click", () => {
+      const step3 = document.getElementById("cv-step-3");
+      const template = step3?.querySelector<HTMLElement>(".cv-edu-block");
+      if (!step3 || !template) return;
+
+      const clone = template.cloneNode(true) as HTMLElement;
+      clone.querySelectorAll("input").forEach((el) => {
+        (el as HTMLInputElement).value = "";
+      });
+      const removeBtn = document.createElement("button");
+      removeBtn.type = "button";
+      removeBtn.className =
+        "mt-3 text-[11px] font-bold text-red-500 hover:text-red-600 transition-colors";
+      removeBtn.textContent = "✕ Hapus blok ini";
+      removeBtn.addEventListener("click", () => {
+        clone.remove();
+        updateCvLivePreview();
+      });
+      clone.appendChild(removeBtn);
+
+      template.parentElement?.insertBefore(clone, template.nextSibling);
+      updateCvLivePreview();
+    });
+  }
+
+  // ── Pratinjau live: ikuti setiap perubahan form manual ──────────
+  bindCvLivePreview();
+
+  // Pulihkan step wizard terakhir (refresh di tengah pengisian form).
+  const savedStep = getRememberedCvStep();
+  if (savedStep && savedStep > 1) {
+    goToCvStep(savedStep);
+  }
+
+  // Perbarui pratinjau juga saat tema CV dipilih.
+  const cvLayoutCardsForPreview = document.querySelectorAll(".cv-layout-card");
+  cvLayoutCardsForPreview.forEach((card) => {
+    card.addEventListener("click", () => setTimeout(updateCvLivePreview, 0));
+  });
+
+  // ── Tombol "Hasilkan CV ATS" (kiri & kolom pratinjau kanan) ─────
+  const btnGenerateMain = document.getElementById("btn-manual-generate-main");
+  const btnGenerateSide = document.getElementById("btn-manual-generate");
+  const handleManualGenerate = async (btn: HTMLButtonElement): Promise<void> => {
+    const original = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = `
+      <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+      </svg>
+      Membuat...`;
+    try {
+      await generateCvFromManualForm();
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = original;
+    }
+  };
+  if (btnGenerateMain) {
+    btnGenerateMain.addEventListener("click", () => handleManualGenerate(btnGenerateMain as HTMLButtonElement));
+  }
+  if (btnGenerateSide) {
+    btnGenerateSide.addEventListener("click", () => handleManualGenerate(btnGenerateSide as HTMLButtonElement));
+  }
+
+  // AI Sub-tab Logic
   const cvLayoutCards = document.querySelectorAll(".cv-layout-card");
   cvLayoutCards.forEach((card) => {
     card.addEventListener("click", () => {
@@ -395,9 +507,12 @@ export function bindCvBuilderEvents(): void {
       if (badge) badge.classList.remove("hidden");
       if (badge) badge.classList.add("flex");
 
-      // Check the radio input
+      // Check the radio input & bypass sinkronisasi tema (pratinjau live).
       const radio = card.querySelector('input[type="radio"]') as HTMLInputElement;
-      if (radio) radio.checked = true;
+      if (radio) {
+        radio.checked = true;
+        radio.dispatchEvent(new Event("change", { bubbles: true }));
+      }
 
       if ((window as any).showToast) {
         const layoutName = card.querySelector("p")?.textContent?.trim();
@@ -405,5 +520,31 @@ export function bindCvBuilderEvents(): void {
       }
     });
   });
+
+  // Sinkronkan pilihan tema antara kartu kiri & kolom kanan agar
+  // pratinjau live selalu memakai tema yang terakhir dipilih.
+  document.querySelectorAll<HTMLInputElement>('input[name="ats-layout"], input[name="cv_layout"]').forEach((radio) => {
+    radio.addEventListener("change", () => {
+      const targetGroup = radio.name === "ats-layout" ? "cv_layout" : "ats-layout";
+      const value = mapLayoutValue(radio.value, targetGroup);
+      document.querySelectorAll<HTMLInputElement>(`input[name="${targetGroup}"]`).forEach((r) => {
+        r.checked = r.value === value;
+      });
+    });
+  });
+}
+
+/** Petakan nilai tema antar grup radio kiri (ats-layout) & kanan (cv_layout). */
+function mapLayoutValue(value: string, toGroup: "cv_layout" | "ats-layout"): string {
+  if (toGroup === "cv_layout") {
+    if (value === "standar") return "ats-standard";
+    if (value === "tech") return "modern-creative";
+    if (value === "entry") return "entry-level";
+    return value;
+  }
+  if (value === "ats-standard") return "standar";
+  if (value === "modern-creative") return "tech";
+  if (value === "entry-level") return "entry";
+  return value;
 }
 

@@ -3,13 +3,14 @@ import { registerGlobalToast } from "./utils/toast";
 import { checkSession, getStoredUser, type AuthUser } from "./utils/auth";
 import { mockDashboardData } from "./data";
 
-import { bindRouterEvents } from "./views/router";
+import { bindRouterEvents, launchDashboardApp } from "./views/router";
 import { bindAuthEvents } from "./views/auth";
 import { populateDashboard } from "./views/dashboard";
 import {
   bindCvBuilderEvents,
   registerCvBuilderGlobals,
 } from "./views/cv-builder";
+import { bindCvResultActions } from "./utils/cvData";
 import {
   bindResumeBuilderEvents,
   registerResumeBuilderGlobals,
@@ -29,6 +30,7 @@ import {
   setPointsDisplay,
   showNewUserAlertIfNeeded,
 } from "./utils/points";
+import { restoreLastView } from "./utils/navigation";
 
 import { injectHtmlTemplates } from "./views/templateInjector";
 
@@ -66,14 +68,36 @@ document.addEventListener("DOMContentLoaded", () => {
   // Bind auth forms & buttons (login, register, Google Sign-In)
   bindAuthEvents();
 
+  // Tombol "Salin Teks" & "Unduh PDF" pada halaman hasil CV.
+  bindCvResultActions();
+
   // Restore session: bila user sudah pernah login, langsung tampilkan
   // datanya di dashboard. (Sesi divalidasi ulang ke server oleh checkSession.)
   restoreSession();
 });
 
-/** Pulihkan sesi tersimpan dan sinkronkan data user ke UI. */
+/**
+ * Pulihkan sesi tersimpan dan sinkronkan data user ke UI.
+ * Bila user masih login (token valid di localStorage), dashboard langsung
+ * ditampilkan ulang saat halaman di-refresh — tidak dikembalikan ke login.
+ */
 function restoreSession(): void {
   const stored = getStoredUser() as AuthUser | null;
+
+  // Tampilkan dashboard SEGERA dari sesi tersimpan agar refresh tidak
+  // membuat user "terlempar" ke halaman login (sesi tetap dipakai).
+  if (stored) {
+    applyStoredUser(stored);
+    setPointsDisplay(stored.points ?? 0);
+    cachePoints(stored.points ?? 0);
+    showNewUserAlertIfNeeded(Boolean(stored.is_new_user));
+    launchDashboardApp();
+    // Kembali ke halaman terakhir yang dikunjungi (bukan selalu dashboard).
+    restoreLastView();
+  }
+
+  // Validasi ulang token ke server di latar belakang; perbarui data user
+  // (poin, profil) bila masih valid, atau hapus sesi bila kedaluwarsa.
   checkSession().then((user) => {
     const active = user ?? stored;
     if (active) {

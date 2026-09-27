@@ -13,7 +13,7 @@
 // base diresolusi otomatis dari origin aktif sehingga bekerja baik di
 // Vite dev server maupun lewat Apache (htdocs/jagoAI/JagoCV---Salman).
 const API_BASE =
-  (import.meta.env?.VITE_API_BASE_URL as string | undefined) ??
+  (import.meta.env?.VITE_API_BASE_URL as string | undefined) ||
   resolveBackendBase();
 
 function resolveBackendBase(): string {
@@ -98,7 +98,7 @@ async function apiPost(path: string, body: unknown): Promise<AuthResponse> {
     return {
       ok: false,
       message:
-        "Tidak dapat menghubungi server. Pastikan Apache & MySQL di XAMPP sudah menyala.",
+        "Tidak dapat menghubungi /backend (Apache). Pastikan Apache menyala dan project berada di htdocs. Buka /backend/ping.php untuk diagnosa.",
     };
   }
 }

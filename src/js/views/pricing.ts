@@ -10,7 +10,7 @@ import { cachePoints, setPointsDisplay } from "../utils/points";
 import { showToast } from "../utils/toast";
 
 const API_BASE =
-  (import.meta.env?.VITE_API_BASE_URL as string | undefined) ??
+  (import.meta.env?.VITE_API_BASE_URL as string | undefined) ||
   resolveBackendBase();
 
 function resolveBackendBase(): string {
@@ -176,12 +176,20 @@ async function startCheckout(packageCode: string): Promise<void> {
       // payment_url dari backend bisa absolut ataupun path "/src/html/...";
       // saat app diakses lewat Apache (htdocs/jagoAI/JagoCV---Salman),
       // path perlu diawali folder project agar tidak 404.
-      window.location.href = toAbsoluteAppUrl(data.payment_url);
+      //
+      // Pakai location.replace() (bukan href) + penanda st=1 supaya:
+      //  - halaman transaksi TIDAK masuk riwayat browser → tombol Back
+      //    tidak akan pernah membukanya lagi setelah pembayaran;
+      //  - halaman gateway bisa memverifikasi bahwa pembukaannya memang
+      //    redirect checkout yang sah, bukan link manual/back.
+      window.location.replace(appendQueryParam(toAbsoluteAppUrl(data.payment_url), "st", "1"));
       return;
     }
     showToast(data.message ?? "Gagal membuat transaksi. Coba lagi.");
   } catch {
-    showToast("Tidak dapat menghubungi server. Pastikan Apache & MySQL menyala.");
+    showToast(
+      "Tidak dapat menghubungi /backend/checkout.php. Buka /backend/ping.php di browser untuk diagnosa.",
+    );
   } finally {
     if (btn) {
       btn.disabled = false;
@@ -216,6 +224,11 @@ function toAbsoluteAppUrl(url: string): string {
   const idx = pathname.toLowerCase().indexOf("/jagocv---salman");
   const base = idx >= 0 ? pathname.slice(0, idx) + "/jagoCV---Salman" : "";
   return `${origin}${base}${url}`;
+}
+
+/** Tambah parameter query ke URL (aman untuk URL yang sudah punya query). */
+function appendQueryParam(url: string, key: string, value: string): string {
+  return url + (url.includes("?") ? "&" : "?") + `${key}=${encodeURIComponent(value)}`;
 }
 
 export function bindPricingEvents(): void {

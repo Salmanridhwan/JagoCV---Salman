@@ -16,7 +16,7 @@ import { getToken, getStoredUser, saveSession, type AuthUser } from "./auth";
 import { showToast } from "./toast";
 
 const API_BASE =
-  (import.meta.env?.VITE_API_BASE_URL as string | undefined) ??
+  (import.meta.env?.VITE_API_BASE_URL as string | undefined) ||
   resolveBackendBase();
 
 /**
@@ -102,7 +102,6 @@ export function showNewUserAlertIfNeeded(isNewUser: boolean): void {
       <p class="text-sm leading-relaxed min-w-0 flex-1">
         <span class="font-bold">Tambahkan kenyamanan</span>
         <span class="text-white/85">dengan berlangganan, top up sekarang!</span>
-        <span class="block sm:inline text-white/85">Kuota pengguna baru: <b class="text-white">2x generate gratis</b> (1 poin per generate).</span>
       </p>
       <div class="flex items-center gap-2 shrink-0 sm:ml-auto">
         <button id="topbar-alert-topup" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-900/85 hover:bg-slate-900 text-white text-xs font-bold transition-colors shadow-md">
@@ -231,7 +230,9 @@ export async function spendPointForGenerate(): Promise<boolean> {
     showToast(`Berhasil! 1 poin dipakai. Sisa poin: ${points}.`);
     return true;
   } catch {
-    showToast("Tidak dapat menghubungi server. Pastikan Apache & MySQL menyala.");
+    showToast(
+      "Tidak dapat menghubungi /backend/consume.php. Buka http://localhost:3000/backend/ping.php untuk diagnosa (cek Apache & folder htdocs).",
+    );
     return false;
   }
 }

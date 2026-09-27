@@ -30,8 +30,12 @@ if (in_array($origin, $allowed_origins, true)) {
     header('Vary: Origin');
 }
 header('Access-Control-Allow-Credentials: true');
-header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type');
+header('Access-Control-Allow-Methods: GET, POST, DELETE, OPTIONS');
+// WAJIB mengizinkan Authorization (token Bearer) & Content-Type —
+// tanpa ini browser memblokir semua request ber-token (CORS preflight).
+header('Access-Control-Allow-Headers: ' . (
+    $_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS'] ?? 'Content-Type, Authorization'
+));
 
 // Jawab preflight langsung
 if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'OPTIONS') {

@@ -205,6 +205,7 @@
           >
             <input
               type="file"
+              id="cv-photo-input"
               accept="image/*"
               class="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
               title="Unggah Foto"
@@ -241,6 +242,7 @@
               >
               <input
                 type="text"
+                id="cv-full-name"
                 placeholder="John Doe"
                 class="w-full bg-slate-100 dark:bg-transparent border border-slate-300 dark:border-[#2A3143] rounded-xl px-4 py-3 text-sm text-slate-800 dark:text-slate-200 placeholder-slate-600 focus:border-[#1E5EFF] focus:ring-1 focus:ring-[#1E5EFF] outline-none transition-all"
               />
@@ -252,6 +254,7 @@
               >
               <input
                 type="text"
+                id="cv-target-role"
                 placeholder="e.g. Frontend Developer"
                 class="w-full bg-slate-100 dark:bg-transparent border border-slate-300 dark:border-[#2A3143] rounded-xl px-4 py-3 text-sm text-slate-800 dark:text-slate-200 placeholder-slate-600 focus:border-[#1E5EFF] focus:ring-1 focus:ring-[#1E5EFF] outline-none transition-all"
               />
@@ -267,6 +270,7 @@
             >
             <input
               type="email"
+              id="cv-email"
               placeholder="john@example.com"
               class="w-full bg-slate-100 dark:bg-transparent border border-slate-300 dark:border-[#2A3143] rounded-xl px-4 py-3 text-sm text-slate-800 dark:text-slate-200 placeholder-slate-600 focus:border-[#1E5EFF] focus:ring-1 focus:ring-[#1E5EFF] outline-none transition-all"
             />
@@ -278,6 +282,7 @@
             >
             <input
               type="tel"
+              id="cv-phone"
               placeholder="+1 (555) 000-0000"
               class="w-full bg-slate-100 dark:bg-transparent border border-slate-300 dark:border-[#2A3143] rounded-xl px-4 py-3 text-sm text-slate-800 dark:text-slate-200 placeholder-slate-600 focus:border-[#1E5EFF] focus:ring-1 focus:ring-[#1E5EFF] outline-none transition-all"
             />
@@ -289,6 +294,7 @@
             >
             <input
               type="text"
+              id="cv-location"
               placeholder="Jakarta, Indonesia"
               class="w-full bg-slate-100 dark:bg-transparent border border-slate-300 dark:border-[#2A3143] rounded-xl px-4 py-3 text-sm text-slate-800 dark:text-slate-200 placeholder-slate-600 focus:border-[#1E5EFF] focus:ring-1 focus:ring-[#1E5EFF] outline-none transition-all"
             />
@@ -300,6 +306,7 @@
             >
             <input
               type="url"
+              id="cv-linkedin-url"
               placeholder="linkedin.com/in/johndoe"
               class="w-full bg-slate-100 dark:bg-transparent border border-slate-300 dark:border-[#2A3143] rounded-xl px-4 py-3 text-sm text-slate-800 dark:text-slate-200 placeholder-slate-600 focus:border-[#1E5EFF] focus:ring-1 focus:ring-[#1E5EFF] outline-none transition-all"
             />
@@ -311,6 +318,7 @@
             >
             <input
               type="url"
+              id="cv-portfolio-url"
               placeholder="johndoe.com"
               class="w-full bg-slate-100 dark:bg-transparent border border-slate-300 dark:border-[#2A3143] rounded-xl px-4 py-3 text-sm text-slate-800 dark:text-slate-200 placeholder-slate-600 focus:border-[#1E5EFF] focus:ring-1 focus:ring-[#1E5EFF] outline-none transition-all"
             />
@@ -322,6 +330,7 @@
             >
             <textarea
               rows="3"
+              id="cv-summary"
               placeholder="Gambaran singkat karir dan pencapaian utama Anda..."
               class="w-full bg-slate-100 dark:bg-transparent border border-slate-300 dark:border-[#2A3143] rounded-xl px-4 py-3 text-sm text-slate-800 dark:text-slate-200 placeholder-slate-600 focus:border-[#1E5EFF] focus:ring-1 focus:ring-[#1E5EFF] outline-none transition-all resize-none"
             ></textarea>
@@ -369,6 +378,8 @@
             Pengalaman Kerja
           </h2>
           <button
+            type="button"
+            id="btn-add-experience"
             class="text-xs font-semibold text-blue-600 dark:text-[#88A4E6] hover:text-blue-700 dark:hover:text-white flex items-center gap-1 bg-blue-100 dark:bg-transparent border dark:border-[#2A3143] px-3 py-1.5 rounded-lg transition-colors hover:bg-blue-200 dark:hover:bg-white/5"
           >
             <svg
@@ -388,7 +399,7 @@
           </button>
         </div>
         <div
-          class="border border-slate-300/50 dark:border-[#2A3143] rounded-2xl p-5 bg-slate-100 dark:bg-transparent mb-4"
+          class="cv-exp-block border border-slate-300/50 dark:border-[#2A3143] rounded-2xl p-5 bg-slate-100 dark:bg-transparent mb-4"
         >
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div class="space-y-1.5">
@@ -398,6 +409,7 @@
               >
               <input
                 type="text"
+                name="exp_company"
                 placeholder="GoTo"
                 class="w-full bg-slate-100 dark:bg-transparent border border-slate-300 dark:border-[#2A3143] rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-600 focus:border-[#1E5EFF] focus:ring-1 focus:ring-[#1E5EFF] outline-none transition-all"
               />
@@ -409,6 +421,7 @@
               >
               <input
                 type="text"
+                name="exp_position"
                 placeholder="Frontend Developer"
                 class="w-full bg-slate-100 dark:bg-transparent border border-slate-300 dark:border-[#2A3143] rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-600 focus:border-[#1E5EFF] focus:ring-1 focus:ring-[#1E5EFF] outline-none transition-all"
               />
@@ -420,6 +433,7 @@
               >
               <input
                 type="month"
+                name="exp_start"
                 class="w-full bg-slate-100 dark:bg-transparent border border-slate-300 dark:border-[#2A3143] rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-600 focus:border-[#1E5EFF] focus:ring-1 focus:ring-[#1E5EFF] outline-none transition-all"
               />
             </div>
@@ -430,6 +444,7 @@
               >
               <input
                 type="month"
+                name="exp_end"
                 class="w-full bg-slate-100 dark:bg-transparent border border-slate-300 dark:border-[#2A3143] rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-600 focus:border-[#1E5EFF] focus:ring-1 focus:ring-[#1E5EFF] outline-none transition-all"
               />
             </div>
@@ -438,6 +453,7 @@
             <input
               type="checkbox"
               id="current_job_1"
+              name="exp_current"
               class="w-4 h-4 rounded border-slate-300 text-[#1E5EFF] focus:ring-[#1E5EFF] bg-transparent"
             />
             <label
@@ -453,6 +469,7 @@
             >
             <textarea
               rows="4"
+              name="exp_description"
               placeholder="Jelaskan pencapaian menggunakan kata kerja aktif (mis. Mengembangkan X dengan Y dan menghasilkan Z)"
               class="w-full bg-slate-100 dark:bg-transparent border border-slate-300 dark:border-[#2A3143] rounded-xl px-4 py-3 text-sm text-slate-800 dark:text-slate-200 placeholder-slate-600 focus:border-[#1E5EFF] focus:ring-1 focus:ring-[#1E5EFF] outline-none transition-all resize-none"
             ></textarea>
@@ -520,6 +537,8 @@
             Pendidikan
           </h2>
           <button
+            type="button"
+            id="btn-add-education"
             class="text-xs font-semibold text-blue-600 dark:text-[#88A4E6] hover:text-blue-700 dark:hover:text-white flex items-center gap-1 bg-blue-100 dark:bg-transparent border dark:border-[#2A3143] px-3 py-1.5 rounded-lg transition-colors hover:bg-blue-200 dark:hover:bg-white/5"
           >
             <svg
@@ -539,7 +558,7 @@
           </button>
         </div>
         <div
-          class="border border-slate-300/50 dark:border-[#2A3143] rounded-2xl p-5 bg-slate-100 dark:bg-transparent mb-4"
+          class="cv-edu-block border border-slate-300/50 dark:border-[#2A3143] rounded-2xl p-5 bg-slate-100 dark:bg-transparent mb-4"
         >
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div class="space-y-1.5 md:col-span-2">
@@ -549,6 +568,7 @@
               >
               <input
                 type="text"
+                name="edu_institution"
                 placeholder="Universitas Telkom"
                 class="w-full bg-slate-100 dark:bg-transparent border border-slate-300 dark:border-[#2A3143] rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-600 focus:border-[#1E5EFF] focus:ring-1 focus:ring-[#1E5EFF] outline-none transition-all"
               />
@@ -560,6 +580,7 @@
               >
               <input
                 type="text"
+                name="edu_degree"
                 placeholder="Sarjana Komputer (S.Kom)"
                 class="w-full bg-slate-100 dark:bg-transparent border border-slate-300 dark:border-[#2A3143] rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-600 focus:border-[#1E5EFF] focus:ring-1 focus:ring-[#1E5EFF] outline-none transition-all"
               />
@@ -571,6 +592,7 @@
               >
               <input
                 type="text"
+                name="edu_field"
                 placeholder="Informatika"
                 class="w-full bg-slate-100 dark:bg-transparent border border-slate-300 dark:border-[#2A3143] rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-600 focus:border-[#1E5EFF] focus:ring-1 focus:ring-[#1E5EFF] outline-none transition-all"
               />
@@ -582,6 +604,7 @@
               >
               <input
                 type="text"
+                name="edu_start"
                 placeholder="2018"
                 class="w-full bg-slate-100 dark:bg-transparent border border-slate-300 dark:border-[#2A3143] rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-600 focus:border-[#1E5EFF] focus:ring-1 focus:ring-[#1E5EFF] outline-none transition-all"
               />
@@ -593,6 +616,7 @@
               >
               <input
                 type="text"
+                name="edu_end"
                 placeholder="2022"
                 class="w-full bg-slate-100 dark:bg-transparent border border-slate-300 dark:border-[#2A3143] rounded-xl px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-600 focus:border-[#1E5EFF] focus:ring-1 focus:ring-[#1E5EFF] outline-none transition-all"
               />
@@ -667,6 +691,7 @@
           >
           <textarea
             rows="3"
+            id="cv-skills"
             placeholder="React, TypeScript, Node.js, Project Management, Agile..."
             class="w-full bg-slate-100 dark:bg-transparent border border-slate-300 dark:border-[#2A3143] rounded-xl px-4 py-3 text-sm text-slate-800 dark:text-slate-200 placeholder-slate-600 focus:border-[#1E5EFF] focus:ring-1 focus:ring-[#1E5EFF] outline-none transition-all resize-none"
           ></textarea>
@@ -1051,7 +1076,7 @@
           </button>
           <button
             type="button"
-            id="btn-manual-generate"
+            id="btn-manual-generate-main"
             class="bg-[#1E5EFF] hover:bg-blue-600 text-white px-8 py-3 rounded-xl font-bold transition-all shadow-lg shadow-blue-500/25 flex items-center gap-2 active:scale-95"
           >
             Hasilkan CV ATS
@@ -1384,40 +1409,9 @@
         Pratinjau Live Dokumen
       </h3>
       <div
-        class="bg-white dark:bg-slate-200 rounded shadow-md border border-slate-200 aspect-[1/1.414] overflow-hidden flex flex-col pointer-events-none relative"
-      >
-        <!-- Abstract lines for Mockup CV -->
-        <div class="absolute inset-0 p-4 sm:p-6 opacity-70">
-          <div class="w-full text-center border-b border-gray-300 pb-3 mb-3">
-            <div class="w-2/3 h-4 bg-gray-600 mx-auto rounded-sm mb-2"></div>
-            <div
-              class="w-3/4 h-2 bg-gray-400 mx-auto rounded-sm text-center"
-            ></div>
-            <div class="w-1/2 h-2 bg-gray-400 mx-auto rounded-sm mt-1"></div>
-          </div>
-          <div class="space-y-4">
-            <div
-              class="w-1/3 h-3 bg-gray-500 font-bold mb-1.5 rounded-sm"
-            ></div>
-            <div class="w-full h-1.5 bg-gray-300 mb-1 rounded-sm"></div>
-            <div class="w-full h-1.5 bg-gray-300 mb-1 rounded-sm"></div>
-            <div class="w-4/5 h-1.5 bg-gray-300 mb-2 rounded-sm"></div>
-
-            <div
-              class="w-1/3 h-3 bg-gray-500 font-bold mb-1.5 rounded-sm"
-            ></div>
-            <div class="w-full h-1.5 bg-gray-300 mb-1 rounded-sm"></div>
-            <div class="w-full h-1.5 bg-gray-300 mb-1 rounded-sm"></div>
-            <div class="w-3/5 h-1.5 bg-gray-300 mb-2 rounded-sm"></div>
-
-            <div
-              class="w-1/3 h-3 bg-gray-500 font-bold mb-1.5 rounded-sm mt-3"
-            ></div>
-            <div class="w-11/12 h-1.5 bg-gray-300 mb-1 rounded-sm"></div>
-            <div class="w-full h-1.5 bg-gray-300 mb-1 rounded-sm"></div>
-          </div>
-        </div>
-      </div>
+        id="cv-live-preview"
+        class="bg-white dark:bg-slate-200 rounded shadow-md border border-slate-200 aspect-[1/1.414] overflow-hidden relative"
+      ></div>
       <p class="text-[11px] text-center text-slate-500 mt-4">
         Pratinjau ini diperbarui secara otomatis.
       </p>

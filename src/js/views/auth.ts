@@ -3,6 +3,7 @@
 // termasuk tombol "Lanjutkan dengan Google" via Google Identity Services.
 
 import { showToast } from "../utils/toast";
+import { restoreCvDraftForCurrentUser } from "../utils/cvData";
 import {
   cachePoints,
   initPointsUi,
@@ -69,6 +70,9 @@ function enterApp(user: AuthUser): void {
 
   showToast(`Halo, ${user.first_name}! Anda berhasil masuk ke jagoCV.`);
   launchDashboardApp();
+
+  // Draft CV per akun: muat isi form milik akun yang baru login dari server.
+  void restoreCvDraftForCurrentUser();
 }
 
 /** Isi nama, role, dan foto profil user ke navbar/dashboard. */

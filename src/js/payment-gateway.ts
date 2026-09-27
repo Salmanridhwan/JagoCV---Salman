@@ -1,11 +1,24 @@
 // Halaman simulasi payment gateway jagoCV.
 // Menerima parameter dari checkout.php lewat query string:
-//   ?ref=...&package=...&points=...&amount=...&method=...
+//   ?ref=...&package=...&points=...&amount=...&method=...&st=1
+//   st=1 adalah penanda bahwa halaman dibuka dari redirect checkout yang
+//   sah (ditambahkan oleh views/pricing.ts). Pembukaan lewat cara lain —
+//   mis. tombol Back browser atau refresh setelah sesi berakhir —
+//   langsung digantikan (location.replace) dengan halaman aplikasi.
+//
+// Pengaman navigasi:
+//  - Checkout memakai location.replace() sehingga halaman transaksi TIDAK
+//    masuk history → tombol Back tidak akan membukanya kembali.
+//  - Transaksi yang sudah selesai (berhasil/gagal) ditandai di
+//    sessionStorage; bila user tetap berhasil kembali ke halaman ini
+//    lewat Back, yang tampil adalah status "sudah diproses", bukan
+//    tombol Bayar — jadi tidak bisa terbayar dua kali.
+//
 // Saat user menekan "Bayar Sekarang", script memanggil POST /backend/confirm.php
 // untuk menyelesaikan transaksi dan menambah poin.
 
 const API_BASE =
-  (import.meta.env?.VITE_API_BASE_URL as string | undefined) ??
+  (import.meta.env?.VITE_API_BASE_URL as string | undefined) ||
   resolveBackendBase();
 
 function resolveBackendBase(): string {
@@ -27,45 +40,49 @@ function toAbsoluteAppUrl(url: string): string {
 }
 
 const TOKEN_KEY = "jagocv_token";
+const PAYMENT_DONE_FLAG = "jagocv_payment_done";
 
-const params = new URLSearchParams(window.location.search);
-const paymentRef = params.get("ref") ?? "";
-const pkgName = params.get("package") ?? "—";
-const pkgPoints = params.get("points") ?? "—";
-const pkgAmount = Number(params.get("amount") ?? "0");
-const pkgMethod = (params.get("method") ?? "qris").toUpperCase();
+let paymentDone = false;
 
 // ── Isi ringkasan transaksi ──────────────────────────────────────────
-document.getElementById("pay-package")!.textContent = pkgName;
-document.getElementById("pay-points")!.textContent = `${pkgPoints} poin`;
-document.getElementById("pay-method")!.textContent = pkgMethod;
-document.getElementById("pay-ref")!.textContent = paymentRef || "—";
-document.getElementById("pay-amount")!.textContent = `Rp ${pkgAmount.toLocaleString("id-ID")}`;
+function fillSummary(paymentRef: string): void {
+  const params = new URLSearchParams(window.location.search);
+  const pkgName = params.get("package") ?? "—";
+  const pkgPoints = params.get("points") ?? "—";
+  const pkgAmount = Number(params.get("amount") ?? "0");
+  const pkgMethod = (params.get("method") ?? "qris").toUpperCase();
 
-const btnPay = document.getElementById("btn-pay-now") as HTMLButtonElement;
-const btnCancel = document.getElementById("btn-pay-cancel") as HTMLButtonElement;
+  document.getElementById("pay-package")!.textContent = pkgName;
+  document.getElementById("pay-points")!.textContent = `${pkgPoints} poin`;
+  document.getElementById("pay-method")!.textContent = pkgMethod;
+  document.getElementById("pay-ref")!.textContent = paymentRef || "—";
+  document.getElementById("pay-amount")!.textContent = `Rp ${pkgAmount.toLocaleString("id-ID")}`;
+}
 
-// ── Bayar sekarang ───────────────────────────────────────────────────
-btnPay.addEventListener("click", async () => {
-  if (!paymentRef) {
-    showResult(false, "Referensi pembayaran tidak ditemukan di URL.");
-    return;
-  }
-  setLoading(true);
-  await finishPayment("success");
-});
+// ── Status "sudah diproses" (pengganti tombol Bayar) ─────────────────
+function showAlreadyProcessed(): void {
+  const detail = document.getElementById("pay-detail")!;
+  const result = document.getElementById("pay-result")!;
+  const badge = document.getElementById("pay-status-badge")!;
+  const title = document.getElementById("pay-result-title")!;
+  const desc = document.getElementById("pay-result-desc")!;
+  const pointsEl = document.getElementById("pay-result-points")!;
 
-// ── Batalkan pembayaran ──────────────────────────────────────────────
-btnCancel.addEventListener("click", async () => {
-  if (!paymentRef) {
-    window.location.href = toAbsoluteAppUrl("/");
-    return;
-  }
-  setLoading(true);
-  await finishPayment("failed");
-});
+  detail.classList.add("hidden");
+  result.classList.remove("hidden");
+  badge.textContent = "Selesai";
+  badge.className =
+    "ml-auto px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-500/10 text-slate-600 dark:text-slate-400 text-[11px] font-bold uppercase tracking-wide";
+  title.textContent = "Transaksi Sudah Diproses";
+  desc.textContent =
+    "Transaksi ini sudah selesai dan tidak bisa dibuka kembali. Silakan buat top up baru dari halaman Pricing.";
+  pointsEl.textContent = "—";
+}
 
+// ── Bayar sekarang / batalkan ────────────────────────────────────────
 function setLoading(loading: boolean): void {
+  const btnPay = document.getElementById("btn-pay-now") as HTMLButtonElement;
+  const btnCancel = document.getElementById("btn-pay-cancel") as HTMLButtonElement;
   btnPay.disabled = loading;
   btnCancel.disabled = loading;
   if (loading) {
@@ -77,7 +94,7 @@ function setLoading(loading: boolean): void {
   }
 }
 
-async function finishPayment(status: "success" | "failed"): Promise<void> {
+async function finishPayment(paymentRef: string, status: "success" | "failed"): Promise<void> {
   const token = localStorage.getItem(TOKEN_KEY) ?? "";
   try {
     const res = await fetch(`${API_BASE}/confirm.php`, {
@@ -97,20 +114,35 @@ async function finishPayment(status: "success" | "failed"): Promise<void> {
 
     if (data && data.ok) {
       if (data.status === "failed") {
+        markPaymentDone();
         showResult(false, "Pembayaran dibatalkan. Anda bisa mencoba lagi kapan saja.");
         return;
       }
       const balance = data.points ?? 0;
       // Simpan saldo terbaru agar chip poin langsung benar setelah kembali.
       localStorage.setItem("jagocv_points_cache", String(balance));
+      markPaymentDone();
       showResult(true, `Pembayaran berhasil! Poin Anda bertambah.`, balance);
     } else {
       showResult(false, data?.message ?? "Pembayaran gagal diproses.");
     }
   } catch {
-    showResult(false, "Tidak dapat menghubungi server. Pastikan Apache & MySQL menyala.");
+    showResult(
+      false,
+      "Tidak dapat menghubungi /backend/confirm.php. Pastikan Apache menyala, lalu buka /backend/ping.php untuk diagnosa.",
+    );
   } finally {
     setLoading(false);
+  }
+}
+
+/** Tandai transaksi selesai: tombol Bayar tidak boleh muncul lagi. */
+function markPaymentDone(): void {
+  paymentDone = true;
+  try {
+    sessionStorage.setItem(PAYMENT_DONE_FLAG, "1");
+  } catch {
+    /* storage diblokir — guard in-memory tetap aktif */
   }
 }
 
@@ -141,9 +173,72 @@ function showResult(success: boolean, message: string, points = 0): void {
       '<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
     title.textContent = "Pembayaran Gagal";
     pointsEl.textContent = "—";
-  }    desc.textContent = message;
+  }
+  desc.textContent = message;
 }
 
-// Perbaiki link kembali agar benar saat diakses lewat Apache/XAMPP
-// (path "/" saja akan 404 bila project ada di subfolder htdocs).
-document.getElementById("btn-pay-back")?.setAttribute("href", toAbsoluteAppUrl("/"));
+// ── Init ─────────────────────────────────────────────────────────────
+function boot(): void {
+  const params = new URLSearchParams(window.location.search);
+  const paymentRef = params.get("ref") ?? "";
+
+  // Pengaman 1: halaman hanya boleh dibuka dari redirect checkout yang
+  // sah (st=1). Back dari halaman lain / link manual tanpa data transaksi
+  // → ganti halaman dengan aplikasi (replace: tidak menambah history).
+  if (!paymentRef || params.get("st") !== "1") {
+    window.location.replace(toAbsoluteAppUrl("/"));
+    return;
+  }
+
+  fillSummary(paymentRef);
+
+  // Tombol "Kembali ke jagoCV" memakai replace agar tidak menambah
+  // history entry baru (konsisten dengan pengaman navigasi di atas).
+  const btnBack = document.getElementById("btn-pay-back") as HTMLAnchorElement | null;
+  if (btnBack) {
+    const appUrl = toAbsoluteAppUrl("/");
+    btnBack.setAttribute("href", appUrl);
+    btnBack.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.location.replace(appUrl);
+    });
+  }
+
+  // Pengaman 2: transaksi yang sudah diproses (berhasil/gagal) tidak
+  // boleh ditawarkan ulang. Bila halaman ini kebuka lagi (mis. lewat Back),
+  // tampilkan status "sudah diproses" alih-alih tombol Bayar.
+  try {
+    if (sessionStorage.getItem(PAYMENT_DONE_FLAG) === "1") {
+      paymentDone = true;
+      sessionStorage.removeItem(PAYMENT_DONE_FLAG);
+    }
+  } catch {
+    /* storage diblokir — abaikan */
+  }
+
+  // Bila user bernavigasi (Back/Forward) di dalam halaman ini setelah
+  // transaksi selesai, pastikan tombol Bayar tidak pernah tampil lagi.
+  window.addEventListener("popstate", () => {
+    if (paymentDone) showAlreadyProcessed();
+  });
+
+  if (paymentDone) {
+    showAlreadyProcessed();
+    return;
+  }
+
+  const btnPay = document.getElementById("btn-pay-now") as HTMLButtonElement;
+  const btnCancel = document.getElementById("btn-pay-cancel") as HTMLButtonElement;
+
+  btnPay.addEventListener("click", async () => {
+    setLoading(true);
+    await finishPayment(paymentRef, "success");
+  });
+
+  btnCancel.addEventListener("click", async () => {
+    setLoading(true);
+    await finishPayment(paymentRef, "failed");
+  });
+}
+
+boot();
