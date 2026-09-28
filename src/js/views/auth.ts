@@ -16,7 +16,7 @@ import {
   apiLogin,
   apiRegister,
   initGoogleSignIn,
-  promptGoogleSignIn,
+  renderGoogleButton,
   saveSession,
   type AuthUser,
 } from "../utils/auth";
@@ -176,7 +176,7 @@ export function bindAuthEvents(): void {
   const btnLoginGoogle = document.getElementById("btn-login-google") as HTMLButtonElement | null;
   const btnRegisterGoogle = document.getElementById("btn-register-google") as HTMLButtonElement | null;
 
-  const ready = initGoogleSignIn(async (credential) => {
+  const handleGoogleCredential = async (credential: string): Promise<void> => {
     // Dipanggil setelah user memilih akun Google di popup.
     if (btnLoginGoogle) setButtonLoading(btnLoginGoogle, true);
     if (btnRegisterGoogle) setButtonLoading(btnRegisterGoogle, true);
@@ -193,16 +193,87 @@ export function bindAuthEvents(): void {
       showFormError(errLogin, res.message ?? "Login Google gagal.");
       showFormError(errRegister, res.message ?? "Login Google gagal.");
     }
-  });
-
-  const handleGoogleClick = (): void => {
-    if (!ready || !promptGoogleSignIn()) {
-      showToast(
-        "Google Sign-In belum dikonfigurasi. Isi VITE_GOOGLE_CLIENT_ID di file .env (lihat AUTH-SETUP.md).",
-      );
-    }
   };
 
-  btnLoginGoogle?.addEventListener("click", handleGoogleClick);
-  btnRegisterGoogle?.addEventListener("click", handleGoogleClick);
+  // initGoogleSignIn async: menunggu script GSI termuat dulu.
+  const ready = initGoogleSignIn(handleGoogleCredential);
+
+  /** Fallback bila GSI tak termuat / Client ID belum diisi: tombol custom tetap dipakai. */
+  const bindFallbackClick = (btn: HTMLButtonElement | null): void => {
+    btn?.addEventListener("click", () => {
+      showToast(
+        "Google Sign-In belum siap. Pastikan VITE_GOOGLE_CLIENT_ID terisi di .env, koneksi internet aktif, dan tidak diblokir ekstensi browser.",
+      );
+    });
+  };
+
+  /**
+   * Pasang LAPISAN tombol "Sign in with Google" RESMI di ATAS tombol custom.
+   *
+   * Desain custom tetap tampil apa adanya, tetapi lapisan resmi Google
+   * (dibuat transparan) menutupinya dan menerima klik — sehingga POPUP
+   * pemilih akun Google terbuka setiap kali diklik. Popup resmi ini tidak
+   * mengalami cooldown One Tap → bebas dari error "unknown_reason".
+   */
+  const mountOfficialGoogleButton = async (
+    original: HTMLButtonElement | null,
+  ): Promise<void> => {
+    if (!original) return;
+    const initialized = await ready.catch(() => false);
+    if (!initialized || !window.google?.accounts?.id) {
+      bindFallbackClick(original);
+      return;
+    }
+
+    const rect = original.getBoundingClientRect();
+    if (rect.width < 40) {
+      // View masih tersembunyi (login/register saling bergantian) —
+      // tunggu frame berikutnya lalu coba lagi.
+      requestAnimationFrame(() => void mountOfficialGoogleButton(original));
+      return;
+    }
+
+    // Posisi tombol dihitung dari offset parent (bukan rect viewport)
+    // agar overlay tetap tepat saat halaman di-scroll.
+    const parent = original.parentElement;
+    if (!parent) return;
+    if (getComputedStyle(parent).position === "static") {
+      parent.style.position = "relative";
+    }
+
+    const overlay = document.createElement("div");
+    overlay.className = "jagocv-gsi-overlay";
+    overlay.style.cssText =
+      "position:absolute;" +
+      `left:${original.offsetLeft}px;` +
+      `top:${original.offsetTop}px;` +
+      `width:${original.offsetWidth}px;` +
+      `height:${original.offsetHeight}px;` +
+      "overflow:hidden;opacity:0;" + // transparan — desain custom tetap terlihat
+      "cursor:pointer;z-index:10;";
+    parent.appendChild(overlay);
+
+    // Tinggi iframe tombol resmi (40px) diskalakan ke tinggi tombol custom
+    // agar area klik menutupi seluruh permukaan tombol custom.
+    const iframeScale = original.offsetHeight / 40;
+    overlay.style.transformOrigin = "top left";
+    overlay.style.transform =
+      iframeScale > 0 && Math.abs(iframeScale - 1) > 0.01
+        ? `scale(${iframeScale})`
+        : "";
+    if (Math.abs(iframeScale - 1) > 0.01) {
+      overlay.style.width = `${original.offsetWidth / iframeScale}px`;
+      overlay.style.height = `${original.offsetHeight / iframeScale}px`;
+    }
+
+    renderGoogleButton(overlay, handleGoogleCredential, {
+      width: Math.round(original.offsetWidth / (iframeScale || 1)),
+    });
+  };
+
+  // Tunggu render selesai sebelum mengukur tombol (font/layout siap).
+  requestAnimationFrame(() => {
+    void mountOfficialGoogleButton(btnLoginGoogle);
+    void mountOfficialGoogleButton(btnRegisterGoogle);
+  });
 }

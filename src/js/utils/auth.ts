@@ -159,6 +159,7 @@ interface GoogleIdConfig {
   callback: (response: GoogleCredentialResponse) => void;
   auto_select?: boolean;
   cancel_on_tap_outside?: boolean;
+  use_fedcm_for_prompt?: boolean;
 }
 
 interface GoogleAccounts {
@@ -181,32 +182,102 @@ export function getGoogleClientId(): string {
 }
 
 /**
- * Inisialisasi Google Sign-In dan tampilkan popup ketika tombol diklik.
- * Mengembalikan false bila Client ID belum dikonfigurasi.
+ * Pastikan script GSI (accounts.google.com/gsi/client) sudah termuat.
+ * Script di index.html dideklarasikan `async defer`, sehingga saat module
+ * app dijalankan `window.google` sering BELUM ada — kita tunggu sampai
+ * siap (atau muat sendiri scriptnya bila ternyata tidak ada).
  */
-export function initGoogleSignIn(
+function loadGoogleScript(): Promise<GoogleAccounts | null> {
+  return new Promise((resolve) => {
+    if (window.google?.accounts?.id) {
+      resolve(window.google.accounts);
+      return;
+    }
+
+    const onReady = (): void => {
+      const started = Date.now();
+      const poll = (): void => {
+        if (window.google?.accounts?.id) {
+          resolve(window.google.accounts);
+        } else if (Date.now() - started > 5000) {
+          resolve(null); // gagal termuat (mis. diblokir adblock)
+        } else {
+          setTimeout(poll, 50);
+        }
+      };
+      poll();
+    };
+
+    const existing = document.querySelector<HTMLScriptElement>(
+      'script[src*="accounts.google.com/gsi"]',
+    );
+    if (existing) {
+      existing.addEventListener("load", onReady, { once: true });
+      onReady(); // sekaligus berlaku bila script sudah termuat sebelum listener terpasang
+    } else {
+      const script = document.createElement("script");
+      script.src = "https://accounts.google.com/gsi/client";
+      script.async = true;
+      script.defer = true;
+      script.onload = onReady;
+      script.onerror = () => resolve(null);
+      document.head.appendChild(script);
+    }
+  });
+}
+
+/**
+ * Inisialisasi Google Sign-In. async karena menunggu script GSI termuat.
+ * Mengembalikan false bila Client ID belum dikonfigurasi / script gagal.
+ */
+export async function initGoogleSignIn(
   onCredential: (credential: string) => void,
-): boolean {
+): Promise<boolean> {
   const clientId = getGoogleClientId();
   if (!clientId) return false;
 
-  const gsi = window.google?.accounts?.id;
-  if (!gsi) return false;
+  const accounts = await loadGoogleScript();
+  if (!accounts) return false;
 
-  gsi.initialize({
+  accounts.id.initialize({
     client_id: clientId,
     callback: (response) => {
       if (response.credential) onCredential(response.credential);
     },
     cancel_on_tap_outside: true,
+    use_fedcm_for_prompt: true,
   });
   return true;
 }
 
-/** Minta Google menampilkan popup pemilihan akun. */
-export function promptGoogleSignIn(): boolean {
+/**
+ * Render tombol "Sign in with Google" RESMI dari Google Identity Services.
+ *
+ * Dipakai sebagai LAPISAN TRANSPARAN di atas tombol custom aplikasi:
+ * user melihat desain custom, tetapi klik diterima tombol resmi yang
+ * membuka POPUP pemilih akun sungguhan — mekanisme yang andal dan tidak
+ * mengalami cooldown One Tap (bebas dari error "unknown_reason").
+ *
+ * Catatan: script GSI harus sudah termuat (dijamin oleh initGoogleSignIn).
+ * Visual tombol resmi tidak terlihat karena pemanggil membuat lapisan ini
+ * transparan (opacity 0) — yang tampil ke user tetap desain custom app.
+ */
+export function renderGoogleButton(
+  container: HTMLElement,
+  onCredential: (credential: string) => void,
+  options?: { width?: number },
+): void {
   const gsi = window.google?.accounts?.id;
-  if (!gsi) return false;
-  gsi.prompt();
-  return true;
+  if (!gsi) return;
+
+  gsi.renderButton(container, {
+    type: "standard",
+    theme: "outline",
+    size: "large", // tinggi 40px — tinggi iframe dilipatgandakan via CSS oleh pemanggil
+    text: "continue_with",
+    shape: "pill",
+    logo_alignment: "left",
+    width: options?.width ?? (container.clientWidth > 0 ? container.clientWidth : 320),
+    locale: "id",
+  });
 }

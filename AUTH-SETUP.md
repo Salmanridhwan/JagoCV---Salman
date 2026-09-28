@@ -74,35 +74,85 @@ Jika nama folder di `htdocs` berbeda, sesuaikan `VITE_API_BASE_URL` di `.env`.
 
 ## 4. Setup Google Sign-In (Client ID)
 
-1. Buka <https://console.cloud.google.com/apis/credentials>.
-2. **Create Credentials → OAuth client ID**.
+Fitur Google memakai **tombol "Sign in with Google" resmi** dari Google
+Identity Services (`renderButton`), yang membuka **popup pemilih akun**
+setiap kali diklik — bukan One Tap (`prompt()`).
+
+> **Kenapa bukan One Tap?** One Tap sering gagal muncul dengan alasan
+> `unknown_reason` karena: (a) cooldown setelah popup sebelumnya ditutup,
+> (b) pembatasan FedCM/third-party cookies di Chrome, (c) akun Google
+> belum login di browser. Tombol resmi TIDAK punya cooldown dan selalu
+> membuka popup — jauh lebih andal untuk development.
+
+### 4.1 Konfigurasi di Google Cloud Console
+
+Project: <https://console.cloud.google.com/apis/credentials?project=jagocv-509604>
+
+1. **APIs & Services → Credentials** → buka OAuth 2.0 Client ID Anda
+   (atau buat baru: **Create Credentials → OAuth client ID**).
    - Application type: **Web application**.
-   - **Authorized JavaScript origins**:
-     - `http://localhost:3000` (Vite dev)
-     - `http://localhost` (bila UI juga dibuka via Apache)
+   - **Authorized JavaScript origins** (persis, tanpa trailing slash):
+     - `http://localhost:3000` ← UI via Vite dev (utama)
+     - `http://localhost` ← hanya bila UI dibuka langsung via Apache
+   - **Authorized redirect URIs** tidak diperlukan untuk flow ini.
+   - Simpan. Perubahan butuh ±5 menit untuk berlaku.
+2. **APIs & Services → OAuth consent screen**:
+   - Bila **Publishing status = Testing**, HANYA email di daftar
+     **Test users** yang bisa login → buka **Audience → Add users**
+     dan masukkan Gmail Anda.
+   - Atau klik **Publish app** agar semua akun bisa login.
+   - Scopes default (`openid`, `email`, `profile`) cukup — tidak perlu
+     menambah scope apa pun.
 3. Salin **Client ID** (format `xxxx.apps.googleusercontent.com`).
-4. Tempel ke `.env`:
 
-   ```env
-   VITE_GOOGLE_CLIENT_ID="1234-abc.apps.googleusercontent.com"
-   ```
+### 4.2 Konfigurasi di project
 
-5. Restart `npm run dev`. Tombol **"Lanjutkan dengan Google"** kini membuka
-   popup Google; setelah izin diberikan, backend memverifikasi ID token ke
-   server Google lalu membuat/menghubungkan akun.
+Client ID dipakai di DUA tempat dan sudah otomatis tersinkron dari satu
+sumber — file `.env` di root project:
 
-> Belum mengisi Client ID? Aplikasi tetap jalan; tombol Google hanya
-> menampilkan toast pengingat.
+```env
+VITE_GOOGLE_CLIENT_ID="1234-abc.apps.googleusercontent.com"
+```
 
-### Cara kerja Google flow
+- **Frontend** (`src/js/utils/auth.ts`) membaca `VITE_GOOGLE_CLIENT_ID`
+  untuk merender tombol Google.
+- **Backend** (`backend/google.php`) membaca baris yang sama dari `.env`
+  untuk memvalidasi `aud` token. Tidak perlu set environment variable
+  Apache — cukup file `.env`.
+
+Setelah mengubah `.env`, **restart dev server** (`Ctrl+C` lalu `npm run dev`)
+karena Vite hanya membaca `.env` saat start.
+
+### 4.3 Alur yang terjadi
 
 ```
-Klik tombol → popup Google → ID token (JWT) diterima frontend
+Halaman login/daftar dibuka
+  → di atas tombol custom "Lanjutkan dengan Google" dipasang LAPISAN
+    tombol resmi Google yang transparan (desain custom tetap tampil)
+Klik tombol → klik diterima lapisan resmi
+  → POPUP pemilih akun Google terbuka (tanpa cooldown)
+  → ID token (JWT) diterima frontend
   → POST /backend/google.php { credential }
-  → PHP verifikasi ke https://oauth2.googleapis.com/tokeninfo
-  → email sudah ada? link akun (google_sub) : buat user baru
-  → token sesi aplikasi dikembalikan & disimpan
+  → PHP verifikasi token ke https://oauth2.googleapis.com/tokeninfo
+    + cek aud == Client ID dari .env, cek email_verified
+  → email sudah ada? link akun (google_sub) : buat user baru (+2 poin)
+  → token sesi aplikasi dikembalikan & disimpan → dashboard
 ```
+
+> Desain tombol tetap milik aplikasi (custom, sesuai UI login/register).
+> Lapisan resmi Google hanya berperan sebagai penerima klik agar popup
+> pemilih akun selalu terbuka secara andal.
+
+### 4.4 Troubleshooting
+
+| Gejala | Penyebab & solusi |
+| --- | --- |
+| Toast "Google Sign-In belum siap…" | Client ID kosong di `.env`, dev server belum di-restart, atau ekstensi (adblock) memblokir `accounts.google.com`. Cek Console browser. |
+| Popup terbuka lalu langsung tertutup / "origin mismatch" | Origin halaman tidak terdaftar di **Authorized JavaScript origins** (cek persis: `http://localhost:3000`, bukan `http://127.0.0.1:3000` kecuali memang dipakai). |
+| Popup: "Access blocked: app has not completed verification" / "hanya test user" | Consent screen masih **Testing** → tambahkan email Anda sebagai **Test user**, atau **Publish app**. |
+| "Token Google bukan untuk aplikasi ini (audience mismatch)" | Client ID di `.env` berbeda dengan yang terdaftar di Google Console → samakan, restart dev server. |
+| Klik tombol Google tidak memunculkan popup | Lapisan resmi gagal terpasang — cek tab Network untuk `gsi/client` (matikan adblock), pastikan Console tidak ada error, lalu muat ulang. Bila GSI gagal termuat, tombol custom menampilkan toast penjelasan saat diklik. |
+| Buka via `http://localhost` (Apache) gagal CORS | Pastikan `http://localhost` terdaftar di origins Console **dan** di `$allowed_origins` (`backend/config.php`). |
 
 ---
 

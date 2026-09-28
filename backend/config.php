@@ -23,6 +23,8 @@ $allowed_origins = [
     'http://127.0.0.1:3000',
     'http://localhost:5173',
     'http://127.0.0.1:5173',
+    'http://localhost',       // UI dibuka langsung via Apache/XAMPP
+    'http://127.0.0.1',
 ];
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
 if (in_array($origin, $allowed_origins, true)) {

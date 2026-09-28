@@ -45,7 +45,28 @@ if (!is_array($info) || isset($info['error_description']) || isset($info['error'
 }
 
 // Audience harus cocok dengan Client ID aplikasi (bila dikonfigurasi).
-$clientId = getenv('GOOGLE_CLIENT_ID') ?: '';
+// Client ID dibaca dari .env project (baris VITE_GOOGLE_CLIENT_ID / GOOGLE_CLIENT_ID)
+// karena getenv() Apache umumnya tidak memiliki nilai tersebut.
+if (!function_exists('jagocv_google_client_id')) {
+    function jagocv_google_client_id(): string
+    {
+        $env = getenv('GOOGLE_CLIENT_ID');
+        if (is_string($env) && $env !== '') {
+            return $env;
+        }
+        $envFile = dirname(__DIR__) . '/.env';
+        if (is_readable($envFile)) {
+            $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) ?: [];
+            foreach ($lines as $line) {
+                if (preg_match('/^\s*(?:VITE_)?GOOGLE_CLIENT_ID\s*=\s*"?([^"\s]+)"?\s*$/', $line, $m)) {
+                    return $m[1];
+                }
+            }
+        }
+        return '';
+    }
+}
+$clientId = jagocv_google_client_id();
 if ($clientId !== '' && (string) ($info['aud'] ?? '') !== $clientId) {
     json_fail('Token Google bukan untuk aplikasi ini (audience mismatch).', 401);
 }
