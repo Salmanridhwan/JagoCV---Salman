@@ -1,4 +1,4 @@
-<div class="max-w-6xl mx-auto mt-6">
+<div class="max-w-3xl mx-auto mt-6">
   <!-- Back button -->
   <button
     id="btn-back-from-pricing"
@@ -10,23 +10,84 @@
     Kembali ke Profil
   </button>
 
-  <div class="text-center max-w-3xl mx-auto mb-14">
+  <div class="text-center max-w-2xl mx-auto mb-10">
     <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
       Isi Poin Generate<br />
       <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">Top Up Sekarang</span>
     </h2>
     <p class="text-lg text-slate-600 dark:text-slate-400">
-      Pilih paket poin untuk men-generate CV, Resume, atau Portfolio.
-      Bayar sekali, pakai kapan saja — tanpa langganan bulanan.
+      Ketik nominal top up menggunakan keyboard, atau pilih nominal cepat di bawah.
+      Poin masuk otomatis setelah pembayaran berhasil.
     </p>
   </div>
 
-  <!-- 3 paket utama: Basic / Pro / Premium -->
-  <div id="pricing-cards" class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto items-start">
-    <!-- Kartu paket dirender oleh src/js/views/pricing.ts dari GET /backend/packages.php -->
-  </div>
+  <!-- Kartu utama (putih, bayangan halus) -->
+  <div class="bg-white dark:bg-slate-900/70 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-[0_20px_60px_-25px_rgba(15,23,42,0.25)] p-6 md:p-10">
 
-  <p class="text-center text-xs text-slate-400 dark:text-slate-500 mt-12">
-    Pembayaran diproses melalui halaman payment gateway (simulasi). Poin masuk otomatis setelah pembayaran berhasil.
-  </p>
+    <!-- Label kontainer input -->
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-sm font-bold uppercase tracking-wider text-slate-400">Nominal Top Up</h3>
+      <span class="px-2.5 py-1 rounded-full bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 text-[11px] font-bold uppercase tracking-wide">IDR · Rupiah</span>
+    </div>
+
+    <!-- Kontainer input nominal (fokus utama, arang gelap) -->
+    <div
+      id="topup-amount-box"
+      class="topup-amount-box relative px-6 py-12 md:py-14 cursor-text select-none"
+    >
+      <div class="flex items-center justify-center gap-3 min-h-[4.5rem] flex-wrap">
+        <span id="topup-currency" class="topup-rp is-idle">Rp</span>
+        <span id="topup-amount-text" class="topup-amount-text whitespace-nowrap"></span>
+        <span id="topup-caret" class="topup-caret is-idle" aria-hidden="true"></span>
+      </div>
+      <!-- Input asli (transparan) menutupi seluruh kontainer agar klik & ketikan keyboard fisik langsung terfokus -->
+      <input
+        id="topup-amount-input"
+        type="text"
+        inputmode="numeric"
+        autocomplete="off"
+        spellcheck="false"
+        aria-label="Nominal top up"
+        class="absolute inset-0 w-full h-full opacity-0 cursor-text"
+      />
+    </div>
+
+    <!-- Area sekunder: konfirmasi nilai yang dimasukkan (minimalis, garis tipis) -->
+    <div class="mt-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-900/40 px-5 py-3.5 flex items-center justify-between gap-4">
+      <div class="min-w-0">
+        <p class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Nilai Top Up</p>
+        <p id="topup-confirm" class="text-sm font-semibold text-slate-500 dark:text-slate-400 mt-0.5 truncate">
+          Belum ada nominal dimasukkan
+        </p>
+      </div>
+      <span
+        id="topup-status"
+        class="shrink-0 px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-[11px] font-bold uppercase tracking-wide transition-colors"
+      >Menunggu</span>
+    </div>
+
+    <!-- Divider -->
+    <div class="my-8 border-t border-dashed border-slate-200 dark:border-slate-800"></div>
+
+    <!-- Nominal cepat (IDR) -->
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-base font-bold text-slate-800 dark:text-slate-100">Nominal (IDR)</h3>
+      <p class="text-xs text-slate-400 dark:text-slate-500">Klik untuk mengisi otomatis</p>
+    </div>
+    <div id="topup-quick-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+      <!-- Kartu nominal cepat dirender oleh src/js/views/pricing.ts -->
+    </div>
+
+    <!-- CTA (stub — checkout diaktifkan pada tahap berikutnya) -->
+    <button
+      id="btn-topup-continue"
+      disabled
+      class="mt-8 w-full px-5 py-4 rounded-xl font-bold text-white bg-gradient-to-r from-blue-600 to-cyan-500 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:brightness-105 transition-all disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none"
+    >
+      Lanjutkan ke Pembayaran
+    </button>
+    <p class="text-center text-xs text-slate-400 dark:text-slate-500 mt-3">
+      Antarmuka web desktop — ketik langsung dengan keyboard fisik, tanpa keypad di layar.
+    </p>
+  </div>
 </div>
