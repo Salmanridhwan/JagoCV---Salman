@@ -1,294 +1,270 @@
-<!-- Background Elements (Fixed so they span scrolling) -->
-<div
-  class="fixed top-1/4 left-1/4 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none z-0"
-></div>
-<div
-  class="fixed bottom-1/4 right-1/4 w-[500px] h-[500px] bg-cyan-600/10 rounded-full blur-[120px] pointer-events-none z-0"
-></div>
+<!-- ============================================================= -->
+<!-- LANDING PAGE — Struktur & Visual: desain-baru.png              -->
+<!-- (Hero → Satu Profil → 4 Langkah → Editor AI → Template Navy    -->
+<!--  → Testimoni → Pricing → FAQ → CTA → Footer)                   -->
+<!-- Konten teks: desain-lama.png                                   -->
+<!-- ============================================================= -->
 
-<!-- Top Navigation (Landing) -->
+<!-- ============================================================= -->
+<!-- [1] NAVBAR — logo + link anchor + theme toggle + tombol Masuk   -->
+<!-- ============================================================= -->
 <nav
-  class="w-full fixed top-0 z-50 bg-slate-50/80 dark:bg-[#070B19]/80 backdrop-blur-md border-b border-black/5 dark:border-white/5 transition-all"
->
-  <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-    <div class="flex items-center gap-3">
+  class="w-full fixed top-0 z-50 bg-white/85 dark:bg-[#070B19]/85 backdrop-blur-md border-b border-slate-200/70 dark:border-white/5 transition-all">
+  <div class="max-w-7xl mx-auto px-6 h-[72px] flex items-center justify-between">
+    <div class="flex items-center gap-2.5">
       <div
-        class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-400 flex items-center justify-center text-white font-bold shadow-[0_0_20px_rgba(37,99,235,0.4)] text-xl"
-      >
+        class="w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-lg shadow-[0_0_18px_rgba(37,99,235,0.35)]">
         J
       </div>
-      <span
-        class="font-bold text-slate-900 dark:text-slate-100 tracking-wide text-2xl"
-        >jago<span class="text-blue-400">CV</span></span
-      >
+      <span class="font-bold text-slate-900 dark:text-slate-100 tracking-wide text-xl">jago<span
+          class="text-blue-600 dark:text-blue-400">CV</span></span>
     </div>
-    <div class="flex items-center gap-6">
-      <a
-        href="#features"
-        class="hidden md:block text-slate-700 dark:text-slate-300 hover:text-slate-900 hover:bg-slate-100 dark:hover:bg-white/5 dark:hover:text-white font-medium transition-colors"
-        >Fitur</a
-      >
-      <a
-        href="#how-it-works"
-        class="hidden md:block text-slate-700 dark:text-slate-300 hover:text-slate-900 hover:bg-slate-100 dark:hover:bg-white/5 dark:hover:text-white font-medium transition-colors"
-        >Cara Kerja</a
-      >
-      <a
-        href="#testimonials"
-        class="hidden md:block text-slate-700 dark:text-slate-300 hover:text-slate-900 hover:bg-slate-100 dark:hover:bg-white/5 dark:hover:text-white font-medium transition-colors"
-        >Testimoni</a
-      >
-      <a
-        href="#pricing"
-        class="hidden md:block text-slate-700 dark:text-slate-300 hover:text-slate-900 hover:bg-slate-100 dark:hover:bg-white/5 dark:hover:text-white font-medium transition-colors"
-        >Harga</a
-      >
-      <a
-        href="#faq"
-        class="hidden md:block text-slate-700 dark:text-slate-300 hover:text-slate-900 hover:bg-slate-100 dark:hover:bg-white/5 dark:hover:text-white font-medium transition-colors"
-        >FAQ</a
-      >
+    <div class="flex items-center gap-7">
+      <a href="#features"
+        class="hidden md:block text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">Fitur</a>
+      <a href="#how-it-works"
+        class="hidden md:block text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">Cara
+        Kerja</a>
+      <a href="#testimonials"
+        class="hidden md:block text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">Testimoni</a>
+      <a href="#pricing"
+        class="hidden md:block text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">Harga</a>
+      <a href="#faq"
+        class="hidden md:block text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">FAQ</a>
 
-      <button
-        id="theme-toggle"
-        class="p-2 rounded-full text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors"
-        aria-label="Toggle Theme"
-      >
-        <svg
-          id="theme-icon-dark"
-          class="w-5 h-5 hidden dark:block"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-          ></path>
+      <button id="theme-toggle"
+        class="p-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+        aria-label="Toggle Theme">
+        <svg id="theme-icon-dark" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor"
+          viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
         </svg>
-        <svg
-          id="theme-icon-light"
-          class="w-5 h-5 block dark:hidden"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-          ></path>
+        <svg id="theme-icon-light" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor"
+          viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z">
+          </path>
         </svg>
       </button>
 
-      <button
-        id="btn-nav-login"
-        class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl font-bold transition-all shadow-lg shadow-blue-500/30"
-      >
+      <button id="btn-nav-login"
+        class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2.5 rounded-full font-semibold text-sm transition-all shadow-lg shadow-blue-500/25">
         Masuk
       </button>
     </div>
   </div>
 </nav>
 
-<!-- Hero Section -->
-<section
-  class="relative z-10 w-full min-h-screen flex flex-col items-center justify-center px-6 pt-32 pb-20"
->
-  <div class="flex flex-col items-center text-center max-w-5xl mx-auto">
+<!-- ============================================================= -->
+<!-- [2] HERO — light, mockup browser app (layout desain-baru)       -->
+<!-- ============================================================= -->
+<section id="hero"
+  class="relative z-10 w-full overflow-hidden bg-gradient-to-b from-white via-blue-50/40 to-slate-50 dark:from-[#070B19] dark:via-[#0A1122] dark:to-[#070B19] px-6 pt-32 pb-24">
+  <!-- Ambient blobs -->
+  <div
+    class="absolute -top-32 -left-32 w-[480px] h-[480px] bg-blue-400/10 dark:bg-blue-600/10 rounded-full blur-[130px] pointer-events-none">
+  </div>
+  <div
+    class="absolute top-10 -right-40 w-[520px] h-[520px] bg-cyan-300/15 dark:bg-cyan-600/10 rounded-full blur-[140px] pointer-events-none">
+  </div>
+
+  <div class="max-w-6xl mx-auto flex flex-col items-center text-center relative">
     <div
-      class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900/40 border border-blue-200 dark:border-blue-500/30 text-blue-700 dark:text-blue-300 text-xs font-bold uppercase tracking-widest mb-8 animate-[slideDown_0.5s_ease_forwards] backdrop-blur-sm"
-    >
-      <span
-        class="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400 animate-pulse"
-      ></span>
+      class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white dark:bg-blue-900/30 border border-blue-100 dark:border-blue-500/30 shadow-sm text-blue-700 dark:text-blue-300 text-xs font-bold tracking-wide mb-8 animate-[slideDown_0.5s_ease_forwards]">
+      <span class="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400 animate-pulse"></span>
       Asisten Karir AI Cerdas
     </div>
 
     <h1
-      class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 dark:text-white tracking-tighter mb-6 leading-[1.1] animate-[slideDown_0.6s_ease_forwards]"
-    >
-      Rancang Masa Depanmu,<br />
+      class="text-4xl md:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-6 leading-[1.12] animate-[slideDown_0.6s_ease_forwards]">
+      Lamar Kerja Lebih Cepat,<br />
       <span
-        class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-teal-300"
-        >Mulai dari CV Hebat.</span
-      >
+        class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-blue-400 dark:to-cyan-300">Lolos
+        ATS Lebih Mudah.</span>
     </h1>
 
     <p
-      class="text-lg md:text-2xl text-slate-500 dark:text-slate-400 max-w-3xl mb-12 animate-[slideDown_0.7s_ease_forwards] font-light"
-    >
-      Buat CV berstandar industri dengan mudah, kelola portofolio lebih cepat,
-      dan temukan peluang kerja terbaik—semuanya didukung oleh AI.
+      class="text-lg md:text-xl text-slate-500 dark:text-slate-400 max-w-2xl mb-10 animate-[slideDown_0.7s_ease_forwards] font-normal">
+      Buat CV lulus ATS, portofolio web, dan bio link yang memukau HRD—semua
+      dibuat otomatis oleh AI dalam hitungan menit.
     </p>
 
-    <div
-      class="flex flex-col sm:flex-row items-center gap-5 animate-[slideDown_0.8s_ease_forwards]"
-    >
-      <button
-        id="btn-launch-app"
-        class="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl font-bold text-lg shadow-[0_0_30px_rgba(37,99,235,0.4)] hover:shadow-[0_0_40px_rgba(37,99,235,0.6)] hover:-translate-y-1 transition-all flex items-center gap-3 w-full sm:w-auto justify-center"
-      >
-        Mulai Sekarang
-        <svg
-          class="w-5 h-5 flex-shrink-0"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M14 5l7 7m0 0l-7 7m7-7H3"
-          ></path>
+    <div class="flex flex-col sm:flex-row items-center gap-4 animate-[slideDown_0.8s_ease_forwards]">
+      <button id="btn-launch-app"
+        class="px-8 py-3.5 bg-blue-600 hover:bg-blue-500 text-white rounded-full font-bold text-base shadow-[0_10px_30px_rgba(37,99,235,0.35)] hover:shadow-[0_14px_40px_rgba(37,99,235,0.5)] hover:-translate-y-0.5 transition-all flex items-center gap-2 w-full sm:w-auto justify-center">
+        Mulai Sekarang — Gratis
+        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
         </svg>
       </button>
-      <a
-        href="#features"
-        class="px-8 py-4 bg-white/80 dark:bg-slate-800/80 hover:bg-slate-200/80 dark:hover:bg-slate-700/80 backdrop-blur-sm border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-2xl font-semibold text-lg transition-all flex items-center gap-3 w-full sm:w-auto justify-center group"
-      >
-        <div
-          class="w-6 h-6 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center group-hover:bg-slate-300 dark:group-hover:bg-slate-600 transition-colors"
-        >
-          <svg
-            class="w-3 h-3 ml-0.5 text-slate-700 dark:text-slate-300"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-          >
-            <path d="M8 5v14l11-7z"></path>
-          </svg>
-        </div>
+      <a href="#features"
+        class="px-8 py-3.5 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-full font-semibold text-base transition-all flex items-center gap-2 w-full sm:w-auto justify-center shadow-sm">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+          </path>
+        </svg>
         Lihat Demo
       </a>
     </div>
 
-    <!-- Hero Mockups Gallery -->
-    <div
-      class="mt-24 w-full max-w-6xl relative h-80 md:h-[400px] flex justify-center items-end animate-[fadeIn_1s_ease_forwards_0.5s] pointer-events-none"
-    >
-      <!-- Left: ATS CV -->
-      <div
-        class="absolute left-0 -bottom-24 md:left-[10%] w-[280px] h-[440px] bg-[#0f172a] rounded-t-2xl border-t border-x border-slate-300/80 dark:border-slate-700/80 shadow-2xl skew-y-3 -rotate-6 origin-bottom-right transition-transform duration-700 overflow-hidden z-10 opacity-70"
-      >
-        <div class="w-full h-2 bg-blue-500"></div>
-        <div class="p-6 space-y-4">
-          <!-- Header Mock -->
-          <div
-            class="text-center border-b border-slate-200 dark:border-slate-800 pb-4"
-          >
-            <div
-              class="w-3/4 h-5 bg-slate-100 dark:bg-slate-700 mx-auto rounded mb-3"
-            ></div>
-            <div
-              class="w-1/2 h-3 bg-white dark:bg-slate-800 mx-auto rounded"
-            ></div>
-          </div>
-          <!-- Content Mock -->
-          <div
-            class="w-32 h-3 bg-slate-100 dark:bg-slate-700 rounded mb-2"
-          ></div>
-          <div class="w-full h-2 bg-white dark:bg-slate-800 rounded"></div>
-          <div class="w-full h-2 bg-white dark:bg-slate-800 rounded"></div>
-          <div class="w-5/6 h-2 bg-white dark:bg-slate-800 rounded"></div>
-        </div>
-      </div>
+    <p
+      class="mt-6 text-xs font-semibold text-slate-400 dark:text-slate-500 tracking-wide animate-[fadeIn_0.9s_ease_forwards]">
+      ⭐ 4.9/5 dari 12.000+ Pengguna
+    </p>
 
-      <!-- Center: Portofolio Interaktif (Hero Item) -->
+    <!-- Hero Mockup: Browser App Window -->
+    <div class="mt-16 w-full max-w-5xl relative animate-[fadeIn_1s_ease_forwards_0.4s]">
+      <!-- Main browser window -->
       <div
-        class="absolute -bottom-24 w-[80%] md:w-[600px] h-[460px] md:h-[500px] bg-gradient-to-br from-slate-100 dark:from-slate-900 to-white dark:to-[#070b19] rounded-t-2xl border-t-2 border-x-2 border-blue-500/50 shadow-[0_-20px_50px_rgba(37,99,235,0.2)] z-30 transition-transform duration-700 overflow-hidden flex flex-col"
-      >
-        <!-- Browser Chrome -->
+        class="relative rounded-2xl bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-700/80 shadow-[0_30px_80px_-20px_rgba(37,99,235,0.25)] dark:shadow-[0_30px_80px_-20px_rgba(0,0,0,0.8)] overflow-hidden pointer-events-none">
+        <!-- Browser chrome -->
         <div
-          class="w-full h-12 bg-slate-100/80 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 flex items-center px-4 gap-2"
-        >
+          class="w-full h-11 bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center px-4 gap-2">
           <div class="flex gap-1.5">
-            <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
-            <div class="w-3 h-3 rounded-full bg-amber-500/80"></div>
-            <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+            <div class="w-3 h-3 rounded-full bg-red-400"></div>
+            <div class="w-3 h-3 rounded-full bg-amber-400"></div>
+            <div class="w-3 h-3 rounded-full bg-green-400"></div>
           </div>
           <div
-            class="mx-auto w-1/2 h-6 bg-slate-50 dark:bg-slate-950 rounded-md border border-slate-200 dark:border-slate-800 flex items-center justify-center"
-          >
-            <div class="w-32 h-2 bg-white dark:bg-slate-800 rounded"></div>
+            class="mx-auto w-1/3 h-6 bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 flex items-center justify-center gap-1.5">
+            <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+              </path>
+            </svg>
+            <div class="w-24 h-2 bg-slate-200 dark:bg-slate-700 rounded"></div>
           </div>
+          <div class="w-10"></div>
         </div>
-        <!-- Portfolio Content -->
-        <div
-          class="relative flex-1 p-8 flex flex-col items-center justify-center"
-        >
-          <div
-            class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.1)_0%,transparent_70%)]"
-          ></div>
-          <div
-            class="w-24 h-24 rounded-full bg-blue-500/20 border-2 border-blue-500/40 mb-6 backdrop-blur-sm"
-          ></div>
-          <div class="w-64 h-8 bg-slate-100/90 rounded-lg mb-4"></div>
-          <div class="w-96 h-4 bg-slate-400/60 rounded mb-8"></div>
-          <!-- Grid mock -->
-          <div class="w-full grid grid-cols-3 gap-4">
-            <div
-              class="h-24 bg-white/80 dark:bg-slate-800/80 rounded border border-slate-300 dark:border-slate-700"
-            ></div>
-            <div
-              class="h-24 bg-white/80 dark:bg-slate-800/80 rounded border border-slate-300 dark:border-slate-700"
-            ></div>
-            <div
-              class="h-24 bg-white/80 dark:bg-slate-800/80 rounded border border-slate-300 dark:border-slate-700"
-            ></div>
-          </div>
-        </div>
-      </div>
 
-      <!-- Right: Visual Resume -->
-      <div
-        class="absolute right-0 -bottom-24 md:right-[10%] w-[280px] h-[440px] bg-slate-100 dark:bg-slate-900 rounded-t-2xl border-t border-x border-slate-300/80 dark:border-slate-700/80 shadow-2xl -skew-y-3 rotate-6 origin-bottom-left transition-transform duration-700 overflow-hidden z-20 opacity-80"
-      >
-        <div class="w-full h-full flex">
+        <!-- App content mock -->
+        <div class="flex w-full h-[380px] md:h-[440px]">
           <!-- Sidebar -->
           <div
-            class="w-1/3 h-full bg-white dark:bg-slate-800 border-r border-slate-300 dark:border-slate-700 p-4 flex flex-col items-center"
-          >
-            <div class="w-12 h-12 bg-slate-600 rounded-full mb-4"></div>
+            class="hidden md:flex w-56 flex-col gap-3 bg-slate-50/80 dark:bg-slate-900/60 border-r border-slate-200 dark:border-slate-800 p-5">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-600 to-cyan-400"></div>
+              <div class="w-20 h-2.5 bg-slate-800 dark:bg-slate-300 rounded"></div>
+            </div>
+            <div class="w-full h-9 rounded-lg bg-blue-600/90 flex items-center px-3 gap-2">
+              <div class="w-3.5 h-3.5 rounded bg-white/50"></div>
+              <div class="w-16 h-2 bg-white/80 rounded"></div>
+            </div>
             <div
-              class="w-full h-2 bg-slate-100 dark:bg-slate-700 rounded mb-2"
-            ></div>
-            <div class="w-3/4 h-2 bg-slate-100 dark:bg-slate-700 rounded"></div>
-          </div>
-          <!-- Main Area -->
-          <div class="w-2/3 p-4 space-y-4">
-            <div class="w-full h-8 bg-blue-500/20 rounded"></div>
-            <div class="space-y-2">
-              <div
-                class="w-full h-2 bg-slate-100 dark:bg-slate-700 rounded"
-              ></div>
-              <div
-                class="w-full h-2 bg-slate-100 dark:bg-slate-700 rounded"
-              ></div>
-              <div
-                class="w-4/5 h-2 bg-slate-100 dark:bg-slate-700 rounded"
-              ></div>
+              class="w-full h-9 rounded-lg border border-slate-200 dark:border-slate-700 flex items-center px-3 gap-2">
+              <div class="w-3.5 h-3.5 rounded bg-slate-300 dark:bg-slate-600"></div>
+              <div class="w-14 h-2 bg-slate-300 dark:bg-slate-600 rounded"></div>
+            </div>
+            <div
+              class="w-full h-9 rounded-lg border border-slate-200 dark:border-slate-700 flex items-center px-3 gap-2">
+              <div class="w-3.5 h-3.5 rounded bg-slate-300 dark:bg-slate-600"></div>
+              <div class="w-20 h-2 bg-slate-300 dark:bg-slate-600 rounded"></div>
+            </div>
+            <div
+              class="mt-auto w-full h-12 rounded-xl bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800/50 p-2.5">
+              <div class="w-2/3 h-2 bg-blue-400/70 rounded mb-1.5"></div>
+              <div class="w-1/2 h-2 bg-blue-300/60 rounded"></div>
             </div>
           </div>
+
+          <!-- Main panel -->
+          <div class="flex-1 p-6 md:p-8">
+            <div class="w-1/2 h-4 bg-slate-800 dark:bg-slate-200 rounded mb-2"></div>
+            <div class="w-1/3 h-2.5 bg-slate-300 dark:bg-slate-600 rounded mb-6"></div>
+
+            <div class="grid grid-cols-2 gap-4 mb-4">
+              <div
+                class="h-11 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 p-3">
+                <div class="w-1/2 h-2 bg-slate-300 dark:bg-slate-600 rounded"></div>
+              </div>
+              <div
+                class="h-11 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 p-3">
+                <div class="w-2/3 h-2 bg-slate-300 dark:bg-slate-600 rounded"></div>
+              </div>
+            </div>
+
+            <div
+              class="w-full h-24 rounded-xl border-2 border-dashed border-blue-300 dark:border-blue-700 bg-blue-50/50 dark:bg-blue-900/10 mb-4 flex items-center justify-center">
+              <div class="w-32 h-2.5 bg-blue-400/50 rounded"></div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-3">
+              <div class="h-16 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
+              </div>
+              <div class="h-16 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
+              </div>
+              <div class="h-16 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
+              </div>
+            </div>
+
+            <div class="mt-6 flex justify-end">
+              <div class="w-36 h-9 rounded-full bg-blue-600 flex items-center justify-center">
+                <div class="w-20 h-2 bg-white/80 rounded"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Floating card kanan: rating card -->
+      <div
+        class="hidden lg:block absolute -right-14 top-10 w-60 bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-700 rounded-2xl shadow-2xl p-5 rotate-3 z-10 pointer-events-none">
+        <div class="flex gap-1 text-amber-400 mb-2">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+        </div>
+        <div class="w-3/4 h-2.5 bg-slate-800 dark:bg-slate-300 rounded mb-1.5"></div>
+        <div class="w-1/2 h-2 bg-slate-300 dark:bg-slate-600 rounded mb-3"></div>
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-full bg-blue-500"></div>
+          <div class="w-20 h-2 bg-slate-200 dark:bg-slate-700 rounded"></div>
+        </div>
+      </div>
+
+      <!-- Floating card kiri: CV ATS -->
+      <div
+        class="hidden lg:block absolute -left-16 top-20 w-52 rounded-2xl bg-[#0F172A] border border-slate-700/60 shadow-2xl p-4 -rotate-3 z-10 pointer-events-none">
+        <div class="w-full h-1.5 bg-blue-500 rounded mb-3"></div>
+        <div class="w-3/4 h-2.5 bg-slate-200 rounded mx-auto mb-1.5"></div>
+        <div class="w-1/2 h-1.5 bg-slate-500 rounded mx-auto mb-3"></div>
+        <div class="space-y-1.5 mt-3 pt-3 border-t border-slate-700/60">
+          <div class="w-full h-1.5 bg-slate-600 rounded"></div>
+          <div class="w-full h-1.5 bg-slate-600 rounded"></div>
+          <div class="w-5/6 h-1.5 bg-slate-600 rounded"></div>
+          <div class="w-4/6 h-1.5 bg-slate-700 rounded"></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Dokumen Formats Section -->
-<section
-  id="features"
-  class="relative z-10 w-full bg-slate-100/40 dark:bg-slate-900/40 border-y border-slate-200/60 dark:border-slate-800/60 py-32 backdrop-blur-md"
->
-  <div class="max-w-7xl mx-auto px-6">
-    <div class="text-center mb-20">
-      <h2
-        class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight"
-      >
+<!-- ============================================================= -->
+<!-- [3] SATU PROFIL, BERAGAM FORMAT (light) — 3 kartu fitur         -->
+<!-- ============================================================= -->
+<section id="features" class="relative z-10 w-full py-28 px-6 bg-white dark:bg-[#070B19] overflow-hidden">
+  <div
+    class="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-blue-500/5 dark:bg-blue-600/10 rounded-full blur-[140px] pointer-events-none">
+  </div>
+
+  <div class="max-w-7xl mx-auto relative">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-5 tracking-tight">
         Satu Profil, Beragam Format Profesional
       </h2>
       <p class="text-slate-500 dark:text-slate-400 text-lg max-w-2xl mx-auto">
@@ -298,287 +274,153 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <!-- Feature 1 -->
+      <!-- Kartu 1: CV Optimal ATS -->
       <div
-        class="bg-white/40 dark:bg-slate-800/40 p-8 rounded-3xl border border-slate-300/50 dark:border-slate-700/50 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:border-blue-500/30 transition-all group flex flex-col"
-      >
+        class="bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-2xl p-8 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all group flex flex-col">
         <div
-          class="w-14 h-14 bg-blue-100 dark:bg-blue-900/40 rounded-2xl flex items-center justify-center text-blue-600 dark:text-blue-400 mb-6 group-hover:scale-110 transition-transform"
-        >
-          <svg
-            class="w-7 h-7"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="1.5"
-              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-            ></path>
+          class="w-12 h-12 bg-blue-50 dark:bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-600 dark:text-blue-400 mb-6 group-hover:scale-110 transition-transform">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+            </path>
           </svg>
         </div>
-        <h3 class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-3">
-          CV Optimal ATS
-        </h3>
-        <p class="text-slate-500 dark:text-slate-400 leading-relaxed flex-1">
+        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">CV Optimal ATS</h3>
+        <p class="text-slate-500 dark:text-slate-400 leading-relaxed text-[15px] flex-1">
           Tanpa tabel, tanpa grafik. Hanya gaya markdown murni dan semantik yang
           dirancang untuk lolos dengan sempurna di Workday, Greenhouse, dan
           sistem ATS perusahaan top lainnya.
         </p>
 
-        <div
-          class="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700/50 w-full"
-        >
-          <div
-            class="text-sm font-bold text-slate-900 dark:text-slate-200 mb-4 flex items-center gap-2"
-          >
-            <svg
-              class="w-4 h-4 text-blue-500"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-              ></path>
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-              ></path>
+        <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 w-full">
+          <div class="text-xs font-bold text-slate-500 dark:text-slate-400 mb-4 flex items-center gap-2">
+            <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+              </path>
             </svg>
             Pratinjau Format
           </div>
           <div
-            class="w-full rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-4 relative overflow-hidden group-hover:border-blue-500/50 transition-colors"
-          >
-            <!-- Miniature ATS Layout -->
-            <div
-              class="w-1/3 h-3 bg-slate-800 dark:bg-slate-200 rounded mx-auto mb-2"
-            ></div>
-            <div
-              class="w-1/4 h-2 bg-slate-400 dark:bg-slate-500 rounded mx-auto mb-4"
-            ></div>
-            <div class="w-full h-px bg-slate-300 dark:bg-slate-700 mb-3"></div>
-            <div
-              class="w-1/4 h-2.5 bg-slate-600 dark:bg-slate-400 rounded mb-2"
-            ></div>
+            class="w-full rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 relative overflow-hidden group-hover:border-blue-400/60 transition-colors">
+            <div class="w-1/3 h-3 bg-slate-800 dark:bg-slate-300 rounded mx-auto mb-2"></div>
+            <div class="w-1/4 h-2 bg-slate-400 dark:bg-slate-600 rounded mx-auto mb-4"></div>
+            <div class="w-full h-px bg-slate-200 dark:bg-slate-800 mb-3"></div>
+            <div class="w-1/4 h-2.5 bg-slate-600 dark:bg-slate-400 rounded mb-2"></div>
             <div class="w-full flex justify-between mb-2">
-              <div
-                class="w-1/3 h-2 bg-slate-800 dark:bg-slate-300 rounded"
-              ></div>
-              <div
-                class="w-1/5 h-2 bg-slate-400 dark:bg-slate-500 rounded"
-              ></div>
+              <div class="w-1/3 h-2 bg-slate-800 dark:bg-slate-300 rounded"></div>
+              <div class="w-1/5 h-2 bg-slate-400 dark:bg-slate-600 rounded"></div>
             </div>
             <div class="space-y-1.5 pl-3">
-              <div
-                class="w-[90%] h-1.5 bg-slate-300 dark:bg-slate-600 rounded"
-              ></div>
-              <div
-                class="w-[85%] h-1.5 bg-slate-300 dark:bg-slate-600 rounded"
-              ></div>
+              <div class="w-[90%] h-1.5 bg-slate-300 dark:bg-slate-700 rounded"></div>
+              <div class="w-[85%] h-1.5 bg-slate-300 dark:bg-slate-700 rounded"></div>
             </div>
-            <!-- Fede out gradient -->
             <div
-              class="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-white dark:from-slate-900 to-transparent"
-            ></div>
+              class="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-slate-50 dark:from-slate-900 to-transparent">
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Feature 2 -->
+      <!-- Kartu 2: Portfolio Web Visual -->
       <div
-        class="bg-white/40 dark:bg-slate-800/40 p-8 rounded-3xl border border-slate-300/50 dark:border-slate-700/50 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:border-indigo-500/30 transition-all group flex flex-col"
-      >
+        class="bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-2xl p-8 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all group flex flex-col">
         <div
-          class="w-14 h-14 bg-indigo-100 dark:bg-indigo-900/40 rounded-2xl flex items-center justify-center text-indigo-600 dark:text-indigo-400 mb-6 group-hover:scale-110 transition-transform"
-        >
-          <svg
-            class="w-7 h-7"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="1.5"
-              d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
-            ></path>
+          class="w-12 h-12 bg-blue-50 dark:bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-600 dark:text-blue-400 mb-6 group-hover:scale-110 transition-transform">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+              d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01">
+            </path>
           </svg>
         </div>
-        <h3 class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-3">
-          Portfolio Web Visual
-        </h3>
-        <p class="text-slate-500 dark:text-slate-400 leading-relaxed flex-1">
+        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Portfolio Web Visual</h3>
+        <p class="text-slate-500 dark:text-slate-400 leading-relaxed text-[15px] flex-1">
           Tampil menonjol secara visual di mata perekrut (manusia). Tipografi
           indah, menu samping, dan tata letak modern yang dikompilasi menjadi
           dokumen presentasi web rapi.
         </p>
 
-        <div
-          class="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700/50 w-full"
-        >
-          <div
-            class="text-sm font-bold text-slate-900 dark:text-slate-200 mb-4 flex items-center gap-2"
-          >
-            <svg
-              class="w-4 h-4 text-indigo-500"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-              ></path>
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-              ></path>
+        <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 w-full">
+          <div class="text-xs font-bold text-slate-500 dark:text-slate-400 mb-4 flex items-center gap-2">
+            <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+              </path>
             </svg>
             Pratinjau Format
           </div>
           <div
-            class="w-full rounded-xl bg-slate-50 dark:bg-[#070B19] border border-slate-200 dark:border-slate-700 overflow-hidden relative group-hover:border-indigo-500/50 transition-colors flex h-[140px]"
-          >
-            <!-- Sidebar -->
+            class="w-full rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden relative group-hover:border-blue-400/60 transition-colors flex h-[140px]">
             <div
-              class="w-1/3 h-full bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 p-3 flex flex-col gap-2"
-            >
-              <div
-                class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 mb-1"
-              ></div>
-              <div
-                class="w-full h-1.5 bg-slate-300 dark:bg-slate-700 rounded mt-2"
-              ></div>
-              <div
-                class="w-2/3 h-1 bg-slate-200 dark:bg-slate-800 rounded"
-              ></div>
-              <div
-                class="w-full h-px bg-slate-200 dark:bg-slate-800 my-1"
-              ></div>
-              <div
-                class="w-full h-1 bg-slate-200 dark:bg-slate-700 rounded"
-              ></div>
-              <div
-                class="w-3/4 h-1 bg-slate-200 dark:bg-slate-700 rounded"
-              ></div>
+              class="w-1/3 h-full bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-800 p-3 flex flex-col gap-2">
+              <div class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 mb-1"></div>
+              <div class="w-full h-1.5 bg-slate-300 dark:bg-slate-700 rounded mt-2"></div>
+              <div class="w-2/3 h-1 bg-slate-200 dark:bg-slate-800 rounded"></div>
+              <div class="w-full h-px bg-slate-200 dark:bg-slate-800 my-1"></div>
+              <div class="w-full h-1 bg-slate-200 dark:bg-slate-800 rounded"></div>
+              <div class="w-3/4 h-1 bg-slate-200 dark:bg-slate-800 rounded"></div>
             </div>
-            <!-- Main Content -->
-            <div class="flex-1 p-4 bg-slate-50 dark:bg-[#0B1221]">
-              <div
-                class="w-1/2 h-3 bg-slate-800 dark:bg-slate-200 rounded mb-2"
-              ></div>
-              <div class="w-1/3 h-1.5 bg-indigo-500/50 rounded mb-4"></div>
+            <div class="flex-1 p-4 bg-white dark:bg-slate-900">
+              <div class="w-1/2 h-3 bg-slate-800 dark:bg-slate-300 rounded mb-2"></div>
+              <div class="w-1/3 h-1.5 bg-blue-500/50 rounded mb-4"></div>
               <div class="grid grid-cols-1 gap-2">
                 <div
-                  class="h-10 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-2 border-l-4 border-l-indigo-500"
-                >
-                  <div
-                    class="w-1/2 h-1.5 bg-slate-800 dark:bg-slate-300 rounded mb-1.5"
-                  ></div>
-                  <div
-                    class="w-3/4 h-1 bg-slate-400 dark:bg-slate-500 rounded"
-                  ></div>
+                  class="h-10 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-800 p-2 border-l-4 border-l-blue-500">
+                  <div class="w-1/2 h-1.5 bg-slate-800 dark:bg-slate-300 rounded mb-1.5"></div>
+                  <div class="w-3/4 h-1 bg-slate-400 dark:bg-slate-600 rounded"></div>
                 </div>
               </div>
             </div>
-            <!-- Fede out gradient -->
             <div
-              class="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-slate-50 dark:from-[#0B1221] to-transparent"
-            ></div>
+              class="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-slate-50 dark:from-slate-900 to-transparent">
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Feature 3 -->
+      <!-- Kartu 3: Tautan Bio Profil -->
       <div
-        class="bg-white/40 dark:bg-slate-800/40 p-8 rounded-3xl border border-slate-300/50 dark:border-slate-700/50 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:border-cyan-500/30 transition-all group flex flex-col"
-      >
+        class="bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-2xl p-8 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all group flex flex-col">
         <div
-          class="w-14 h-14 bg-cyan-100 dark:bg-cyan-900/40 rounded-2xl flex items-center justify-center text-cyan-600 dark:text-cyan-400 mb-6 group-hover:scale-110 transition-transform"
-        >
-          <svg
-            class="w-7 h-7"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="1.5"
-              d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
-            ></path>
+          class="w-12 h-12 bg-blue-50 dark:bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-600 dark:text-blue-400 mb-6 group-hover:scale-110 transition-transform">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+              d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9">
+            </path>
           </svg>
         </div>
-        <h3 class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-3">
-          Tautan Bio Profil
-        </h3>
-        <p class="text-slate-500 dark:text-slate-400 leading-relaxed flex-1">
+        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Tautan Bio Profil</h3>
+        <p class="text-slate-500 dark:text-slate-400 leading-relaxed text-[15px] flex-1">
           Ubah pengalaman Anda menjadi situs portofolio mini. Tampilan memukau,
           tata letak khusus ponsel, ideal untuk dipasang di bio Instagram/TikTok
           pendukung CV utama.
         </p>
 
-        <div
-          class="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700/50 w-full"
-        >
-          <div
-            class="text-sm font-bold text-slate-900 dark:text-slate-200 mb-4 flex items-center gap-2"
-          >
-            <svg
-              class="w-4 h-4 text-cyan-500"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-              ></path>
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-              ></path>
+        <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 w-full">
+          <div class="text-xs font-bold text-slate-500 dark:text-slate-400 mb-4 flex items-center gap-2">
+            <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+              </path>
             </svg>
             Pratinjau Format
           </div>
           <div class="w-full flex justify-center">
             <div
-              class="w-[100px] h-[140px] rounded-[1.5rem] bg-[#0F172A] border-[4px] border-slate-300 dark:border-slate-700 relative overflow-hidden group-hover:border-cyan-500/50 transition-colors p-3 flex flex-col items-center"
-            >
+              class="w-[100px] h-[140px] rounded-[1.5rem] bg-[#0F172A] border-[4px] border-slate-700 relative overflow-hidden group-hover:border-blue-500/60 transition-colors p-3 flex flex-col items-center">
               <div class="w-2 h-0.5 bg-slate-600 rounded-full mb-3"></div>
-              <!-- notch -->
-              <div
-                class="w-10 h-10 rounded-full bg-cyan-900 border-2 border-cyan-500 mb-2"
-              ></div>
+              <div class="w-10 h-10 rounded-full bg-slate-800 border-2 border-cyan-500 mb-2"></div>
               <div class="w-16 h-1.5 bg-white rounded mb-1.5"></div>
               <div class="w-10 h-1 bg-cyan-400 rounded mb-4"></div>
-
               <div class="w-full space-y-2 mt-auto">
-                <div
-                  class="w-full h-5 bg-cyan-900/50 rounded-md border border-cyan-500/40"
-                ></div>
-                <div
-                  class="w-full h-5 bg-slate-800 rounded-md border border-slate-700 shadow-sm"
-                ></div>
+                <div class="w-full h-5 bg-slate-800 rounded-md border border-cyan-500/40"></div>
+                <div class="w-full h-5 bg-slate-900 rounded-md border border-slate-700"></div>
               </div>
             </div>
           </div>
@@ -588,48 +430,224 @@
   </div>
 </section>
 
-<!-- Interactive AI Chat Section Demo -->
-<section id="how-it-works" class="relative z-10 w-full py-32 overflow-hidden">
-  <!-- Decoration -->
+<!-- ============================================================= -->
+<!-- [4] 4 LANGKAH CEPAT MENUJU KARIER SUKSES (light)                -->
+<!--     Badge + heading 2 warna + stepper + kartu simulasi AI       -->
+<!-- ============================================================= -->
+<section id="how-it-works" class="relative z-10 w-full py-28 px-6 bg-slate-50 dark:bg-[#0A1122] overflow-hidden">
   <div
-    class="absolute right-0 top-1/2 -translate-y-1/2 w-1/2 h-full bg-[radial-gradient(ellipse_at_right,rgba(37,99,235,0.05)_0%,transparent_70%)] pointer-events-none"
-  ></div>
+    class="absolute -top-24 right-0 w-[500px] h-[400px] bg-blue-400/10 dark:bg-blue-600/10 rounded-full blur-[130px] pointer-events-none">
+  </div>
 
+  <div class="max-w-6xl mx-auto relative">
+    <div class="text-center mb-16">
+      <div
+        class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white dark:bg-blue-900/30 border border-blue-100 dark:border-blue-500/30 shadow-sm text-blue-600 dark:text-blue-400 text-[11px] font-bold tracking-widest uppercase mb-6">
+        Cara Kerja
+      </div>
+      <h2 class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-5 tracking-tight leading-tight">
+        4 Langkah Cepat Menuju<br />
+        <span class="text-blue-600 dark:text-blue-400">Karier Sukses</span>
+      </h2>
+      <p class="text-slate-500 dark:text-slate-400 text-lg max-w-2xl mx-auto">
+        Dari informasi mentah menjadi dokumen lamaran yang siap kirim dalam
+        hitungan menit—semua ditangani AI.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <!-- Stepper vertikal (kiri) -->
+      <ol class="lg:col-span-5 relative space-y-10">
+        <div class="absolute left-[23px] top-4 bottom-4 w-px bg-slate-200 dark:bg-slate-800 hidden sm:block"></div>
+
+        <li class="relative flex gap-6 items-start">
+          <div
+            class="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center font-bold text-lg shadow-[0_8px_20px_rgba(37,99,235,0.35)] flex-shrink-0 relative z-10">
+            1
+          </div>
+          <div class="pt-1.5">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1.5">
+              Isi Data Diri &amp; Pengalaman
+            </h3>
+            <p class="text-slate-500 dark:text-slate-400 text-[15px] leading-relaxed">
+              Masukkan riwayat pendidikan, pengalaman kerja, dan keahlian—cukup
+              sekali isi untuk semua format dokumen.
+            </p>
+          </div>
+        </li>
+
+        <li class="relative flex gap-6 items-start">
+          <div
+            class="w-12 h-12 rounded-2xl bg-white dark:bg-[#101A30] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 flex items-center justify-center font-bold text-lg shadow-sm flex-shrink-0 relative z-10">
+            2
+          </div>
+          <div class="pt-1.5">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1.5">
+              Pilih Template &amp; Format
+            </h3>
+            <p class="text-slate-500 dark:text-slate-400 text-[15px] leading-relaxed">
+              Tentukan apakah output Anda CV ATS, Web Portofolio, atau Link in
+              Bio, lalu pilih tema yang paling sesuai.
+            </p>
+          </div>
+        </li>
+
+        <li class="relative flex gap-6 items-start">
+          <div
+            class="w-12 h-12 rounded-2xl bg-white dark:bg-[#101A30] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 flex items-center justify-center font-bold text-lg shadow-sm flex-shrink-0 relative z-10">
+            3
+          </div>
+          <div class="pt-1.5">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1.5">
+              AI Menyusun Otomatis
+            </h3>
+            <p class="text-slate-500 dark:text-slate-400 text-[15px] leading-relaxed">
+              AI merapikan struktur, memperkaya poin pencapaian dengan action
+              verbs, dan memastikan format lolos ATS.
+            </p>
+          </div>
+        </li>
+
+        <li class="relative flex gap-6 items-start">
+          <div
+            class="w-12 h-12 rounded-2xl bg-white dark:bg-[#101A30] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 flex items-center justify-center font-bold text-lg shadow-sm flex-shrink-0 relative z-10">
+            4
+          </div>
+          <div class="pt-1.5">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1.5">
+              Unduh &amp; Bagikan
+            </h3>
+            <p class="text-slate-500 dark:text-slate-400 text-[15px] leading-relaxed">
+              Ekspor PDF berkualitas tinggi atau bagikan tautan portofolio
+              online Anda ke mana saja.
+            </p>
+          </div>
+        </li>
+      </ol>
+
+      <!-- Kartu simulasi AI (kanan) -->
+      <div class="lg:col-span-7 relative">
+        <div class="absolute inset-0 bg-blue-500/10 blur-[70px] rounded-full pointer-events-none"></div>
+        <div
+          class="relative bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-700/60 rounded-3xl shadow-[0_30px_70px_-20px_rgba(37,99,235,0.25)] p-6 md:p-8">
+          <!-- Header + progress -->
+          <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center gap-2.5">
+              <div
+                class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-cyan-400 flex items-center justify-center">
+                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z">
+                  </path>
+                </svg>
+              </div>
+              <span class="text-sm font-bold text-slate-900 dark:text-white">AI Assistant</span>
+            </div>
+            <div
+              class="flex items-center gap-2 text-xs font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10 px-3 py-1.5 rounded-full">
+              <span class="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
+              85% Selesai
+            </div>
+          </div>
+
+          <!-- Progress bar -->
+          <div class="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-full mb-8 overflow-hidden">
+            <div class="h-full w-[85%] bg-gradient-to-r from-blue-600 to-cyan-400 rounded-full"></div>
+          </div>
+
+          <!-- Raw input -->
+          <div class="mb-6">
+            <div class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-2">
+              Input Mentah
+            </div>
+            <div
+              class="rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+              kerja di PT Maju Jaya, pegang sosmed, jualan naik,
+              bikin konten, dll.
+            </div>
+          </div>
+
+          <!-- Output AI -->
+          <div class="mb-8">
+            <div
+              class="text-[11px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-2 flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z">
+                </path>
+              </svg>
+              Output AI
+            </div>
+            <div
+              class="rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-100 dark:border-blue-500/30 p-4 text-sm text-slate-700 dark:text-slate-200 leading-relaxed">
+              Digital Marketing Specialist yang mengelola media sosial dan
+              kampanye penjualan, meningkatkan konversi hingga 40% melalui
+              strategi konten yang terukur.
+            </div>
+          </div>
+
+          <!-- Log AI -->
+          <div class="space-y-2.5">
+            <div class="flex items-center gap-2.5 text-xs text-slate-500 dark:text-slate-400">
+              <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+              </svg>
+              Struktur CV ATS terdeteksi...
+            </div>
+            <div class="flex items-center gap-2.5 text-xs text-slate-500 dark:text-slate-400">
+              <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+              </svg>
+              Poin pencapaian diperkaya dengan action verbs...
+            </div>
+            <div class="flex items-center gap-2.5 text-xs text-slate-500 dark:text-slate-400">
+              <span
+                class="w-4 h-4 rounded-full border-2 border-blue-500 border-t-transparent animate-spin shrink-0"></span>
+              Menyempurnakan format akhir...
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================= -->
+<!-- [5] PILIH BAGIAN, TINGGALKAN KOMENTAR (light) — editor AI       -->
+<!-- ============================================================= -->
+<section class="relative z-10 w-full py-28 px-6 bg-white dark:bg-[#070B19] overflow-hidden">
   <div
-    class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
-  >
-    <!-- Text Content -->
+    class="absolute right-0 top-1/2 -translate-y-1/2 w-1/2 h-full bg-[radial-gradient(ellipse_at_right,rgba(37,99,235,0.06)_0%,transparent_70%)] pointer-events-none">
+  </div>
+
+  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative">
+    <!-- Teks kiri -->
     <div>
       <div
-        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-900/30 border border-blue-800 text-blue-400 text-[11px] font-bold uppercase tracking-wider mb-6"
-      >
+        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800 text-blue-600 dark:text-blue-400 text-[11px] font-bold uppercase tracking-wider mb-6">
         Alat Editor AI
       </div>
-      <h2
-        class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight leading-[1.2]"
-      >
+      <h2 class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight leading-[1.2]">
         Pilih Bagian, <br />Tinggalkan Komentar.
       </h2>
-      <p
-        class="text-slate-500 dark:text-slate-400 text-lg mb-8 leading-relaxed"
-      >
+      <p class="text-slate-500 dark:text-slate-400 text-lg mb-8 leading-relaxed">
         Lupakan instruksi global yang membingungkan. Cukup
-        <strong>pilih bagian mana saja</strong> pada resume Anda dan berikan
-        komentar tentang apa yang ingin Anda ubah atau tingkatkan.
+        <strong class="text-slate-700 dark:text-slate-200">pilih bagian mana saja</strong> pada resume Anda dan berikan
+        komentar tentang apa yang ingin Anda
+        ubah atau tingkatkan.
       </p>
 
       <ul class="space-y-5">
         <li class="flex items-start gap-4">
           <div
-            class="mt-1 w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-400 flex-shrink-0"
-          >
+            class="mt-1 w-7 h-7 rounded-full bg-blue-50 dark:bg-blue-500/10 flex items-center justify-center text-blue-600 dark:text-blue-400 text-sm font-bold flex-shrink-0">
             1
           </div>
           <div>
-            <h4 class="text-slate-800 dark:text-slate-200 font-semibold mb-1">
+            <h4 class="text-slate-900 dark:text-slate-100 font-semibold mb-1">
               Pilih Bagian
             </h4>
-            <p class="text-slate-500 text-sm">
+            <p class="text-slate-500 dark:text-slate-400 text-sm">
               Klik langsung pada paragraf, pengalaman kerja, atau tajuk tertentu
               di pratinjau CV Anda.
             </p>
@@ -637,8 +655,7 @@
         </li>
         <li class="flex items-start gap-4">
           <div
-            class="mt-1 w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 font-bold shadow-[0_0_10px_rgba(37,99,235,0.3)] flex-shrink-0"
-          >
+            class="mt-1 w-7 h-7 rounded-full bg-blue-100 dark:bg-blue-500/20 flex items-center justify-center text-blue-600 dark:text-blue-400 text-sm font-bold flex-shrink-0">
             2
           </div>
           <div>
@@ -653,15 +670,14 @@
         </li>
         <li class="flex items-start gap-4">
           <div
-            class="mt-1 w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-400 flex-shrink-0"
-          >
+            class="mt-1 w-7 h-7 rounded-full bg-blue-50 dark:bg-blue-500/10 flex items-center justify-center text-blue-600 dark:text-blue-400 text-sm font-bold flex-shrink-0">
             3
           </div>
           <div>
-            <h4 class="text-slate-800 dark:text-slate-200 font-semibold mb-1">
+            <h4 class="text-slate-900 dark:text-slate-100 font-semibold mb-1">
               Langsung Disempurnakan
             </h4>
-            <p class="text-slate-500 text-sm">
+            <p class="text-slate-500 dark:text-slate-400 text-sm">
               AI akan fokus secara spesifik di bagian tersebut dan
               menyempurnakan kontennya dengan mulus.
             </p>
@@ -672,48 +688,33 @@
 
     <!-- Visual Demo (Faux Chat UI) -->
     <div class="relative">
+      <div class="absolute inset-0 bg-blue-500/10 blur-[60px] rounded-full"></div>
       <div
-        class="absolute inset-0 bg-blue-500/10 blur-[60px] rounded-full"
-      ></div>
-      <div
-        class="relative w-full max-w-md mx-auto bg-slate-100 dark:bg-slate-900 border border-slate-300/60 dark:border-slate-700/60 rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col h-[500px]"
-      >
+        class="relative w-full max-w-md mx-auto bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/60 rounded-3xl overflow-hidden shadow-[0_24px_60px_-15px_rgba(37,99,235,0.2)] flex flex-col h-[480px]">
         <!-- Fake Doc Header -->
-        <div
-          class="p-6 border-b border-slate-200 dark:border-slate-800 bg-slate-100/50 dark:bg-slate-900/50"
-        >
-          <div class="w-1/2 h-6 bg-white dark:bg-slate-800 rounded mb-4"></div>
+        <div class="p-6 border-b border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/50">
+          <div class="w-1/2 h-5 bg-slate-100 dark:bg-slate-800 rounded mb-4"></div>
           <div
-            class="w-full h-16 bg-white dark:bg-slate-800 rounded border border-blue-500/40 relative"
-          >
-            <!-- Faux bounding box -->
+            class="w-full h-14 bg-white dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700 relative">
             <div
-              class="absolute inset-x-0 inset-y-0 border-2 border-dashed border-blue-400 bg-blue-400/10 rounded flex items-center justify-center"
-            >
+              class="absolute inset-1 border-2 border-dashed border-blue-400 bg-blue-400/10 rounded flex items-center justify-center">
               <span
-                class="bg-blue-500 text-white text-[10px] uppercase font-bold px-2 py-1 rounded-full translate-y-[-100%] shadow-lg absolute top-0"
-                >Area Tertangkap</span
-              >
+                class="bg-blue-500 text-white text-[10px] uppercase font-bold px-2 py-1 rounded-full -translate-y-[150%] shadow-lg absolute top-0">Area
+                Tertangkap</span>
             </div>
           </div>
         </div>
 
         <!-- Fake Chat History -->
-        <div
-          class="flex-1 p-6 flex flex-col justify-end gap-4 bg-slate-50 dark:bg-slate-950"
-        >
+        <div class="flex-1 p-6 flex flex-col justify-end gap-4 bg-slate-50 dark:bg-slate-950">
           <div
-            class="bg-white dark:bg-slate-800 rounded-2xl rounded-tl-sm p-3 text-sm text-slate-700 dark:text-slate-300 w-5/6 self-start"
-          >
+            class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl rounded-tl-sm p-3 text-sm text-slate-700 dark:text-slate-300 w-5/6 self-start">
             Saya melihat pengalaman kerja Anda belum menonjolkan dampak.
             Bagaimana Anda ingin memperbaikinya?
           </div>
-          <div
-            class="bg-blue-600 rounded-2xl rounded-tr-sm p-3 text-sm text-white w-5/6 self-end"
-          >
+          <div class="bg-blue-600 rounded-2xl rounded-tr-sm p-3 text-sm text-white w-5/6 self-end">
             <div
-              class="inline-flex items-center gap-1.5 px-2 py-1 bg-blue-800/50 rounded mb-2 text-xs border border-blue-400/30"
-            >
+              class="inline-flex items-center gap-1.5 px-2 py-1 bg-blue-800/50 rounded mb-2 text-xs border border-blue-400/30">
               Pengalaman Terpilih
             </div>
             <br />
@@ -723,27 +724,13 @@
         </div>
 
         <!-- Fake Input -->
-        <div
-          class="p-4 bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex gap-2"
-        >
+        <div class="p-4 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex gap-2">
           <div
-            class="flex-1 h-10 bg-white dark:bg-slate-800 rounded-xl border border-slate-300 dark:border-slate-700"
-          ></div>
-          <div
-            class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white"
-          >
-            <svg
-              class="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M14 5l7 7m0 0l-7 7m7-7H3"
-              ></path>
+            class="flex-1 h-10 bg-slate-50 dark:bg-slate-800 rounded-full border border-slate-200 dark:border-slate-700">
+          </div>
+          <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
             </svg>
           </div>
         </div>
@@ -752,840 +739,384 @@
   </div>
 </section>
 
-<!-- Testimonials Section -->
-<section
-  id="testimonials"
-  class="relative z-10 w-full py-32 px-6 bg-slate-50 dark:bg-[#070B19]/50 border-y border-slate-200/50 dark:border-slate-800/50 overflow-hidden"
->
-  <!-- Background Accents -->
+<!-- ============================================================= -->
+<!-- [6] PILIHAN TEMPLATE CV BERSTANDAR ATS & HRD — band navy gelap  -->
+<!-- ============================================================= -->
+<section class="relative z-10 w-full py-28 bg-[#0A1122] overflow-hidden">
+  <!-- Glow -->
   <div
-    class="absolute top-0 right-0 w-1/3 h-[400px] bg-gradient-to-b from-indigo-500/10 to-transparent blur-[100px] pointer-events-none"
-  ></div>
+    class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-blue-600/15 rounded-full blur-[160px] pointer-events-none">
+  </div>
+
+  <div class="max-w-7xl mx-auto px-6 relative">
+    <div class="text-center mb-16">
+      <div
+        class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-300 text-[11px] font-bold tracking-widest uppercase mb-6">
+        Galeri Template
+      </div>
+      <h2 class="text-3xl md:text-5xl font-bold text-white mb-5 tracking-tight">
+        Pilihan Template CV Berstandar
+        <span class="text-blue-400">ATS &amp; HRD</span>
+      </h2>
+      <p class="text-slate-400 text-lg max-w-2xl mx-auto">
+        Template siap pakai yang dirancang mengikuti standar rekrutmen modern.
+        Ganti isi, pertahankan kualitas.
+      </p>
+    </div>
+
+    <div
+      class="flex gap-6 overflow-x-auto pb-6 hide-scrollbar snap-x snap-mandatory md:grid md:grid-cols-3 md:overflow-visible md:pb-0">
+      <!-- Template 1 -->
+      <div
+        class="min-w-[280px] md:min-w-0 snap-center bg-[#101A30] border border-slate-700/60 rounded-3xl p-5 hover:border-blue-500/50 transition-all group">
+        <div class="w-full h-64 rounded-2xl bg-slate-100 border border-slate-300 p-4 relative overflow-hidden">
+          <div class="w-1/2 h-3 bg-slate-800 rounded mb-1.5"></div>
+          <div class="w-1/3 h-2 bg-slate-400 rounded mb-4"></div>
+          <div class="w-full h-px bg-slate-300 mb-3"></div>
+          <div class="w-1/4 h-2 bg-slate-600 rounded mb-2"></div>
+          <div class="w-full flex justify-between mb-1.5">
+            <div class="w-2/5 h-2 bg-slate-800 rounded"></div>
+            <div class="w-1/5 h-2 bg-slate-400 rounded"></div>
+          </div>
+          <div class="space-y-1.5 pl-3">
+            <div class="w-[90%] h-1.5 bg-slate-300 rounded"></div>
+            <div class="w-[85%] h-1.5 bg-slate-300 rounded"></div>
+            <div class="w-[88%] h-1.5 bg-slate-300 rounded"></div>
+          </div>
+          <div class="w-1/4 h-2 bg-slate-600 rounded mt-4 mb-2"></div>
+          <div class="space-y-1.5 pl-3">
+            <div class="w-[80%] h-1.5 bg-slate-300 rounded"></div>
+            <div class="w-[70%] h-1.5 bg-slate-300 rounded"></div>
+          </div>
+          <div class="absolute bottom-0 left-0 w-full h-10 bg-gradient-to-t from-slate-100 to-transparent"></div>
+        </div>
+        <div class="flex items-center justify-between mt-5 px-1">
+          <div>
+            <h3 class="text-white font-bold text-sm mb-0.5">CV ATS Klasik</h3>
+            <p class="text-slate-400 text-xs">Profesional • Satu Kolom</p>
+          </div>
+          <span
+            class="text-[10px] font-bold text-blue-300 bg-blue-500/15 border border-blue-500/30 px-2.5 py-1 rounded-full">ATS</span>
+        </div>
+      </div>
+
+      <!-- Template 2 -->
+      <div
+        class="min-w-[280px] md:min-w-0 snap-center bg-[#101A30] border border-slate-700/60 rounded-3xl p-5 hover:border-blue-500/50 transition-all group">
+        <div class="w-full h-64 rounded-2xl bg-[#0F172A] border border-slate-700 p-4 relative overflow-hidden">
+          <div class="flex gap-4 h-full">
+            <div class="w-1/3 bg-slate-800/80 rounded-xl p-3 space-y-2">
+              <div class="w-10 h-10 rounded-full bg-slate-600 mb-3"></div>
+              <div class="w-full h-1.5 bg-slate-600 rounded"></div>
+              <div class="w-2/3 h-1.5 bg-slate-600 rounded"></div>
+              <div class="w-full h-px bg-slate-700 my-2"></div>
+              <div class="w-full h-1.5 bg-slate-600 rounded"></div>
+              <div class="w-3/4 h-1.5 bg-slate-600 rounded"></div>
+            </div>
+            <div class="flex-1 space-y-2.5 pt-1">
+              <div class="w-3/4 h-2.5 bg-slate-300 rounded"></div>
+              <div class="w-1/2 h-1.5 bg-blue-400/70 rounded"></div>
+              <div class="w-full h-px bg-slate-700 my-2"></div>
+              <div class="space-y-1.5">
+                <div class="w-full h-1.5 bg-slate-600 rounded"></div>
+                <div class="w-[85%] h-1.5 bg-slate-600 rounded"></div>
+                <div class="w-[90%] h-1.5 bg-slate-600 rounded"></div>
+              </div>
+              <div class="w-1/3 h-2 bg-slate-400 rounded mt-3"></div>
+              <div class="space-y-1.5">
+                <div class="w-[80%] h-1.5 bg-slate-600 rounded"></div>
+                <div class="w-[70%] h-1.5 bg-slate-600 rounded"></div>
+              </div>
+            </div>
+          </div>
+          <div class="absolute bottom-0 left-0 w-full h-10 bg-gradient-to-t from-[#0F172A] to-transparent"></div>
+        </div>
+        <div class="flex items-center justify-between mt-5 px-1">
+          <div>
+            <h3 class="text-white font-bold text-sm mb-0.5">CV Modern Dua Kolom</h3>
+            <p class="text-slate-400 text-xs">Elegan • Sidebar</p>
+          </div>
+          <span
+            class="text-[10px] font-bold text-blue-300 bg-blue-500/15 border border-blue-500/30 px-2.5 py-1 rounded-full">HRD</span>
+        </div>
+      </div>
+
+      <!-- Template 3 -->
+      <div
+        class="min-w-[280px] md:min-w-0 snap-center bg-[#101A30] border border-slate-700/60 rounded-3xl p-5 hover:border-blue-500/50 transition-all group">
+        <div class="w-full h-64 rounded-2xl bg-white border border-slate-200 p-5 relative overflow-hidden">
+          <div class="text-center mb-4">
+            <div class="w-16 h-16 rounded-full bg-slate-200 mx-auto mb-2"></div>
+            <div class="w-1/2 h-2.5 bg-slate-800 rounded mx-auto mb-1.5"></div>
+            <div class="w-1/3 h-2 bg-slate-400 rounded mx-auto"></div>
+          </div>
+          <div class="w-full h-px bg-slate-200 mb-3"></div>
+          <div class="w-1/4 h-2 bg-slate-600 rounded mb-2"></div>
+          <div class="space-y-1.5 pl-3">
+            <div class="w-[90%] h-1.5 bg-slate-300 rounded"></div>
+            <div class="w-[85%] h-1.5 bg-slate-300 rounded"></div>
+          </div>
+          <div class="w-1/4 h-2 bg-slate-600 rounded mt-4 mb-2"></div>
+          <div class="space-y-1.5 pl-3">
+            <div class="w-[88%] h-1.5 bg-slate-300 rounded"></div>
+            <div class="w-[75%] h-1.5 bg-slate-300 rounded"></div>
+          </div>
+          <div class="absolute bottom-0 left-0 w-full h-10 bg-gradient-to-t from-white to-transparent"></div>
+        </div>
+        <div class="flex items-center justify-between mt-5 px-1">
+          <div>
+            <h3 class="text-white font-bold text-sm mb-0.5">CV Minimalis</h3>
+            <p class="text-slate-400 text-xs">Bersih • Fokus Konten</p>
+          </div>
+          <span
+            class="text-[10px] font-bold text-blue-300 bg-blue-500/15 border border-blue-500/30 px-2.5 py-1 rounded-full">ATS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================= -->
+<!-- [7] TESTIMONI (light)                                           -->
+<!-- ============================================================= -->
+<section id="testimonials" class="relative z-10 w-full py-28 px-6 bg-slate-50 dark:bg-[#070B19] overflow-hidden">
   <div
-    class="absolute bottom-0 left-0 w-1/3 h-[400px] bg-gradient-to-t from-blue-500/10 to-transparent blur-[100px] pointer-events-none"
-  ></div>
+    class="absolute top-0 right-0 w-1/3 h-[400px] bg-gradient-to-b from-blue-500/5 to-transparent blur-[100px] pointer-events-none">
+  </div>
 
   <div class="max-w-7xl mx-auto relative">
-    <div class="text-center mb-20">
+    <div class="text-center mb-16">
       <div
-        class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-100 dark:bg-indigo-900/30 border border-indigo-200 dark:border-indigo-800/50 text-indigo-700 dark:text-indigo-400 text-xs font-bold tracking-widest uppercase mb-6"
-      >
-        <svg
-          class="w-4 h-4"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
-          ></path>
+        class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white dark:bg-indigo-900/30 border border-blue-100 dark:border-indigo-800/50 text-blue-600 dark:text-indigo-400 text-xs font-bold tracking-widest uppercase mb-6 shadow-sm">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z">
+          </path>
         </svg>
         Cerita Sukses
       </div>
-      <h2
-        class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight"
-      >
+      <h2 class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight">
         Apa Kata Mereka
       </h2>
-      <p
-        class="text-slate-500 dark:text-slate-400 text-lg md:text-xl max-w-2xl mx-auto"
-      >
+      <p class="text-slate-500 dark:text-slate-400 text-lg md:text-xl max-w-2xl mx-auto">
         Bergabunglah dengan ribuan profesional yang telah meraih pekerjaan
         impian mereka berkat portofolio dan resume yang dioptimalkan oleh AI.
       </p>
     </div>
 
-    <div
-      class="relative z-10 overflow-hidden pb-8 px-4 md:px-0"
-      style="
-        -webkit-mask-image: linear-gradient(
-          to right,
-          transparent,
-          black 5%,
-          black 95%,
-          transparent
-        );
-        mask-image: linear-gradient(
-          to right,
-          transparent,
-          black 5%,
-          black 95%,
-          transparent
-        );
-      "
-    >
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Testimonial 1 -->
       <div
-        class="flex gap-8 w-max animate-marquee hover:[animation-play-state:paused]"
-      >
-        <div
-          class="bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-2xl p-8 shadow-xl shadow-slate-200/40 dark:shadow-none hover:-translate-y-1 transition-transform duration-300 relative overflow-hidden flex flex-col h-full w-[85vw] md:w-[400px]"
-        >
-          <div
-            class="absolute -top-6 -right-2 text-9xl text-slate-100 dark:text-slate-800/20 font-serif leading-none select-none pointer-events-none"
-          >
-            "
+        class="bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-2xl p-8 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col">
+        <div class="flex gap-1 text-amber-400 mb-5">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+        </div>
+        <p class="text-slate-600 dark:text-slate-300 text-[15px] mb-8 leading-relaxed flex-1">
+          "Dulu bikin CV dan portofolio rasanya butuh waktu berhari-hari. Berkat
+          AI jagoCV, semuanya langsung tersusun rapi, profesional, dan tajam.
+          Gak nyangka, minggu depannya langsung dapat jadwal interview!"
+        </p>
+        <div class="flex items-center gap-4 pt-6 border-t border-slate-100 dark:border-slate-800/80 mt-auto">
+          <div class="w-11 h-11 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">
+            A
           </div>
-          <div class="relative z-10 flex flex-col h-full">
-            <div class="flex gap-1.5 text-amber-400 mb-6">
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-            </div>
-            <p
-              class="text-slate-600 dark:text-slate-300 text-[15px] mb-8 leading-relaxed flex-1"
-            >
-              "Dulu bikin CV dan portofolio rasanya butuh waktu berhari-hari.
-              Berkat AI jagoCV, semuanya langsung tersusun rapi, profesional,
-              dan tajam. Gak nyangka, minggu depannya langsung dapat jadwal
-              interview!"
-            </p>
-            <div
-              class="flex items-center gap-4 pt-6 border-t border-slate-100 dark:border-slate-800/80 mt-auto"
-            >
-              <div
-                class="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold text-lg"
-              >
-                A
-              </div>
-              <div>
-                <h4 class="text-slate-900 dark:text-white font-bold text-base">
-                  Andi Pratama
-                </h4>
-                <p class="text-slate-500 dark:text-slate-400 text-sm">
-                  Frontend Developer
-                </p>
-              </div>
-            </div>
+          <div>
+            <h4 class="text-slate-900 dark:text-white font-bold text-sm">Andi Pratama</h4>
+            <p class="text-slate-500 dark:text-slate-400 text-xs">Frontend Developer</p>
           </div>
         </div>
-        <div
-          class="bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-2xl p-8 shadow-xl shadow-slate-200/40 dark:shadow-none hover:-translate-y-1 transition-transform duration-300 relative overflow-hidden flex flex-col h-full w-[85vw] md:w-[400px]"
-        >
-          <div
-            class="absolute -top-6 -right-2 text-9xl text-slate-100 dark:text-slate-800/20 font-serif leading-none select-none pointer-events-none"
-          >
-            "
+      </div>
+
+      <!-- Testimonial 2 -->
+      <div
+        class="bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-2xl p-8 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col">
+        <div class="flex gap-1 text-amber-400 mb-5">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+          <svg class="w-4 h-4 fill-current text-slate-300 dark:text-slate-700" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+        </div>
+        <p class="text-slate-600 dark:text-slate-300 text-[15px] mb-8 leading-relaxed flex-1">
+          "Konsep dari satu profil jadi 3 format (CV ATS, Web Portfolio, dan
+          Link in Bio) ini brilian banget! AI-nya pintar merangkai kata-kata
+          yang persuasif. Menghemat banyak waktu buat siap-siap melamar kerja."
+        </p>
+        <div class="flex items-center gap-4 pt-6 border-t border-slate-100 dark:border-slate-800/80 mt-auto">
+          <div class="w-11 h-11 rounded-full bg-emerald-500 flex items-center justify-center text-white font-bold">
+            S
           </div>
-          <div class="relative z-10 flex flex-col h-full">
-            <div class="flex gap-1.5 text-amber-400 mb-6">
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg
-                class="w-5 h-5 fill-current text-slate-300 dark:text-slate-700"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-            </div>
-            <p
-              class="text-slate-600 dark:text-slate-300 text-[15px] mb-8 leading-relaxed flex-1"
-            >
-              "Konsep dari satu profil jadi 3 format (CV ATS, Web Portfolio, dan
-              Link in Bio) ini brilian banget! AI-nya pintar merangkai kata-kata
-              yang persuasif. Menghemat banyak waktu buat siap-siap melamar
-              kerja."
-            </p>
-            <div
-              class="flex items-center gap-4 pt-6 border-t border-slate-100 dark:border-slate-800/80 mt-auto"
-            >
-              <div
-                class="w-12 h-12 rounded-full bg-[#00D49C] flex items-center justify-center text-white font-bold text-lg"
-              >
-                S
-              </div>
-              <div>
-                <h4 class="text-slate-900 dark:text-white font-bold text-base">
-                  Siti Rahma
-                </h4>
-                <p class="text-slate-500 dark:text-slate-400 text-sm">
-                  UX Designer
-                </p>
-              </div>
-            </div>
+          <div>
+            <h4 class="text-slate-900 dark:text-white font-bold text-sm">Siti Rahma</h4>
+            <p class="text-slate-500 dark:text-slate-400 text-xs">UX Designer</p>
           </div>
         </div>
-        <div
-          class="bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-2xl p-8 shadow-xl shadow-slate-200/40 dark:shadow-none hover:-translate-y-1 transition-transform duration-300 relative overflow-hidden flex flex-col h-full w-[85vw] md:w-[400px]"
-        >
-          <div
-            class="absolute -top-6 -right-2 text-9xl text-slate-100 dark:text-slate-800/20 font-serif leading-none select-none pointer-events-none"
-          >
-            "
+      </div>
+
+      <!-- Testimonial 3 -->
+      <div
+        class="bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-2xl p-8 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col">
+        <div class="flex gap-1 text-amber-400 mb-5">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+        </div>
+        <p class="text-slate-600 dark:text-slate-300 text-[15px] mb-8 leading-relaxed flex-1">
+          "Akhirnya nemu CV builder yang benar-benar sadar struktur ATS. Dulu
+          sering di-ghosting rekruter, tapi sejak pakai format jagoCV, profil
+          saya lebih gampang dilirik dan sukses tembus di startup impian."
+        </p>
+        <div class="flex items-center gap-4 pt-6 border-t border-slate-100 dark:border-slate-800/80 mt-auto">
+          <div class="w-11 h-11 rounded-full bg-cyan-500 flex items-center justify-center text-white font-bold">
+            K
           </div>
-          <div class="relative z-10 flex flex-col h-full">
-            <div class="flex gap-1.5 text-amber-400 mb-6">
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-            </div>
-            <p
-              class="text-slate-600 dark:text-slate-300 text-[15px] mb-8 leading-relaxed flex-1"
-            >
-              "Akhirnya nemu CV builder yang benar-benar sadar struktur ATS.
-              Dulu sering di-ghosting rekruter, tapi sejak pakai format jagoCV,
-              profil saya lebih gampang dilirik dan sukses tembus di startup
-              impian."
-            </p>
-            <div
-              class="flex items-center gap-4 pt-6 border-t border-slate-100 dark:border-slate-800/80 mt-auto"
-            >
-              <div
-                class="w-12 h-12 rounded-full bg-cyan-500 flex items-center justify-center text-white font-bold text-lg"
-              >
-                K
-              </div>
-              <div>
-                <h4 class="text-slate-900 dark:text-white font-bold text-base">
-                  Kevin Wijaya
-                </h4>
-                <p class="text-slate-500 dark:text-slate-400 text-sm">
-                  Product Manager
-                </p>
-              </div>
-            </div>
+          <div>
+            <h4 class="text-slate-900 dark:text-white font-bold text-sm">Kevin Wijaya</h4>
+            <p class="text-slate-500 dark:text-slate-400 text-xs">Product Manager</p>
           </div>
         </div>
-        <div
-          class="bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-2xl p-8 shadow-xl shadow-slate-200/40 dark:shadow-none hover:-translate-y-1 transition-transform duration-300 relative overflow-hidden flex flex-col h-full w-[85vw] md:w-[400px]"
-        >
-          <div
-            class="absolute -top-6 -right-2 text-9xl text-slate-100 dark:text-slate-800/20 font-serif leading-none select-none pointer-events-none"
-          >
-            "
+      </div>
+
+      <!-- Testimonial 4 -->
+      <div
+        class="bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-2xl p-8 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col">
+        <div class="flex gap-1 text-amber-400 mb-5">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+        </div>
+        <p class="text-slate-600 dark:text-slate-300 text-[15px] mb-8 leading-relaxed flex-1">
+          "Nggak nyangka CV hasil AI bisa sedetail ini buat role data. Sangat
+          mempermudah menjabarkan impact project yang sebelumnya susah saya
+          tulis sendiri. Worth it banget!"
+        </p>
+        <div class="flex items-center gap-4 pt-6 border-t border-slate-100 dark:border-slate-800/80 mt-auto">
+          <div class="w-11 h-11 rounded-full bg-violet-500 flex items-center justify-center text-white font-bold">
+            B
           </div>
-          <div class="relative z-10 flex flex-col h-full">
-            <div class="flex gap-1.5 text-amber-400 mb-6">
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg
-                class="w-5 h-5 fill-current text-slate-300 dark:text-slate-700"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-            </div>
-            <p
-              class="text-slate-600 dark:text-slate-300 text-[15px] mb-8 leading-relaxed flex-1"
-            >
-              "Nggak nyangka CV hasil AI bisa sedetail ini buat role data.
-              Sangat mempermudah menjabarkan impact project yang sebelumnya
-              susah saya tulis sendiri. Worth it banget!"
-            </p>
-            <div
-              class="flex items-center gap-4 pt-6 border-t border-slate-100 dark:border-slate-800/80 mt-auto"
-            >
-              <div
-                class="w-12 h-12 rounded-full bg-violet-500 flex items-center justify-center text-white font-bold text-lg"
-              >
-                B
-              </div>
-              <div>
-                <h4 class="text-slate-900 dark:text-white font-bold text-base">
-                  Budi Santoso
-                </h4>
-                <p class="text-slate-500 dark:text-slate-400 text-sm">
-                  Data Analyst
-                </p>
-              </div>
-            </div>
+          <div>
+            <h4 class="text-slate-900 dark:text-white font-bold text-sm">Budi Santoso</h4>
+            <p class="text-slate-500 dark:text-slate-400 text-xs">Data Analyst</p>
           </div>
         </div>
-        <div
-          class="bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-2xl p-8 shadow-xl shadow-slate-200/40 dark:shadow-none hover:-translate-y-1 transition-transform duration-300 relative overflow-hidden flex flex-col h-full w-[85vw] md:w-[400px]"
-        >
-          <div
-            class="absolute -top-6 -right-2 text-9xl text-slate-100 dark:text-slate-800/20 font-serif leading-none select-none pointer-events-none"
-          >
-            "
+      </div>
+
+      <!-- Testimonial 5 -->
+      <div
+        class="bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-2xl p-8 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col">
+        <div class="flex gap-1 text-amber-400 mb-5">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+        </div>
+        <p class="text-slate-600 dark:text-slate-300 text-[15px] mb-8 leading-relaxed flex-1">
+          "Fitur Web Portfolio benar-benar jadi game changer buat aku show off
+          campaign yang pernah aku jalanin. Sempet ragu tapi hasilnya jauh
+          melebihi ekspektasi. Terima kasih jagoCV!"
+        </p>
+        <div class="flex items-center gap-4 pt-6 border-t border-slate-100 dark:border-slate-800/80 mt-auto">
+          <div class="w-11 h-11 rounded-full bg-pink-500 flex items-center justify-center text-white font-bold">
+            R
           </div>
-          <div class="relative z-10 flex flex-col h-full">
-            <div class="flex gap-1.5 text-amber-400 mb-6">
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg
-                class="w-5 h-5 fill-current text-slate-300 dark:text-slate-700"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-            </div>
-            <p
-              class="text-slate-600 dark:text-slate-300 text-[15px] mb-8 leading-relaxed flex-1"
-            >
-              "Fitur Web Portfolio benar-benar jadi game changer buat aku show
-              off campaign yang pernah aku jalanin. Sempet ragu tapi hasilnya
-              jauh melebihi ekspektasi. Terima kasih jagoCV!"
-            </p>
-            <div
-              class="flex items-center gap-4 pt-6 border-t border-slate-100 dark:border-slate-800/80 mt-auto"
-            >
-              <div
-                class="w-12 h-12 rounded-full bg-pink-500 flex items-center justify-center text-white font-bold text-lg"
-              >
-                R
-              </div>
-              <div>
-                <h4 class="text-slate-900 dark:text-white font-bold text-base">
-                  Rina Amelia
-                </h4>
-                <p class="text-slate-500 dark:text-slate-400 text-sm">
-                  Digital Marketer
-                </p>
-              </div>
-            </div>
+          <div>
+            <h4 class="text-slate-900 dark:text-white font-bold text-sm">Rina Amelia</h4>
+            <p class="text-slate-500 dark:text-slate-400 text-xs">Digital Marketer</p>
           </div>
         </div>
-        <div
-          class="bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-2xl p-8 shadow-xl shadow-slate-200/40 dark:shadow-none hover:-translate-y-1 transition-transform duration-300 relative overflow-hidden flex flex-col h-full w-[85vw] md:w-[400px]"
-        >
-          <div
-            class="absolute -top-6 -right-2 text-9xl text-slate-100 dark:text-slate-800/20 font-serif leading-none select-none pointer-events-none"
-          >
-            "
-          </div>
-          <div class="relative z-10 flex flex-col h-full">
-            <div class="flex gap-1.5 text-amber-400 mb-6">
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-            </div>
-            <p
-              class="text-slate-600 dark:text-slate-300 text-[15px] mb-8 leading-relaxed flex-1"
-            >
-              "Mantap! Sebagai engineer sering malas nulis kata-kata yang bagus
-              di CV, AI langsung nangkep maksudku dan jadinya profesional. Bakal
-              rekomen ke teman-teman kampus."
-            </p>
-            <div
-              class="flex items-center gap-4 pt-6 border-t border-slate-100 dark:border-slate-800/80 mt-auto"
-            >
-              <div
-                class="w-12 h-12 rounded-full bg-orange-500 flex items-center justify-center text-white font-bold text-lg"
-              >
-                D
-              </div>
-              <div>
-                <h4 class="text-slate-900 dark:text-white font-bold text-base">
-                  Dimas Aditya
-                </h4>
-                <p class="text-slate-500 dark:text-slate-400 text-sm">
-                  Backend Engineer
-                </p>
-              </div>
-            </div>
-          </div>
+      </div>
+
+      <!-- Testimonial 6 -->
+      <div
+        class="bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-2xl p-8 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col">
+        <div class="flex gap-1 text-amber-400 mb-5">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
+          </svg>
         </div>
-        <div
-          class="bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-2xl p-8 shadow-xl shadow-slate-200/40 dark:shadow-none hover:-translate-y-1 transition-transform duration-300 relative overflow-hidden flex flex-col h-full w-[85vw] md:w-[400px]"
-        >
-          <div
-            class="absolute -top-6 -right-2 text-9xl text-slate-100 dark:text-slate-800/20 font-serif leading-none select-none pointer-events-none"
-          >
-            "
+        <p class="text-slate-600 dark:text-slate-300 text-[15px] mb-8 leading-relaxed flex-1">
+          "Mantap! Sebagai engineer sering malas nulis kata-kata yang bagus di
+          CV, AI langsung nangkep maksudku dan jadinya profesional. Bakal
+          rekomen ke teman-teman kampus."
+        </p>
+        <div class="flex items-center gap-4 pt-6 border-t border-slate-100 dark:border-slate-800/80 mt-auto">
+          <div class="w-11 h-11 rounded-full bg-orange-500 flex items-center justify-center text-white font-bold">
+            D
           </div>
-          <div class="relative z-10 flex flex-col h-full">
-            <div class="flex gap-1.5 text-amber-400 mb-6">
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-            </div>
-            <p
-              class="text-slate-600 dark:text-slate-300 text-[15px] mb-8 leading-relaxed flex-1"
-            >
-              "Dulu bikin CV dan portofolio rasanya butuh waktu berhari-hari.
-              Berkat AI jagoCV, semuanya langsung tersusun rapi, profesional,
-              dan tajam. Gak nyangka, minggu depannya langsung dapat jadwal
-              interview!"
-            </p>
-            <div
-              class="flex items-center gap-4 pt-6 border-t border-slate-100 dark:border-slate-800/80 mt-auto"
-            >
-              <div
-                class="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold text-lg"
-              >
-                A
-              </div>
-              <div>
-                <h4 class="text-slate-900 dark:text-white font-bold text-base">
-                  Andi Pratama
-                </h4>
-                <p class="text-slate-500 dark:text-slate-400 text-sm">
-                  Frontend Developer
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-2xl p-8 shadow-xl shadow-slate-200/40 dark:shadow-none hover:-translate-y-1 transition-transform duration-300 relative overflow-hidden flex flex-col h-full w-[85vw] md:w-[400px]"
-        >
-          <div
-            class="absolute -top-6 -right-2 text-9xl text-slate-100 dark:text-slate-800/20 font-serif leading-none select-none pointer-events-none"
-          >
-            "
-          </div>
-          <div class="relative z-10 flex flex-col h-full">
-            <div class="flex gap-1.5 text-amber-400 mb-6">
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg
-                class="w-5 h-5 fill-current text-slate-300 dark:text-slate-700"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-            </div>
-            <p
-              class="text-slate-600 dark:text-slate-300 text-[15px] mb-8 leading-relaxed flex-1"
-            >
-              "Konsep dari satu profil jadi 3 format (CV ATS, Web Portfolio, dan
-              Link in Bio) ini brilian banget! AI-nya pintar merangkai kata-kata
-              yang persuasif. Menghemat banyak waktu buat siap-siap melamar
-              kerja."
-            </p>
-            <div
-              class="flex items-center gap-4 pt-6 border-t border-slate-100 dark:border-slate-800/80 mt-auto"
-            >
-              <div
-                class="w-12 h-12 rounded-full bg-[#00D49C] flex items-center justify-center text-white font-bold text-lg"
-              >
-                S
-              </div>
-              <div>
-                <h4 class="text-slate-900 dark:text-white font-bold text-base">
-                  Siti Rahma
-                </h4>
-                <p class="text-slate-500 dark:text-slate-400 text-sm">
-                  UX Designer
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-2xl p-8 shadow-xl shadow-slate-200/40 dark:shadow-none hover:-translate-y-1 transition-transform duration-300 relative overflow-hidden flex flex-col h-full w-[85vw] md:w-[400px]"
-        >
-          <div
-            class="absolute -top-6 -right-2 text-9xl text-slate-100 dark:text-slate-800/20 font-serif leading-none select-none pointer-events-none"
-          >
-            "
-          </div>
-          <div class="relative z-10 flex flex-col h-full">
-            <div class="flex gap-1.5 text-amber-400 mb-6">
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-            </div>
-            <p
-              class="text-slate-600 dark:text-slate-300 text-[15px] mb-8 leading-relaxed flex-1"
-            >
-              "Akhirnya nemu CV builder yang benar-benar sadar struktur ATS.
-              Dulu sering di-ghosting rekruter, tapi sejak pakai format jagoCV,
-              profil saya lebih gampang dilirik dan sukses tembus di startup
-              impian."
-            </p>
-            <div
-              class="flex items-center gap-4 pt-6 border-t border-slate-100 dark:border-slate-800/80 mt-auto"
-            >
-              <div
-                class="w-12 h-12 rounded-full bg-cyan-500 flex items-center justify-center text-white font-bold text-lg"
-              >
-                K
-              </div>
-              <div>
-                <h4 class="text-slate-900 dark:text-white font-bold text-base">
-                  Kevin Wijaya
-                </h4>
-                <p class="text-slate-500 dark:text-slate-400 text-sm">
-                  Product Manager
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-2xl p-8 shadow-xl shadow-slate-200/40 dark:shadow-none hover:-translate-y-1 transition-transform duration-300 relative overflow-hidden flex flex-col h-full w-[85vw] md:w-[400px]"
-        >
-          <div
-            class="absolute -top-6 -right-2 text-9xl text-slate-100 dark:text-slate-800/20 font-serif leading-none select-none pointer-events-none"
-          >
-            "
-          </div>
-          <div class="relative z-10 flex flex-col h-full">
-            <div class="flex gap-1.5 text-amber-400 mb-6">
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg
-                class="w-5 h-5 fill-current text-slate-300 dark:text-slate-700"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-            </div>
-            <p
-              class="text-slate-600 dark:text-slate-300 text-[15px] mb-8 leading-relaxed flex-1"
-            >
-              "Nggak nyangka CV hasil AI bisa sedetail ini buat role data.
-              Sangat mempermudah menjabarkan impact project yang sebelumnya
-              susah saya tulis sendiri. Worth it banget!"
-            </p>
-            <div
-              class="flex items-center gap-4 pt-6 border-t border-slate-100 dark:border-slate-800/80 mt-auto"
-            >
-              <div
-                class="w-12 h-12 rounded-full bg-violet-500 flex items-center justify-center text-white font-bold text-lg"
-              >
-                B
-              </div>
-              <div>
-                <h4 class="text-slate-900 dark:text-white font-bold text-base">
-                  Budi Santoso
-                </h4>
-                <p class="text-slate-500 dark:text-slate-400 text-sm">
-                  Data Analyst
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-2xl p-8 shadow-xl shadow-slate-200/40 dark:shadow-none hover:-translate-y-1 transition-transform duration-300 relative overflow-hidden flex flex-col h-full w-[85vw] md:w-[400px]"
-        >
-          <div
-            class="absolute -top-6 -right-2 text-9xl text-slate-100 dark:text-slate-800/20 font-serif leading-none select-none pointer-events-none"
-          >
-            "
-          </div>
-          <div class="relative z-10 flex flex-col h-full">
-            <div class="flex gap-1.5 text-amber-400 mb-6">
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg
-                class="w-5 h-5 fill-current text-slate-300 dark:text-slate-700"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-            </div>
-            <p
-              class="text-slate-600 dark:text-slate-300 text-[15px] mb-8 leading-relaxed flex-1"
-            >
-              "Fitur Web Portfolio benar-benar jadi game changer buat aku show
-              off campaign yang pernah aku jalanin. Sempet ragu tapi hasilnya
-              jauh melebihi ekspektasi. Terima kasih jagoCV!"
-            </p>
-            <div
-              class="flex items-center gap-4 pt-6 border-t border-slate-100 dark:border-slate-800/80 mt-auto"
-            >
-              <div
-                class="w-12 h-12 rounded-full bg-pink-500 flex items-center justify-center text-white font-bold text-lg"
-              >
-                R
-              </div>
-              <div>
-                <h4 class="text-slate-900 dark:text-white font-bold text-base">
-                  Rina Amelia
-                </h4>
-                <p class="text-slate-500 dark:text-slate-400 text-sm">
-                  Digital Marketer
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-2xl p-8 shadow-xl shadow-slate-200/40 dark:shadow-none hover:-translate-y-1 transition-transform duration-300 relative overflow-hidden flex flex-col h-full w-[85vw] md:w-[400px]"
-        >
-          <div
-            class="absolute -top-6 -right-2 text-9xl text-slate-100 dark:text-slate-800/20 font-serif leading-none select-none pointer-events-none"
-          >
-            "
-          </div>
-          <div class="relative z-10 flex flex-col h-full">
-            <div class="flex gap-1.5 text-amber-400 mb-6">
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                ></path>
-              </svg>
-            </div>
-            <p
-              class="text-slate-600 dark:text-slate-300 text-[15px] mb-8 leading-relaxed flex-1"
-            >
-              "Mantap! Sebagai engineer sering malas nulis kata-kata yang bagus
-              di CV, AI langsung nangkep maksudku dan jadinya profesional. Bakal
-              rekomen ke teman-teman kampus."
-            </p>
-            <div
-              class="flex items-center gap-4 pt-6 border-t border-slate-100 dark:border-slate-800/80 mt-auto"
-            >
-              <div
-                class="w-12 h-12 rounded-full bg-orange-500 flex items-center justify-center text-white font-bold text-lg"
-              >
-                D
-              </div>
-              <div>
-                <h4 class="text-slate-900 dark:text-white font-bold text-base">
-                  Dimas Aditya
-                </h4>
-                <p class="text-slate-500 dark:text-slate-400 text-sm">
-                  Backend Engineer
-                </p>
-              </div>
-            </div>
+          <div>
+            <h4 class="text-slate-900 dark:text-white font-bold text-sm">Dimas Aditya</h4>
+            <p class="text-slate-500 dark:text-slate-400 text-xs">Backend Engineer</p>
           </div>
         </div>
       </div>
@@ -1593,51 +1124,37 @@
   </div>
 </section>
 
-<!-- Pricing Section -->
-<section
-  id="pricing"
-  class="py-24 relative overflow-hidden z-10 bg-slate-50 dark:bg-[#070B19]"
->
-  <div class="max-w-7xl mx-auto px-6 relative">
+<!-- ============================================================= -->
+<!-- [8] PRICING (light) — Biasa / Go / Ultra                        -->
+<!-- ============================================================= -->
+<section id="pricing" class="py-28 relative overflow-hidden z-10 bg-white dark:bg-[#070B19] px-6">
+  <div class="max-w-7xl mx-auto px-0 md:px-6 relative">
     <div class="text-center max-w-3xl mx-auto mb-16">
-      <h2
-        class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4"
-      >
-        Langkah Tepat Menuju<br />
-        <span
-          class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500"
-          >Karier Impian</span
-        >
+      <div
+        class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800/50 text-blue-600 dark:text-blue-400 text-xs font-bold tracking-widest uppercase mb-6">
+        Investasi Terjangkau
+      </div>
+      <h2 class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white tracking-tight mb-4">
+        Langkah Tepat Menuju
+        <span class="text-blue-600 dark:text-blue-400">Karier Impian</span>
       </h2>
-      <p class="text-lg text-slate-600 dark:text-slate-400">
+      <p class="text-lg text-slate-500 dark:text-slate-400">
         Pilih paket yang paling pas untukmu. Bebaskan potensi AI dan bersiaplah
         memikat hati rekruter di mana saja.
       </p>
     </div>
 
-    <div
-      class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto items-start"
-    >
-      <!-- Plan 1: Starter / Free -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto items-start">
+      <!-- Plan 1: Biasa / Free -->
       <div
-        class="bg-white dark:bg-slate-900/60 rounded-[2.5rem] p-8 border border-slate-200 dark:border-slate-800 hover:border-blue-500/30 transition-all flex flex-col h-full transform hover:-translate-y-1"
-      >
+        class="bg-white dark:bg-[#0B1221] rounded-3xl p-8 border border-slate-200 dark:border-slate-800 hover:border-blue-500/30 shadow-sm transition-all flex flex-col h-full">
         <div class="mb-6">
           <div
-            class="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 mb-6"
-          >
-            <svg
-              class="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
-              ></path>
+            class="w-11 h-11 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 mb-5">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z">
+              </path>
             </svg>
           </div>
           <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">
@@ -1648,117 +1165,57 @@
           </p>
         </div>
         <div class="mb-8">
-          <span class="text-4xl font-extrabold text-slate-900 dark:text-white"
-            >Rp 0</span
-          >
-          <span class="text-slate-500 dark:text-slate-400 font-medium"
-            >/bulan</span
-          >
+          <span class="text-4xl font-extrabold text-slate-900 dark:text-white">Rp 0</span>
+          <span class="text-slate-500 dark:text-slate-400 font-medium text-sm">/bulan</span>
         </div>
         <ul class="space-y-4 mb-8 flex-1">
           <li class="flex items-start gap-3">
-            <svg
-              class="w-5 h-5 text-blue-500 mt-0.5 shrink-0"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M5 13l4 4L19 7"
-              ></path>
+            <svg class="w-5 h-5 text-emerald-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
             </svg>
-            <span class="text-sm text-slate-700 dark:text-slate-300"
-              >Buat hingga 2 CV</span
-            >
+            <span class="text-sm text-slate-700 dark:text-slate-300">Buat hingga 2 CV</span>
           </li>
           <li class="flex items-start gap-3">
-            <svg
-              class="w-5 h-5 text-blue-500 mt-0.5 shrink-0"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M5 13l4 4L19 7"
-              ></path>
+            <svg class="w-5 h-5 text-emerald-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
             </svg>
-            <span class="text-sm text-slate-700 dark:text-slate-300"
-              >1 Web Portfolio (Tema Standar)</span
-            >
+            <span class="text-sm text-slate-700 dark:text-slate-300">1 Web Portfolio (Tema Standar)</span>
           </li>
           <li class="flex items-start gap-3">
-            <svg
-              class="w-5 h-5 text-blue-500 mt-0.5 shrink-0"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M5 13l4 4L19 7"
-              ></path>
+            <svg class="w-5 h-5 text-emerald-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
             </svg>
-            <span class="text-sm text-slate-700 dark:text-slate-300"
-              >Akses AI Teks (Terbatas)</span
-            >
+            <span class="text-sm text-slate-700 dark:text-slate-300">Akses AI Teks (Terbatas)</span>
           </li>
           <li class="flex items-start gap-3 opacity-50">
-            <svg
-              class="w-5 h-5 text-slate-400 mt-0.5 shrink-0"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M6 18L18 6M6 6l12 12"
-              ></path>
+            <svg class="w-5 h-5 text-slate-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
-            <span class="text-sm text-slate-500 dark:text-slate-400"
-              >Ekspor Multi-Format PDF/DOCX</span
-            >
+            <span class="text-sm text-slate-500 dark:text-slate-400">Ekspor Multi-Format PDF/DOCX</span>
           </li>
         </ul>
         <button
-          class="btn-landing-login w-full py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors mt-auto"
-        >
+          class="btn-landing-login w-full py-3.5 rounded-full border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors mt-auto">
           Mulai Gratis
         </button>
       </div>
 
-      <!-- Plan 2: Pro -->
+      <!-- Plan 2: Go (Populer) -->
       <div
-        class="bg-gradient-to-b from-blue-50 to-white dark:from-[#0f172a] dark:to-[#1e293b] rounded-[2.5rem] p-8 border border-blue-200 dark:border-blue-900 shadow-xl shadow-blue-500/10 hover:border-blue-400 dark:hover:border-blue-700 transition-all flex flex-col h-full transform hover:-translate-y-1 relative"
-      >
+        class="relative rounded-3xl p-8 bg-blue-50/60 dark:bg-gradient-to-b dark:from-[#0f172a] dark:to-[#1e293b] border-2 border-blue-500 shadow-xl shadow-blue-500/10 flex flex-col h-full">
+        <div
+          class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-blue-600 text-white text-[11px] font-bold tracking-wider uppercase shadow-lg shadow-blue-500/30 whitespace-nowrap">
+          Paling Populer
+        </div>
         <div class="mb-6">
           <div
-            class="w-12 h-12 rounded-2xl bg-blue-500 flex items-center justify-center text-white mb-6 shadow-md shadow-blue-500/30"
-          >
-            <svg
-              class="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M13 10V3L4 14h7v7l9-11h-7z"
-              ></path>
+            class="w-11 h-11 rounded-xl bg-blue-600 flex items-center justify-center text-white mb-5 shadow-md shadow-blue-500/30">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z">
+              </path>
             </svg>
           </div>
-          <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">
+          <h3 class="text-xl font-bold text-blue-600 dark:text-white mb-2">
             Go
           </h3>
           <p class="text-sm text-slate-600 dark:text-slate-300">
@@ -1766,222 +1223,107 @@
           </p>
         </div>
         <div class="mb-8">
-          <span class="text-4xl font-extrabold text-slate-900 dark:text-white"
-            >Rp 49K</span
-          >
-          <span class="text-slate-500 dark:text-slate-400 font-medium"
-            >/bulan</span
-          >
+          <span class="text-4xl font-extrabold text-slate-900 dark:text-white">Rp 49K</span>
+          <span class="text-slate-500 dark:text-slate-400 font-medium text-sm">/bulan</span>
         </div>
         <ul class="space-y-4 mb-8 flex-1">
           <li class="flex items-start gap-3">
-            <div
-              class="w-5 h-5 rounded-full bg-blue-500/20 flex items-center justify-center mt-0.5 shrink-0"
-            >
-              <svg
-                class="w-3.5 h-3.5 text-blue-600 dark:text-blue-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M5 13l4 4L19 7"
-                ></path>
-              </svg>
-            </div>
-            <span class="text-sm text-slate-700 dark:text-slate-200"
-              >Buat CV Tak Terbatas</span
-            >
+            <svg class="w-5 h-5 text-blue-600 dark:text-blue-400 mt-0.5 shrink-0" fill="none" stroke="currentColor"
+              viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="9" stroke-width="2"></circle>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.5 12.5l2.5 2.5 4.5-5"></path>
+            </svg>
+            <span class="text-sm text-slate-700 dark:text-slate-200">Buat CV Tak Terbatas</span>
           </li>
           <li class="flex items-start gap-3">
-            <div
-              class="w-5 h-5 rounded-full bg-blue-500/20 flex items-center justify-center mt-0.5 shrink-0"
-            >
-              <svg
-                class="w-3.5 h-3.5 text-blue-600 dark:text-blue-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M5 13l4 4L19 7"
-                ></path>
-              </svg>
-            </div>
-            <span class="text-sm text-slate-700 dark:text-slate-200"
-              >Semua Tema Web Portfolio (Termasuk Premium Animasi)</span
-            >
+            <svg class="w-5 h-5 text-blue-600 dark:text-blue-400 mt-0.5 shrink-0" fill="none" stroke="currentColor"
+              viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="9" stroke-width="2"></circle>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.5 12.5l2.5 2.5 4.5-5"></path>
+            </svg>
+            <span class="text-sm text-slate-700 dark:text-slate-200">Semua Tema Web Portfolio (Termasuk Premium
+              Animasi)</span>
           </li>
           <li class="flex items-start gap-3">
-            <div
-              class="w-5 h-5 rounded-full bg-blue-500/20 flex items-center justify-center mt-0.5 shrink-0"
-            >
-              <svg
-                class="w-3.5 h-3.5 text-blue-600 dark:text-blue-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M5 13l4 4L19 7"
-                ></path>
-              </svg>
-            </div>
-            <span class="text-sm text-slate-700 dark:text-slate-200"
-              >Akses Penuh Fitur AI (Cover Letter, Perbaikan Teks, Analisis
-              CV)</span
-            >
+            <svg class="w-5 h-5 text-blue-600 dark:text-blue-400 mt-0.5 shrink-0" fill="none" stroke="currentColor"
+              viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="9" stroke-width="2"></circle>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.5 12.5l2.5 2.5 4.5-5"></path>
+            </svg>
+            <span class="text-sm text-slate-700 dark:text-slate-200">Akses Penuh Fitur AI (Cover Letter, Perbaikan Teks,
+              Analisis CV)</span>
           </li>
           <li class="flex items-start gap-3">
-            <div
-              class="w-5 h-5 rounded-full bg-blue-500/20 flex items-center justify-center mt-0.5 shrink-0"
-            >
-              <svg
-                class="w-3.5 h-3.5 text-blue-600 dark:text-blue-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M5 13l4 4L19 7"
-                ></path>
-              </svg>
-            </div>
-            <span class="text-sm text-slate-700 dark:text-slate-200"
-              >Unduh PDF Kualitas Tinggi tanpa Watermark</span
-            >
+            <svg class="w-5 h-5 text-blue-600 dark:text-blue-400 mt-0.5 shrink-0" fill="none" stroke="currentColor"
+              viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="9" stroke-width="2"></circle>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.5 12.5l2.5 2.5 4.5-5"></path>
+            </svg>
+            <span class="text-sm text-slate-700 dark:text-slate-200">Unduh PDF Kualitas Tinggi tanpa Watermark</span>
           </li>
         </ul>
         <button
-          class="btn-landing-login w-full py-3.5 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold hover:shadow-lg hover:shadow-blue-500/30 transition-all mt-auto transform hover:-translate-y-0.5"
-        >
+          class="btn-landing-login w-full py-3.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold shadow-lg shadow-blue-500/30 transition-all mt-auto hover:-translate-y-0.5">
           Pilih Go
         </button>
       </div>
 
-      <!-- Plan 3: Lifetime / Enterprise -->
+      <!-- Plan 3: Ultra (Lifetime) — Kartu Navy Gelap -->
       <div
-        class="bg-gradient-to-br from-slate-900 via-[#1e293b] to-slate-900 dark:from-[#0f1115] dark:via-[#1a1c23] dark:to-[#0f1115] rounded-[2.5rem] p-8 border border-amber-500/40 shadow-2xl shadow-amber-500/20 hover:shadow-amber-500/30 hover:border-amber-500/60 transition-all flex flex-col h-full transform hover:-translate-y-2 relative overflow-hidden group"
-      >
+        class="relative rounded-3xl p-8 bg-[#0A1122] border border-slate-800 shadow-2xl flex flex-col h-full overflow-hidden group">
         <div
-          class="absolute inset-0 bg-gradient-to-br from-amber-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"
-        ></div>
+          class="absolute -top-20 -right-20 w-64 h-64 bg-blue-600/20 rounded-full blur-[80px] pointer-events-none group-hover:bg-blue-600/30 transition-colors">
+        </div>
         <div class="mb-6 relative z-10">
           <div
-            class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white mb-6 shadow-lg shadow-amber-500/30"
-          >
-            <svg
-              class="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="3"
-                d="M5 13l4 4L19 7"
-              ></path>
+            class="w-11 h-11 rounded-xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center text-blue-400 mb-5">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
+              </path>
             </svg>
           </div>
           <h3 class="text-xl font-bold text-white mb-2">Ultra</h3>
-          <p class="text-sm text-slate-300">
+          <p class="text-sm text-slate-400">
             Bayar sekali, nikmati semua fitur unggulan selamanya.
           </p>
         </div>
         <div class="mb-8 relative z-10">
           <span class="text-4xl font-extrabold text-white">Rp 299K</span>
-          <span class="text-amber-500/80 font-medium">/sekali bayar</span>
+          <span class="text-slate-500 font-medium text-sm">/sekali bayar</span>
         </div>
         <ul class="space-y-4 mb-8 flex-1 relative z-10">
           <li class="flex items-start gap-3">
-            <svg
-              class="w-5 h-5 text-amber-500 mt-0.5 shrink-0"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M5 13l4 4L19 7"
-              ></path>
+            <svg class="w-5 h-5 text-blue-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="9" stroke-width="2"></circle>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.5 12.5l2.5 2.5 4.5-5"></path>
             </svg>
-            <span class="text-sm text-slate-200"
-              >Semua Fitur Go Tanpa Batas Waktu</span
-            >
+            <span class="text-sm text-slate-300">Semua Fitur Go Tanpa Batas Waktu</span>
           </li>
           <li class="flex items-start gap-3">
-            <svg
-              class="w-5 h-5 text-amber-500 mt-0.5 shrink-0"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M5 13l4 4L19 7"
-              ></path>
+            <svg class="w-5 h-5 text-blue-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="9" stroke-width="2"></circle>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.5 12.5l2.5 2.5 4.5-5"></path>
             </svg>
-            <span class="text-sm text-slate-200"
-              >Akses Terdahulu ke Tema &amp; Template Baru</span
-            >
+            <span class="text-sm text-slate-300">Akses Terdahulu ke Tema &amp; Template Baru</span>
           </li>
           <li class="flex items-start gap-3">
-            <svg
-              class="w-5 h-5 text-amber-500 mt-0.5 shrink-0"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M5 13l4 4L19 7"
-              ></path>
+            <svg class="w-5 h-5 text-blue-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="9" stroke-width="2"></circle>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.5 12.5l2.5 2.5 4.5-5"></path>
             </svg>
-            <span class="text-sm text-slate-200"
-              >Dukungan Prioritas 24/7 (WhatsApp &amp; Email)</span
-            >
+            <span class="text-sm text-slate-300">Dukungan Prioritas 24/7 (WhatsApp &amp; Email)</span>
           </li>
           <li class="flex items-start gap-3">
-            <svg
-              class="w-5 h-5 text-amber-500 mt-0.5 shrink-0"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M5 13l4 4L19 7"
-              ></path>
+            <svg class="w-5 h-5 text-blue-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="9" stroke-width="2"></circle>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.5 12.5l2.5 2.5 4.5-5"></path>
             </svg>
-            <span class="text-sm text-slate-200"
-              >Custom Subdomain (opsi link personalisasi)</span
-            >
+            <span class="text-sm text-slate-300">Custom Subdomain (opsi link personalisasi)</span>
           </li>
         </ul>
         <button
-          class="btn-landing-login relative z-10 w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold hover:shadow-lg hover:shadow-amber-500/40 transition-all mt-auto transform hover:-translate-y-0.5 border-none"
-        >
+          class="btn-landing-login relative z-10 w-full py-3.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold shadow-lg shadow-blue-500/40 transition-all mt-auto hover:-translate-y-0.5 border-none">
           Pilih Ultra
         </button>
       </div>
@@ -1989,36 +1331,25 @@
   </div>
 </section>
 
-<!-- FAQ Section -->
-<section id="faq" class="relative z-10 w-full py-32 px-6">
-  <!-- Abstract gradient blob -->
+<!-- ============================================================= -->
+<!-- [9] FAQ (light)                                                 -->
+<!-- ============================================================= -->
+<section id="faq" class="relative z-10 w-full py-28 px-6 bg-slate-50 dark:bg-[#070B19]">
   <div
-    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 max-w-4xl h-full bg-cyan-500/5 rounded-[100%] blur-[120px] pointer-events-none"
-  ></div>
+    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 max-w-4xl h-full bg-blue-500/5 rounded-[100%] blur-[120px] pointer-events-none">
+  </div>
 
   <div class="max-w-3xl mx-auto relative z-10">
-    <div class="text-center mb-16">
+    <div class="text-center mb-14">
       <div
-        class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-100 dark:bg-cyan-900/30 border border-cyan-200 dark:border-cyan-800/50 text-cyan-700 dark:text-cyan-400 text-xs font-bold tracking-widest uppercase mb-6"
-      >
-        <svg
-          class="w-4 h-4"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-          ></path>
+        class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white dark:bg-cyan-900/30 border border-blue-100 dark:border-cyan-800/50 text-blue-600 dark:text-cyan-400 text-xs font-bold tracking-widest uppercase mb-6 shadow-sm">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
         </svg>
         Pusat Bantuan
       </div>
-      <h2
-        class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight"
-      >
+      <h2 class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight">
         Tanya Jawab
       </h2>
       <p class="text-slate-500 dark:text-slate-400 text-lg md:text-xl">
@@ -2029,32 +1360,19 @@
     <div class="space-y-4">
       <!-- FAQ 1 -->
       <details
-        class="group bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-[1.5rem] p-6 shadow-sm hover:border-cyan-300 dark:hover:border-cyan-800 hover:shadow-md hover:shadow-cyan-500/5 transition-all duration-300 open:shadow-lg open:shadow-cyan-500/10 open:border-cyan-200 dark:open:border-cyan-800 marker:content-['']"
-      >
+        class="group bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm hover:border-blue-300 dark:hover:border-blue-800 hover:shadow-md transition-all duration-300 open:border-blue-300 dark:open:border-blue-800 marker:content-['']">
         <summary
-          class="flex justify-between items-center text-lg font-bold text-slate-900 dark:text-white cursor-pointer list-none select-none group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors"
-        >
+          class="flex justify-between items-center text-base md:text-lg font-bold text-slate-900 dark:text-white cursor-pointer list-none select-none gap-4">
           Apakah jagoCV benar-benar gratis?
           <span
-            class="transition-all duration-300 group-open:rotate-180 group-open:bg-cyan-500 group-open:text-white bg-slate-100 dark:bg-slate-800 p-2.5 rounded-full text-slate-500 dark:text-slate-400"
-          >
-            <svg
-              fill="none"
-              height="20"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2.5"
-              viewBox="0 0 24 24"
-              width="20"
-            >
-              <polyline points="6 9 12 15 18 9"></polyline>
+            class="transition-all duration-300 group-open:rotate-90 group-open:text-blue-600 dark:group-open:text-blue-400 text-slate-400 shrink-0">
+            <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+              stroke-width="2.5" viewBox="0 0 24 24" width="20">
+              <polyline points="9 6 15 12 9 18"></polyline>
             </svg>
           </span>
         </summary>
-        <div
-          class="mt-6 text-slate-600 dark:text-slate-400 leading-relaxed text-base pt-2 pr-4 pl-4 border-l-2 border-cyan-400 ml-2"
-        >
+        <div class="mt-5 text-slate-600 dark:text-slate-400 leading-relaxed text-[15px]">
           Ya, Anda dapat memulai dan membuat resume ATS atau portofolio pertama
           Anda secara gratis. Kami juga memiliki paket berbayar untuk fitur AI
           tingkat lanjut dan penyesuaian tanpa batas di masa mendatang.
@@ -2063,32 +1381,19 @@
 
       <!-- FAQ 2 -->
       <details
-        class="group bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-[1.5rem] p-6 shadow-sm hover:border-cyan-300 dark:hover:border-cyan-800 hover:shadow-md hover:shadow-cyan-500/5 transition-all duration-300 open:shadow-lg open:shadow-cyan-500/10 open:border-cyan-200 dark:open:border-cyan-800 marker:content-['']"
-      >
+        class="group bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm hover:border-blue-300 dark:hover:border-blue-800 hover:shadow-md transition-all duration-300 open:border-blue-300 dark:open:border-blue-800 marker:content-['']">
         <summary
-          class="flex justify-between items-center text-lg font-bold text-slate-900 dark:text-white cursor-pointer list-none select-none group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors"
-        >
+          class="flex justify-between items-center text-base md:text-lg font-bold text-slate-900 dark:text-white cursor-pointer list-none select-none gap-4">
           Bagaimana cara kerja AI dalam menulis resume saya?
           <span
-            class="transition-all duration-300 group-open:rotate-180 group-open:bg-cyan-500 group-open:text-white bg-slate-100 dark:bg-slate-800 p-2.5 rounded-full text-slate-500 dark:text-slate-400"
-          >
-            <svg
-              fill="none"
-              height="20"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2.5"
-              viewBox="0 0 24 24"
-              width="20"
-            >
-              <polyline points="6 9 12 15 18 9"></polyline>
+            class="transition-all duration-300 group-open:rotate-90 group-open:text-blue-600 dark:group-open:text-blue-400 text-slate-400 shrink-0">
+            <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+              stroke-width="2.5" viewBox="0 0 24 24" width="20">
+              <polyline points="9 6 15 12 9 18"></polyline>
             </svg>
           </span>
         </summary>
-        <div
-          class="mt-6 text-slate-600 dark:text-slate-400 leading-relaxed text-base pt-2 pr-4 pl-4 border-l-2 border-cyan-400 ml-2"
-        >
+        <div class="mt-5 text-slate-600 dark:text-slate-400 leading-relaxed text-[15px]">
           Anda hanya perlu memasukkan detail pengalaman kerja secara mentah atau
           poin-poin sederhana. Mesin AI kami akan menyusunnya dengan kalimat
           aktif bercerita (action verbs) yang berfokus pada hasil dan
@@ -2098,32 +1403,19 @@
 
       <!-- FAQ 3 -->
       <details
-        class="group bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-[1.5rem] p-6 shadow-sm hover:border-cyan-300 dark:hover:border-cyan-800 hover:shadow-md hover:shadow-cyan-500/5 transition-all duration-300 open:shadow-lg open:shadow-cyan-500/10 open:border-cyan-200 dark:open:border-cyan-800 marker:content-['']"
-      >
+        class="group bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm hover:border-blue-300 dark:hover:border-blue-800 hover:shadow-md transition-all duration-300 open:border-blue-300 dark:open:border-blue-800 marker:content-['']">
         <summary
-          class="flex justify-between items-center text-lg font-bold text-slate-900 dark:text-white cursor-pointer list-none select-none group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors"
-        >
+          class="flex justify-between items-center text-base md:text-lg font-bold text-slate-900 dark:text-white cursor-pointer list-none select-none gap-4">
           Apakah format CV yang dihasilkan lulus sistem ATS?
           <span
-            class="transition-all duration-300 group-open:rotate-180 group-open:bg-cyan-500 group-open:text-white bg-slate-100 dark:bg-slate-800 p-2.5 rounded-full text-slate-500 dark:text-slate-400"
-          >
-            <svg
-              fill="none"
-              height="20"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2.5"
-              viewBox="0 0 24 24"
-              width="20"
-            >
-              <polyline points="6 9 12 15 18 9"></polyline>
+            class="transition-all duration-300 group-open:rotate-90 group-open:text-blue-600 dark:group-open:text-blue-400 text-slate-400 shrink-0">
+            <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+              stroke-width="2.5" viewBox="0 0 24 24" width="20">
+              <polyline points="9 6 15 12 9 18"></polyline>
             </svg>
           </span>
         </summary>
-        <div
-          class="mt-6 text-slate-600 dark:text-slate-400 leading-relaxed text-base pt-2 pr-4 pl-4 border-l-2 border-cyan-400 ml-2"
-        >
+        <div class="mt-5 text-slate-600 dark:text-slate-400 leading-relaxed text-[15px]">
           Tentu saja! Template CV ATS kami didesain tanpa kolom ganda, tabel
           kompleks, atau grafis berlebihan yang biasanya menyebabkan sistem ATS
           (Applicant Tracking System) gagal memilah resume Anda. Strukturnya
@@ -2134,91 +1426,184 @@
 
       <!-- FAQ 4 -->
       <details
-        class="group bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-[1.5rem] p-6 shadow-sm hover:border-cyan-300 dark:hover:border-cyan-800 hover:shadow-md hover:shadow-cyan-500/5 transition-all duration-300 open:shadow-lg open:shadow-cyan-500/10 open:border-cyan-200 dark:open:border-cyan-800 marker:content-['']"
-      >
+        class="group bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm hover:border-blue-300 dark:hover:border-blue-800 hover:shadow-md transition-all duration-300 open:border-blue-300 dark:open:border-blue-800 marker:content-['']">
         <summary
-          class="flex justify-between items-center text-lg font-bold text-slate-900 dark:text-white cursor-pointer list-none select-none group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors"
-        >
+          class="flex justify-between items-center text-base md:text-lg font-bold text-slate-900 dark:text-white cursor-pointer list-none select-none gap-4">
           Apakah portofolio web saya mendapatkan tautan unik?
           <span
-            class="transition-all duration-300 group-open:rotate-180 group-open:bg-cyan-500 group-open:text-white bg-slate-100 dark:bg-slate-800 p-2.5 rounded-full text-slate-500 dark:text-slate-400"
-          >
-            <svg
-              fill="none"
-              height="20"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2.5"
-              viewBox="0 0 24 24"
-              width="20"
-            >
-              <polyline points="6 9 12 15 18 9"></polyline>
+            class="transition-all duration-300 group-open:rotate-90 group-open:text-blue-600 dark:group-open:text-blue-400 text-slate-400 shrink-0">
+            <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+              stroke-width="2.5" viewBox="0 0 24 24" width="20">
+              <polyline points="9 6 15 12 9 18"></polyline>
             </svg>
           </span>
         </summary>
-        <div
-          class="mt-6 text-slate-600 dark:text-slate-400 leading-relaxed text-base pt-2 pr-4 pl-4 border-l-2 border-cyan-400 ml-2"
-        >
+        <div class="mt-5 text-slate-600 dark:text-slate-400 leading-relaxed text-[15px]">
           Ya! Setiap hasil 'Web Portfolio' atau 'Link in Bio' yang Anda buat
           dirancang agar dapat diakses publik melalui URL yang bisa dengan mudah
           Anda tambahkan di bio profil seperti Instagram dan LinkedIn, atau
           dikirim langsung ke perekrut lewat WhatsApp dan Email.
         </div>
       </details>
+
+      <!-- FAQ 5 -->
+      <details
+        class="group bg-white dark:bg-[#0B1221] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm hover:border-blue-300 dark:hover:border-blue-800 hover:shadow-md transition-all duration-300 open:border-blue-300 dark:open:border-blue-800 marker:content-['']">
+        <summary
+          class="flex justify-between items-center text-base md:text-lg font-bold text-slate-900 dark:text-white cursor-pointer list-none select-none gap-4">
+          Apakah data pribadi saya aman?
+          <span
+            class="transition-all duration-300 group-open:rotate-90 group-open:text-blue-600 dark:group-open:text-blue-400 text-slate-400 shrink-0">
+            <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+              stroke-width="2.5" viewBox="0 0 24 24" width="20">
+              <polyline points="9 6 15 12 9 18"></polyline>
+            </svg>
+          </span>
+        </summary>
+        <div class="mt-5 text-slate-600 dark:text-slate-400 leading-relaxed text-[15px]">
+          Tentu. Kami menggunakan enkripsi standar industri dan tidak pernah
+          membagikan data pribadi Anda kepada pihak ketiga tanpa izin. Anda
+          memiliki kendali penuh atas dokumen dan informasi Anda.
+        </div>
+      </details>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
-<section class="relative z-10 w-full py-24 pb-40 text-center px-6">
-  <h2
-    class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight"
-  >
-    Siap Mendapatkan Wawancara Itu?
-  </h2>
-  <p class="text-slate-500 dark:text-slate-400 text-lg mb-10 max-w-2xl mx-auto">
-    Bergabunglah dengan ribuan pencari kerja yang memperbarui portofolio karir
-    mereka tanpa stres.
-  </p>
-  <button
-    id="btn-cta-launch"
-    class="px-10 py-5 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white rounded-full font-bold text-xl shadow-[0_10px_30px_rgba(6,182,212,0.3)] transition-all hover:-translate-y-1 inline-flex flex-col items-center leading-tight"
-  >
-    Mulai Buat Gratis
-    <span class="text-xs font-medium text-blue-100 opacity-80 mt-1"
-      >Tanpa kartu kredit</span
-    >
-  </button>
+<!-- ============================================================= -->
+<!-- [10] CTA — kartu navy rounded dengan glow + dekorasi lingkaran  -->
+<!-- ============================================================= -->
+<section class="relative z-10 w-full py-24 px-6 bg-slate-50 dark:bg-[#0A1122] overflow-hidden">
+  <div
+    class="relative max-w-6xl mx-auto rounded-[2.5rem] bg-[#0A1122] overflow-hidden px-6 py-20 md:py-24 text-center shadow-2xl">
+    <!-- Glow utama -->
+    <div
+      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-blue-600/25 rounded-full blur-[140px] pointer-events-none">
+    </div>
+
+    <!-- Dekorasi lingkaran (desain-baru) -->
+    <div class="absolute top-6 left-10 w-9 h-9 rounded-full bg-blue-400/70 pointer-events-none"></div>
+    <div class="absolute top-16 right-16 w-16 h-16 rounded-full bg-sky-300 pointer-events-none"></div>
+    <div class="absolute bottom-10 left-1/4 w-24 h-14 bg-amber-300/90 rounded-[2rem] -rotate-12 pointer-events-none">
+    </div>
+    <div class="absolute bottom-12 right-10 w-14 h-10 bg-blue-400/80 rounded-[1.5rem] rotate-12 pointer-events-none">
+    </div>
+    <div class="absolute top-1/2 -right-8 w-24 h-24 rounded-full bg-slate-700/70 pointer-events-none"></div>
+    <div class="absolute top-1/3 -left-10 w-20 h-20 rounded-full bg-slate-800/80 pointer-events-none"></div>
+    <div class="absolute bottom-16 right-1/3 w-4 h-4 rounded-full bg-amber-300 pointer-events-none"></div>
+
+    <div class="relative z-10 max-w-2xl mx-auto">
+      <h2 class="text-3xl md:text-5xl font-bold text-white mb-6 tracking-tight">
+        Dapatkan pekerjaan sempurna<br class="hidden md:block" />
+        dengan bantuan jagoCV
+      </h2>
+      <p class="text-slate-300 text-lg mb-10 max-w-xl mx-auto">
+        Buat CV profesional tanpa repot dalam 10 menit dan unduh kapan serta di
+        mana saja!
+      </p>
+      <button id="btn-cta-launch"
+        class="px-10 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-full font-bold text-lg shadow-[0_10px_40px_rgba(37,99,235,0.5)] transition-all hover:-translate-y-1 hover:shadow-[0_16px_50px_rgba(37,99,235,0.6)] inline-flex items-center justify-center">
+        Mulai Sekarang
+      </button>
+      <p class="mt-6 text-sm text-slate-400">
+        Anda akan 87% lebih mungkin mendapatkan pekerjaan.
+      </p>
+    </div>
+  </div>
 </section>
 
-<!-- Footer -->
-<footer
-  class="relative z-10 w-full border-t border-slate-200/80 dark:border-slate-800/80 bg-[#040711] py-12 px-6"
->
-  <div
-    class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6"
-  >
-    <div class="flex items-center gap-2">
-      <div
-        class="w-6 h-6 rounded bg-gradient-to-br from-blue-600 to-cyan-400 flex items-center justify-center text-white font-bold text-xs"
-      >
-        J
+<!-- ============================================================= -->
+<!-- [11] FOOTER — gelap: brand, Produk, Bantuan & Ketentuan, Social -->
+<!-- ============================================================= -->
+<footer class="relative z-10 w-full bg-[#070B16] dark:bg-[#070B16] py-16 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+      <!-- Brand -->
+      <div class="flex flex-col gap-4">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z">
+              </path>
+            </svg>
+          </div>
+          <span class="font-bold text-white tracking-wide text-lg">jago<span class="text-blue-400">CV</span></span>
+        </div>
+        <p class="text-sm text-slate-400 leading-relaxed max-w-xs">
+          Platform kecerdasan buatan terdepan untuk merancang CV ramah ATS,
+          portofolio digital, dan surat lamaran kerja terpersonalisasi dalam
+          hitungan menit.
+        </p>
       </div>
-      <span
-        class="font-bold text-slate-500 dark:text-slate-400 tracking-wide text-sm"
-        >jagoCV</span
-      >
+
+      <!-- Produk -->
+      <div>
+        <h4 class="text-white font-bold text-base mb-5">Produk</h4>
+        <ul class="space-y-3 text-sm text-slate-400">
+          <li><a href="#features" class="hover:text-blue-400 transition-colors">CV ATS Builder</a></li>
+          <li><a href="#features" class="hover:text-blue-400 transition-colors">Web Portfolio</a></li>
+          <li><a href="#features" class="hover:text-blue-400 transition-colors">Surat Lamaran AI</a></li>
+          <li><a href="#features" class="hover:text-blue-400 transition-colors">Link in Bio</a></li>
+        </ul>
+      </div>
+
+      <!-- Bantuan & Ketentuan -->
+      <div>
+        <h4 class="text-white font-bold text-base mb-5">Bantuan &amp; Ketentuan</h4>
+        <ul class="space-y-3 text-sm text-slate-400">
+          <li><a href="#" class="hover:text-blue-400 transition-colors">Kebijakan Privasi</a></li>
+          <li><a href="#" class="hover:text-blue-400 transition-colors">Ketentuan Layanan</a></li>
+          <li><a href="#" class="hover:text-blue-400 transition-colors">Hubungi Kami</a></li>
+          <li><a href="#faq" class="hover:text-blue-400 transition-colors">FAQ</a></li>
+        </ul>
+      </div>
+
+      <!-- Terhubung Dengan Kami -->
+      <div>
+        <h4 class="text-white font-bold text-base mb-5">Terhubung Dengan Kami</h4>
+        <p class="text-sm text-slate-400 leading-relaxed mb-5">
+          Dapatkan wawasan seputar karir dan tips penulisan CV dari para
+          perekrut profesional.
+        </p>
+        <div class="flex gap-3">
+          <a href="#" aria-label="Share"
+            class="w-10 h-10 rounded-full bg-slate-800/80 border border-slate-700 flex items-center justify-center text-slate-300 hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 19.196a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z">
+              </path>
+            </svg>
+          </a>
+          <a href="#" aria-label="Telegram"
+            class="w-10 h-10 rounded-full bg-slate-800/80 border border-slate-700 flex items-center justify-center text-slate-300 hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M21.945 3.784a1.5 1.5 0 00-1.923-1.69L2.845 8.385a1.5 1.5 0 00.103 2.844l4.657 1.39 1.793 5.356a.75.75 0 001.242.29l2.543-2.465 4.708 3.46a1.5 1.5 0 002.348-.898l3.706-14.578z">
+              </path>
+            </svg>
+          </a>
+          <a href="#" aria-label="Forum"
+            class="w-10 h-10 rounded-full bg-slate-800/80 border border-slate-700 flex items-center justify-center text-slate-300 hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z">
+              </path>
+            </svg>
+          </a>
+        </div>
+      </div>
     </div>
-    <div class="flex gap-6 text-sm text-slate-500 font-medium">
-      <a href="#" class="hover:text-slate-300 transition-colors"
-        >Kebijakan Privasi</a
-      >
-      <a href="#" class="hover:text-slate-300 transition-colors"
-        >Ketentuan Layanan</a
-      >
-      <a href="#" class="hover:text-slate-300 transition-colors">Kontak</a>
+
+    <div class="pt-8 border-t border-slate-800/60 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-sm text-slate-500">
+        © 2026 jagoCV. Hak cipta dilindungi undang-undang. Dibuat dengan
+        kecerdasan buatan.
+      </p>
+      <div class="flex items-center gap-2 text-sm text-slate-400 font-medium">
+        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+        Sistem Normal
+      </div>
     </div>
-    <p class="text-sm text-slate-600">© 2026 jagoCV AI. All rights reserved.</p>
   </div>
 </footer>
