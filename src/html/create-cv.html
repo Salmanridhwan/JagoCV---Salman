@@ -1,6 +1,5 @@
 <!-- Back Link -->
-<a
-  href="#"
+<a href="#"
   id="btn-back-dashboard"
   class="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors mb-6 group w-fit"
 >
@@ -31,7 +30,7 @@
       ATS DOKUMEN
     </div>
     <h1
-      class="text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-2"
+      class="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-2"
     >
       Desain Resume Visual Anda
     </h1>
@@ -53,14 +52,13 @@
   </button>
 </header>
 
-<!-- Stacked Layout (Grid) -->
-<div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start w-full relative">
+<!-- Stacked Layout (Flex, mengikuti struktur design-resume.html) -->
+<div class="flex flex-col lg:flex-row gap-10 items-start w-full relative">
   <!-- Left Col: Form Inputs -->
-  <div class="md:col-span-7 space-y-6">
+  <div class="w-full lg:w-[60%] space-y-6">
 
     <!-- Input Mode Toggle -->
-    <div
-      class="rounded-[14px] p-1.5 flex items-center mb-6 border border-slate-200 dark:border-[#2A3143] bg-transparent"
+    <div class="rounded-[14px] p-1.5 flex items-center mb-6 border border-slate-200 dark:border-[#2A3143] bg-transparent"
     >
       <button
         id="tab-cv-manual"
@@ -1256,134 +1254,8 @@
   </div> <!-- Close Left Col -->
 
   <!-- Right Col: Visual Controls & Preview -->
-  <div class="hidden md:block md:col-span-5 sticky top-8 space-y-6">
-    <!-- Step 5: Layout Selection (Moved to Right Col) -->
-    <div
-      id="cv-step-5"
-      class="cv-step hidden rounded-[24px] p-6 border border-slate-200 dark:border-[#2A3143] bg-white dark:bg-[#0B1221]/50 backdrop-blur-sm shadow-xl animate-[fadeIn_0.3s_ease_forwards]"
-    >
-      <h2
-        class="text-sm font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2"
-      >
-        <span
-          class="w-5 h-5 rounded-md bg-blue-100 dark:bg-[#1E5EFF]/20 flex items-center justify-center text-blue-600 dark:text-[#88A4E6] text-[10px]"
-          >5</span
-        >
-        Pilih Tema Visual CV
-      </h2>
-
-      <div
-        id="cv-layout-cards"
-        class="grid grid-cols-1 gap-3"
-      >
-        <!-- Layout 1: ATS Standard -->
-        <div
-          class="cv-layout-card group relative rounded-xl border-2 border-slate-200 dark:border-[#2A3143] bg-white dark:bg-[#0B1221] p-3 cursor-pointer transition-all hover:border-[#1E5EFF] selected"
-          data-layout="ats-standard"
-        >
-          <div class="flex items-center gap-3">
-            <div class="w-12 h-16 rounded-lg bg-slate-100 dark:bg-slate-800 overflow-hidden relative shrink-0">
-               <div class="absolute inset-0 p-2 space-y-1 opacity-40">
-                  <div class="w-1/2 h-1 bg-slate-400 rounded-sm"></div>
-                  <div class="w-full h-0.5 bg-slate-300 rounded-sm"></div>
-                  <div class="w-full h-0.5 bg-slate-300 rounded-sm"></div>
-               </div>
-            </div>
-            <div class="flex-1">
-               <div class="flex items-center justify-between">
-                  <span class="text-xs font-bold text-slate-900 dark:text-white">Standar ATS</span>
-                  <input type="radio" name="cv_layout" value="ats-standard" class="hidden" checked />
-                  <div class="w-4 h-4 rounded-full border-2 border-slate-300 dark:border-slate-700 flex items-center justify-center group-[.selected]:border-[#1E5EFF] group-[.selected]:bg-[#1E5EFF] transition-all">
-                     <svg class="w-2.5 h-2.5 text-white opacity-0 group-[.selected]:opacity-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path>
-                     </svg>
-                  </div>
-               </div>
-               <p class="text-[10px] text-slate-500">Klasik & Profesional</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Layout 2: Modern Creative -->
-        <div
-          class="cv-layout-card group relative rounded-xl border-2 border-slate-200 dark:border-[#2A3143] bg-white dark:bg-[#0B1221] p-3 cursor-pointer transition-all hover:border-[#1E5EFF]"
-          data-layout="modern-creative"
-        >
-          <div class="flex items-center gap-3">
-            <div class="w-12 h-16 rounded-lg bg-slate-100 dark:bg-slate-800 overflow-hidden relative shrink-0">
-               <div class="absolute inset-0 p-2 flex gap-1 opacity-40">
-                  <div class="w-1/3 h-full bg-slate-400/20 rounded-sm"></div>
-                  <div class="flex-1 space-y-1">
-                     <div class="w-2/3 h-1 bg-slate-400 rounded-sm"></div>
-                     <div class="w-full h-0.5 bg-slate-300 rounded-sm"></div>
-                  </div>
-               </div>
-            </div>
-            <div class="flex-1">
-               <div class="flex items-center justify-between">
-                  <span class="text-xs font-bold text-slate-900 dark:text-white">Tech/Creative</span>
-                  <input type="radio" name="cv_layout" value="modern-creative" class="hidden" />
-                  <div class="w-4 h-4 rounded-full border-2 border-slate-300 dark:border-slate-700 flex items-center justify-center group-[.selected]:border-[#1E5EFF] group-[.selected]:bg-[#1E5EFF] transition-all">
-                     <svg class="w-2.5 h-2.5 text-white opacity-0 group-[.selected]:opacity-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path>
-                     </svg>
-                  </div>
-               </div>
-               <p class="text-[10px] text-slate-500">Modern & Elegan</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Layout 3: Entry Level -->
-        <div
-          class="cv-layout-card group relative rounded-xl border-2 border-slate-200 dark:border-[#2A3143] bg-white dark:bg-[#0B1221] p-3 cursor-pointer transition-all hover:border-[#1E5EFF]"
-          data-layout="entry-level"
-        >
-          <div class="flex items-center gap-3">
-            <div class="w-12 h-16 rounded-lg bg-slate-100 dark:bg-slate-800 overflow-hidden relative shrink-0">
-               <div class="absolute inset-0 p-2 space-y-2 opacity-40 text-center">
-                  <div class="w-1/2 h-1 bg-slate-400 rounded-sm mx-auto"></div>
-                  <div class="w-full h-0.5 bg-slate-300 rounded-sm"></div>
-               </div>
-            </div>
-            <div class="flex-1">
-               <div class="flex items-center justify-between">
-                  <span class="text-xs font-bold text-slate-900 dark:text-white">Entry Level</span>
-                  <input type="radio" name="cv_layout" value="entry-level" class="hidden" />
-                  <div class="w-4 h-4 rounded-full border-2 border-slate-300 dark:border-slate-700 flex items-center justify-center group-[.selected]:border-[#1E5EFF] group-[.selected]:bg-[#1E5EFF] transition-all">
-                     <svg class="w-2.5 h-2.5 text-white opacity-0 group-[.selected]:opacity-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path>
-                     </svg>
-                  </div>
-               </div>
-               <p class="text-[10px] text-slate-500">Minimalis & Bersih</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div
-        class="flex justify-between mt-6 pt-4 border-t border-slate-100 dark:border-[#2A3143]"
-      >
-        <button
-          type="button"
-          onclick="goToCvStep(4)"
-          class="bg-slate-100 dark:bg-[#1A2133] hover:bg-slate-200 dark:hover:bg-[#2A3143] text-slate-700 dark:text-slate-300 px-4 py-2 rounded-xl font-bold text-xs transition-all flex items-center gap-2"
-        >
-          Sebelumnya
-        </button>
-        <button
-          type="button"
-          id="btn-manual-generate"
-          class="bg-[#1E5EFF] hover:bg-blue-600 text-white px-6 py-2 rounded-xl font-bold text-xs transition-all shadow-lg shadow-blue-500/25 flex items-center gap-2 active:scale-95"
-        >
-          Hasilkan CV ATS
-        </button>
-      </div>
-    </div>
-    <div
-      class="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-5 border border-slate-200 dark:border-slate-700"
-    >
+  <div class="hidden lg:block lg:w-[40%] sticky top-8">
+    <div class="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-5 border border-slate-200 dark:border-slate-700">
       <h3
         class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-4 flex items-center gap-2"
       >
@@ -1417,4 +1289,3 @@
       </p>
     </div>
   </div>
-</div>
