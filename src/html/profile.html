@@ -1,451 +1,459 @@
-<div class="max-w-3xl mx-auto mt-10">
-  <button
-    id="btn-back-from-profile"
-    class="mb-8 flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-slate-900 hover:bg-slate-100 dark:hover:bg-white/5 dark:hover:text-white px-3 py-2 rounded-xl transition-colors font-semibold"
-  >
-    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M10 19l-7-7m0 0l7-7m-7 7h18"
-      ></path>
-    </svg>
-    Kembali ke Dasbor
-  </button>
+<!-- =============================================================
+     VIEW: PROFILE — desain baru (mockup v2)
+     Logical ids dipertahankan dari desain lama:
+       - btn-back-from-profile  (router.ts)
+       - profile-page-name      (main.ts / auth.ts)
+       - profile-page-role      (main.ts / auth.ts)
+       - profile-page-img       (main.ts / auth.ts)
+       - btn-upgrade-plan       (router.ts → view-pricing)
+       - btn-logout             (router.ts)
+     Topbar (logo, theme toggle, chip poin, avatar) tetap milik index.html.
+     Tanpa footer — sesuai ketentuan.
+     ============================================================= -->
+<div class="max-w-7xl mx-auto pt-6 pb-16">
+  <!-- Back + Workspace badge -->
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+    <button id="btn-back-from-profile"
+      class="flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 px-3 py-2 rounded-xl transition-colors font-semibold w-fit cursor-pointer">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+      </svg>
+      Kembali ke Dasbor
+    </button>
 
+    <span
+      class="inline-flex items-center px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/30 text-blue-700 dark:text-blue-400 text-xs font-semibold w-fit">
+      Workspace Mode: Dasbor Pelamar
+    </span>
+  </div>
+
+  <!-- Kartu profil utama -->
   <div
-    class="bg-white dark:bg-[#0B1221] rounded-[2rem] overflow-hidden border border-slate-200 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-none relative"
-  >
-    <!-- Cover Banner -->
-    <div
-      class="h-40 w-full bg-gradient-to-r from-blue-600 to-indigo-600 relative overflow-hidden"
-    >
-      <!-- Decorative patterns -->
-      <div
-        class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] mix-blend-overlay"
-        style="
-          background-image: radial-gradient(
-            circle,
-            rgba(255, 255, 255, 0.2) 1px,
-            transparent 1px
-          );
-          background-size: 20px 20px;
-        "
-      ></div>
-      <div
-        class="absolute -top-24 -right-24 w-64 h-64 bg-white/20 rounded-full blur-3xl"
-      ></div>
-      <div
-        class="absolute -bottom-16 -left-16 w-48 h-48 bg-black/20 rounded-full blur-2xl"
-      ></div>
-      <div
-        class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/40 to-transparent"
-      ></div>
+    class="bg-white dark:bg-[#0B1221] rounded-[2rem] overflow-hidden border border-slate-200 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-none">
+    <!-- ── Cover Banner gradient ── -->
+    <div class="h-44 sm:h-56 w-full bg-gradient-to-r from-blue-700 via-blue-600 to-cyan-400 relative overflow-hidden">
+      <!-- dekorasi lembut -->
+      <div class="absolute -top-24 -right-24 w-72 h-72 bg-white/15 rounded-full blur-3xl"></div>
+      <div class="absolute -bottom-20 -left-20 w-56 h-56 bg-black/20 rounded-full blur-3xl"></div>
+      <div class="absolute -bottom-10 right-1/4 w-64 h-64 bg-cyan-300/20 rounded-full blur-3xl"></div>
+
+      <!-- Badge ATS (kanan atas) -->
+      <div class="absolute top-4 right-4 sm:top-6 sm:right-6">
+        <span
+          class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/15 dark:bg-white/10 backdrop-blur-md border border-white/25 text-white text-xs sm:text-sm font-semibold shadow-lg">
+          <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+          Profil ATS 100% Siap Kerja
+        </span>
+      </div>
     </div>
 
-    <!-- Profile Content -->
-    <div class="px-8 pb-10">
-      <!-- Avatar & Header Actions -->
-      <div
-        class="flex flex-col sm:flex-row sm:justify-between items-start sm:items-end -mt-16 mb-6 gap-4"
-      >
+    <!-- ── Identitas — sepenuhnya DI BAWAH banner (tanpa overlap) ── -->
+    <div class="px-6 sm:px-10 pt-6 pb-10">
+      <div class="flex flex-col lg:flex-row lg:items-center gap-6">
         <!-- Avatar -->
-        <div class="relative group">
+        <div class="relative shrink-0">
           <div
-            class="p-1.5 bg-white dark:bg-[#0B1221] rounded-full inline-block"
-          >
-            <img
-              id="profile-page-img"
-              src=""
-              alt="Profile Large"
-              class="w-28 h-28 rounded-full border-4 border-slate-100 dark:border-slate-800 object-cover shadow-lg"
-            />
+            class="p-1 bg-white dark:bg-white/10 rounded-[1.6rem] shadow-xl shadow-slate-300/50 dark:shadow-black/40 inline-block">
+            <img id="profile-page-img" src="" alt="Profile"
+              class="w-28 h-28 sm:w-32 sm:h-32 rounded-[1.4rem] object-cover bg-slate-200 dark:bg-[#1A2137]" />
           </div>
-          <!-- Optional edit button overlay on hover -->
+          <!-- Overlay kamera -->
           <button
-            class="absolute bottom-3 right-3 p-2 bg-blue-600 text-white rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity hover:bg-blue-500"
-          >
-            <svg
-              class="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-              ></path>
+            class="absolute bottom-2 right-2 w-9 h-9 bg-blue-600 hover:bg-blue-500 text-white rounded-full flex items-center justify-center shadow-lg shadow-blue-500/40 transition-colors"
+            aria-label="Ganti foto profil">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z">
+              </path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
             </svg>
           </button>
         </div>
 
-        <!-- Header Actions -->
-        <div class="mb-2 flex gap-3 w-full sm:w-auto">
-          <button
-            class="flex-1 sm:flex-none px-5 py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl text-sm font-semibold transition-colors border border-slate-200 dark:border-slate-700/50"
-            onclick="
-              openGenericModal(
-                'Edit Profil',
-                '<div class=\'space-y-4\'><div class=\'space-y-1.5\'><label class=\'text-xs font-bold text-slate-500 uppercase\'>Nama Lengkap</label><input type=\'text\' class=\'w-full p-2 border rounded bg-slate-50 dark:bg-slate-800\' value=\'Salman\'></div><div class=\'space-y-1.5\'><label class=\'text-xs font-bold text-slate-500 uppercase\'>Profesi</label><input type=\'text\' class=\'w-full p-2 border rounded bg-slate-50 dark:bg-slate-800\' value=\'Junior Frontend\'></div></div>',
-              )
-            "
-          >
-            Edit Profil
-          </button>
-          <button
-            class="flex-1 sm:flex-none px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-sm font-semibold transition-colors shadow-lg shadow-blue-500/30"
-            onclick="
-              window.showToast('Tautan profil Anda telah disalin ke clipboard!')
-            "
-          >
-            Bagikan Profil
-          </button>
-        </div>
-      </div>
+        <!-- Nama, role, chip info — aksi di kanan -->
+        <div class="flex-1 min-w-0 flex flex-col sm:flex-row sm:justify-between gap-4">
+          <!-- Kiri: identitas -->
+          <div class="min-w-0">
+            <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
+              <h3 id="profile-page-name" class="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+              </h3>
+              <span
+                class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/30 text-blue-600 dark:text-blue-400 text-xs font-semibold">
+                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                Member jagoCV
+              </span>
+            </div>
 
-      <!-- Info -->
-      <div class="mb-10">
-        <h3
-          id="profile-page-name"
-          class="text-3xl font-extrabold text-slate-900 dark:text-white mb-1"
-        ></h3>
-        <p
-          id="profile-page-role"
-          class="text-lg text-blue-600 dark:text-blue-400 font-medium mb-4"
-        ></p>
+            <p id="profile-page-role" class="text-slate-600 dark:text-slate-300 font-medium mt-2"></p>
 
-        <div
-          class="flex flex-wrap items-center gap-4 text-sm text-slate-500 dark:text-slate-400 font-medium"
-        >
-          <div
-            class="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800/50 px-3 py-1.5 rounded-lg border border-slate-200/60 dark:border-slate-700/50"
-          >
-            <svg
-              class="w-4 h-4 text-slate-400"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-              ></path>
-            </svg>
-            <span id="profile-page-email">salmanuyat25@gmail.com</span>
+            <!-- Chip: email, lokasi, verifikasi -->
+            <div class="flex flex-wrap items-center gap-2.5 mt-4">
+              <div
+                class="flex items-center gap-1.5 bg-slate-50 dark:bg-[#1A2137]/60 px-3.5 py-2 rounded-full border border-slate-200 dark:border-[#2A3143] text-sm text-slate-600 dark:text-slate-300">
+                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                  </path>
+                </svg>
+                <span id="profile-page-email">salmanuyat25@gmail.com</span>
+              </div>
+              <div
+                class="flex items-center gap-1.5 bg-slate-50 dark:bg-[#1A2137]/60 px-3.5 py-2 rounded-full border border-slate-200 dark:border-[#2A3143] text-sm text-slate-600 dark:text-slate-300">
+                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+                <span>Jakarta, Indonesia</span>
+              </div>
+              <div
+                class="flex items-center gap-1.5 bg-slate-50 dark:bg-[#1A2137]/60 px-3.5 py-2 rounded-full border border-slate-200 dark:border-[#2A3143] text-sm text-slate-600 dark:text-slate-300">
+                <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span class="text-green-600 dark:text-green-400 font-medium">Terverifikasi HRD</span>
+              </div>
+            </div>
           </div>
-          <div
-            class="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800/50 px-3 py-1.5 rounded-lg border border-slate-200/60 dark:border-slate-700/50"
-          >
-            <svg
-              class="w-4 h-4 text-slate-400"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-              ></path>
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-              ></path>
-            </svg>
-            <span>Jakarta, Indonesia</span>
+
+          <!-- Kanan: tombol aksi — di dalam container putih,
+               sejajar vertikal dengan tengah blok identitas -->
+          <div class="flex flex-wrap gap-2.5 sm:justify-end lg:items-center shrink-0">
+            <button
+              class="inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-slate-100 dark:bg-[#1A2137] hover:bg-slate-200 dark:hover:bg-[#232C42] text-slate-700 dark:text-slate-100 rounded-xl text-xs font-bold transition-colors border border-slate-200 dark:border-[#2A3143] cursor-pointer"
+              onclick="
+                openGenericModal(
+                  'Edit Profil',
+                  '<div class=\'space-y-4\'><div class=\'space-y-1.5\'><label class=\'text-xs font-bold text-slate-500 uppercase\'>Nama Lengkap</label><input type=\'text\' class=\'w-full p-2 border rounded bg-slate-50 dark:bg-slate-800\' value=\'Salman\'></div><div class=\'space-y-1.5\'><label class=\'text-xs font-bold text-slate-500 uppercase\'>Profesi</label><input type=\'text\' class=\'w-full p-2 border rounded bg-slate-50 dark:bg-slate-800\' value=\'Junior Frontend\'></div></div>',
+                )
+              ">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                </path>
+              </svg>
+              Edit Profil
+            </button>
+            <button
+              class="inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition-colors shadow-md shadow-blue-500/30 cursor-pointer"
+              onclick="window.showToast('Tautan profil Anda telah disalin ke clipboard!')">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z">
+                </path>
+              </svg>
+              Bagikan Profil
+            </button>
           </div>
         </div>
       </div>
 
-      <!-- Grid Content -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Left Details -->
+      <!-- Divider -->
+      <div class="h-px bg-slate-100 dark:bg-[#1A2137] my-8"></div>
+
+      <!-- ── Grid konten: kiri (kredit + statistik) / kanan (pengaturan) ── -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- ── KOLOM KIRI ── -->
         <div class="space-y-6">
-          <!-- Status / Plan Card -->
-          <div
-            class="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800/40 dark:to-slate-800/80 p-5 rounded-2xl border border-slate-200/80 dark:border-slate-700/50 relative overflow-hidden group hover:border-blue-200 dark:hover:border-blue-800/50 transition-colors"
-          >
-            <div
-              class="absolute -right-6 -top-6 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition-colors duration-500"
-            ></div>
-            <h4
-              class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4"
-            >
-              Status Akun
-            </h4>
-
-            <div class="flex justify-between items-center relative z-10">
-              <div class="flex items-center gap-3">
+          <!-- Kartu Kredit Poin Asisten AI -->
+          <div class="bg-slate-50 dark:bg-[#0e1526] p-5 rounded-2xl border border-slate-200 dark:border-[#2A3143]">
+            <div class="flex justify-between items-start gap-3 mb-4">
+              <div class="flex items-start gap-3 min-w-0">
                 <div
-                  class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center text-blue-600 dark:text-blue-400 shadow-inner"
-                >
-                  <svg
-                    class="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                    ></path>
+                  class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-white shadow-lg shadow-blue-500/30 shrink-0">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                   </svg>
                 </div>
-                <div>
-                  <p
-                    class="text-sm font-extrabold text-slate-900 dark:text-white"
-                  >
-                    Premium Go
-                  </p>
-                  <p
-                    class="text-[11px] font-semibold text-green-600 dark:text-green-400 mt-0.5"
-                  >
-                    Aktif Selamanya
-                  </p>
+                <div class="min-w-0">
+                  <div class="flex items-center gap-2">
+                    <h4 class="text-base font-bold text-slate-900 dark:text-white">Kredit Poin Asisten AI</h4>
+                    <span
+                      class="px-2 py-0.5 rounded-md bg-blue-100 dark:bg-blue-500/15 text-blue-600 dark:text-blue-400 text-[10px] font-bold uppercase tracking-wide shrink-0">AKTIF</span>
+                  </div>
+                  <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Gunakan poin untuk generate ringkasan
+                    &amp; analisis ATS</p>
                 </div>
               </div>
-              <button
+              <!-- <button
                 id="btn-upgrade-plan"
-                class="text-blue-600 dark:text-blue-400 text-sm font-bold hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
-                onclick="
-                  document
-                    .getElementById('view-profile')
-                    ?.classList.add('hidden');
-                  document
-                    .getElementById('view-profile')
-                    ?.classList.remove('block');
-                  document
-                    .getElementById('view-pricing')
-                    ?.classList.remove('hidden');
-                  document
-                    .getElementById('view-pricing')
-                    ?.classList.add('block');
-                  window.scrollTo(0, 0);
-                "
-              >
-                Upgrade
-              </button>
+                class="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition-colors shadow-md shadow-blue-500/30 shrink-0 cursor-pointer">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                </svg>
+                Top Up Poin
+              </button> -->
             </div>
+
+            <!-- Saldo poin aktif -->
+            <div class="bg-white dark:bg-[#131B2E] rounded-xl border border-slate-200 dark:border-[#2A3143] p-4">
+              <div class="flex items-center justify-between gap-3">
+                <div>
+                  <p class="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-1">Poin Aktif Tersedia</p>
+                  <div class="flex items-baseline gap-2">
+                    <span
+                      class="text-3xl font-extrabold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent"
+                      id="profile-page-points">0</span>
+                    <span class="text-sm font-semibold text-slate-500 dark:text-slate-400">Poin Tersisa</span>
+                  </div>
+                </div>
+                <button
+                  class="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-50 dark:bg-blue-500/10 hover:bg-blue-100 dark:hover:bg-blue-500/20 border border-blue-200 dark:border-blue-500/30 text-blue-600 dark:text-blue-400 rounded-xl text-xs font-bold transition-colors shrink-0 cursor-pointer"
+                  onclick="document.getElementById('btn-upgrade-plan')?.click()">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                  </svg>
+                  Top Up Saldo
+                </button>
+              </div>
+            </div>
+
+            <!-- Riwayat Top Up Terakhir -->
+            <div class="bg-white dark:bg-[#131B2E] rounded-xl border border-slate-200 dark:border-[#2A3143] p-4 mt-3">
+              <div class="flex items-center justify-between gap-3 mb-3">
+                <div class="flex items-center gap-2 min-w-0">
+                  <span class="w-2 h-2 rounded-full bg-green-500 shrink-0"></span>
+                  <span class="text-sm font-bold text-slate-900 dark:text-white truncate">Riwayat Top Up Terakhir</span>
+                </div>
+                <button
+                  class="inline-flex items-center gap-1 text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors shrink-0 cursor-pointer"
+                  onclick="
+                    openGenericModal(
+                      'Riwayat Tagihan &amp; Pembelian',
+                      '<div class=\'space-y-4\'><p class=\'text-slate-700 dark:text-slate-200\'>Riwayat pembelian paket poin &amp; faktur akan tampil di sini setelah Anda melakukan top up pertama.</p><button class=\'w-full mt-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-sm font-bold\' onclick=\'document.getElementById(&quot;btn-upgrade-plan&quot;)?.click()\'>Isi Poin Sekarang</button></div>',
+                    )
+                  ">
+                  Lebih Banyak
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3">
+                    </path>
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Item riwayat (konten statis mockup) -->
+              <div
+                class="flex flex-wrap items-center justify-between gap-2 bg-slate-50 dark:bg-[#0e1526] rounded-lg px-3 py-2.5 border border-slate-200/70 dark:border-[#2A3143]">
+                <div class="flex flex-wrap items-center gap-2 min-w-0">
+                  <span class="text-sm font-semibold text-slate-700 dark:text-slate-200">Top Up +5 Poin Pinter AI</span>
+                  <span
+                    class="px-2 py-0.5 rounded-md bg-green-100 dark:bg-green-500/15 text-green-600 dark:text-green-400 text-[10px] font-bold">Berhasil</span>
+                  <span class="text-xs text-slate-400">• 24 Okt 2024, 14:20</span>
+                </div>
+                <span class="text-sm font-bold text-slate-900 dark:text-white shrink-0">Rp25.000</span>
+              </div>
+            </div>
+
+            <p class="text-xs leading-relaxed text-slate-500 dark:text-slate-400 mt-4">
+              Gunakan token ini untuk fitur
+              <b class="text-slate-700 dark:text-slate-200">Buat Ringkasan Otomatis AI</b>,
+              <b class="text-slate-700 dark:text-slate-200">Poles Pengalaman Kerja ATS</b>, dan
+              <b class="text-slate-700 dark:text-slate-200">Analisis Kecocokan Lowongan Kerja</b> secara instan.
+            </p>
           </div>
 
-          <!-- Statistics / Achievements -->
-          <div class="grid grid-cols-2 gap-4">
-            <div
-              class="bg-slate-50 dark:bg-slate-800/30 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-700/50 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors"
-            >
+          <!-- Statistik -->
+          <div>
+            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
+              Statistik &amp; Efektivitas Dokumen
+            </h4>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <!-- CV Dibuat -->
               <div
-                class="text-indigo-500 dark:text-indigo-400 mb-2 bg-indigo-100 dark:bg-indigo-900/40 w-8 h-8 rounded-lg flex items-center justify-center"
-              >
-                <svg
-                  class="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                  ></path>
-                </svg>
+                class="bg-slate-50 dark:bg-[#0e1526] p-4 rounded-2xl border border-slate-200 dark:border-[#2A3143] hover:bg-slate-100 dark:hover:bg-[#131B2E] transition-colors">
+                <div
+                  class="mb-3 bg-indigo-100 dark:bg-indigo-500/15 w-9 h-9 rounded-xl flex items-center justify-center text-indigo-500 dark:text-indigo-400">
+                  <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                    </path>
+                  </svg>
+                </div>
+                <div class="text-2xl font-extrabold text-slate-900 dark:text-white mb-0.5">12</div>
+                <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">CV Dibuat</div>
               </div>
+              <!-- Portfolio -->
               <div
-                class="text-2xl font-extrabold text-slate-900 dark:text-white mb-0.5"
-              >
-                12
+                class="bg-slate-50 dark:bg-[#0e1526] p-4 rounded-2xl border border-slate-200 dark:border-[#2A3143] hover:bg-slate-100 dark:hover:bg-[#131B2E] transition-colors">
+                <div
+                  class="mb-3 bg-cyan-100 dark:bg-cyan-500/15 w-9 h-9 rounded-xl flex items-center justify-center text-cyan-500 dark:text-cyan-400">
+                  <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                    </path>
+                  </svg>
+                </div>
+                <div class="text-2xl font-extrabold text-slate-900 dark:text-white mb-0.5">3</div>
+                <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Portfolio Web</div>
               </div>
+              <!-- Skor ATS -->
               <div
-                class="text-[10px] font-bold text-slate-500 uppercase tracking-widest"
-              >
-                CV Dibuat
-              </div>
-            </div>
-            <div
-              class="bg-slate-50 dark:bg-slate-800/30 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-700/50 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors"
-            >
-              <div
-                class="text-cyan-500 dark:text-cyan-400 mb-2 bg-cyan-100 dark:bg-cyan-900/40 w-8 h-8 rounded-lg flex items-center justify-center"
-              >
-                <svg
-                  class="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                  ></path>
-                </svg>
-              </div>
-              <div
-                class="text-2xl font-extrabold text-slate-900 dark:text-white mb-0.5"
-              >
-                3
-              </div>
-              <div
-                class="text-[10px] font-bold text-slate-500 uppercase tracking-widest"
-              >
-                Portfolio
+                class="bg-slate-50 dark:bg-[#0e1526] p-4 rounded-2xl border border-slate-200 dark:border-[#2A3143] hover:bg-slate-100 dark:hover:bg-[#131B2E] transition-colors">
+                <div
+                  class="mb-3 bg-green-100 dark:bg-green-500/15 w-9 h-9 rounded-xl flex items-center justify-center text-green-500 dark:text-green-400">
+                  <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                  </svg>
+                </div>
+                <div class="text-2xl font-extrabold text-slate-900 dark:text-white mb-0.5">
+                  96<span class="text-sm align-top">%</span>
+                </div>
+                <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Rata Skor ATS</div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Right Settings / Actions -->
+        <!-- ── KOLOM KANAN: Pengaturan & Bantuan ── -->
         <div class="space-y-3">
-          <h4
-            class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3 md:mt-1"
-          >
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
             Pengaturan &amp; Bantuan
           </h4>
 
-          <button
-            class="w-full flex items-center justify-between p-3.5 bg-slate-50 dark:bg-slate-800/30 hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-xl border border-slate-200/80 dark:border-slate-700/50 transition-colors group"
-            onclick="
-              openGenericModal(
-                'Pengaturan Akun',
-                '<div class=\'space-y-4\'><p>Preferensi Notifikasi</p><label class=\'flex items-center gap-2\'><input type=\'checkbox\' checked> Email Promosi</label><label class=\'flex items-center gap-2\'><input type=\'checkbox\' checked> Notifikasi Pembaruan</label></div>',
-              )
-            "
-          >
-            <div
-              class="flex items-center gap-3 text-slate-700 dark:text-slate-300"
-            >
-              <div
-                class="p-2 rounded-lg bg-white dark:bg-slate-900 shadow-sm border border-slate-200/60 dark:border-slate-800 group-hover:scale-105 group-hover:text-blue-500 transition-all"
-              >
-                <svg
-                  class="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                  ></path>
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                  ></path>
-                </svg>
+          <div
+            class="rounded-2xl border border-slate-200 dark:border-[#2A3143] divide-y divide-slate-200 dark:divide-[#2A3143] overflow-hidden">
+            <button
+              class="w-full flex items-center justify-between p-4 bg-white dark:bg-transparent hover:bg-slate-50 dark:hover:bg-white/[0.04] transition-colors group text-left cursor-pointer"
+              onclick="
+                openGenericModal(
+                  'Pengaturan Akun',
+                  '<div class=\'space-y-4\'><p>Preferensi Notifikasi</p><label class=\'flex items-center gap-2\'><input type=\'checkbox\' checked> Email Promosi</label><label class=\'flex items-center gap-2\'><input type=\'checkbox\' checked> Notifikasi Pembaruan</label></div>',
+                )
+              ">
+              <div class="flex items-center gap-3 text-slate-700 dark:text-slate-200">
+                <div
+                  class="p-2.5 rounded-xl bg-slate-100 dark:bg-[#1A2137] text-slate-600 dark:text-slate-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 group-hover:bg-blue-50 dark:group-hover:bg-blue-500/10 transition-colors">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
+                    </path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  </svg>
+                </div>
+                <span class="text-left">
+                  <span class="block font-bold text-[15px] text-slate-900 dark:text-white">Pengaturan Akun</span>
+                  <span class="block text-xs text-slate-500 dark:text-slate-400 mt-0.5">Kata sandi, privasi &amp;
+                    keamanan</span>
+                </span>
               </div>
-              <span
-                class="font-semibold text-[15px] group-hover:text-slate-900 dark:group-hover:text-white transition-colors"
-                >Pengaturan Akun</span
-              >
-            </div>
-            <svg
-              class="w-4 h-4 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 5l7 7-7 7"
-              ></path>
-            </svg>
-          </button>
+              <svg
+                class="w-4 h-4 text-slate-300 dark:text-slate-500 group-hover:text-slate-500 transition-colors shrink-0"
+                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </button>
 
-          <button
-            class="w-full flex items-center justify-between p-3.5 bg-slate-50 dark:bg-slate-800/30 hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-xl border border-slate-200/80 dark:border-slate-700/50 transition-colors group"
-            onclick="
-              openGenericModal(
-                'Pusat Bantuan',
-                '<div class=\'space-y-4\'><p>Butuh bantuan? Tim dukungan jagoCV siap membantu Anda 24/7. Anda dapat mengirimkan email ke support@jagocv.com atau melihat halaman dokumentasi kami.</p><ul class=\'list-disc pl-5 space-y-1\'><li>Cara membuat CV ATS</li><li>Cara menambahkan Portofolio</li><li>Pengaturan Privasi</li></ul></div>',
-              )
-            "
-          >
-            <div
-              class="flex items-center gap-3 text-slate-700 dark:text-slate-300"
-            >
-              <div
-                class="p-2 rounded-lg bg-white dark:bg-slate-900 shadow-sm border border-slate-200/60 dark:border-slate-800 group-hover:scale-105 group-hover:text-amber-500 transition-all"
-              >
-                <svg
-                  class="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  ></path>
-                </svg>
+            <button
+              class="w-full flex items-center justify-between p-4 bg-white dark:bg-transparent hover:bg-slate-50 dark:hover:bg-white/[0.04] transition-colors group text-left cursor-pointer"
+              onclick="
+                openGenericModal(
+                  'Riwayat Tagihan',
+                  '<div class=\'space-y-4\'><p class=\'text-slate-700 dark:text-slate-200\'>Riwayat pembelian paket poin &amp; faktur akan tampil di sini setelah Anda melakukan top up pertama.</p><button class=\'w-full mt-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-sm font-bold\' onclick=\'document.getElementById(&quot;btn-upgrade-plan&quot;)?.click()\'>Isi Poin Sekarang</button></div>',
+                )
+              ">
+              <div class="flex items-center gap-3 text-slate-700 dark:text-slate-200">
+                <div
+                  class="p-2.5 rounded-xl bg-slate-100 dark:bg-[#1A2137] text-slate-600 dark:text-slate-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 group-hover:bg-blue-50 dark:group-hover:bg-blue-500/10 transition-colors">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+                  </svg>
+                </div>
+                <span class="text-left">
+                  <span class="block font-bold text-[15px] text-slate-900 dark:text-white">Riwayat Tagihan &amp;
+                    Pembelian</span>
+                  <span class="block text-xs text-slate-500 dark:text-slate-400 mt-0.5">Faktur paket &amp; riwayat
+                    top-up poin</span>
+                </span>
               </div>
-              <span
-                class="font-semibold text-[15px] group-hover:text-slate-900 dark:group-hover:text-white transition-colors"
-                >Pusat Bantuan</span
-              >
-            </div>
-            <svg
-              class="w-4 h-4 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 5l7 7-7 7"
-              ></path>
-            </svg>
-          </button>
+              <svg
+                class="w-4 h-4 text-slate-300 dark:text-slate-500 group-hover:text-slate-500 transition-colors shrink-0"
+                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </button>
 
-          <!-- Logout Button -->
-          <button
-            id="btn-logout"
-            class="w-full flex items-center justify-between p-3.5 bg-red-50 hover:bg-red-100 dark:bg-red-500/10 dark:hover:bg-red-500/20 rounded-xl border border-red-200 dark:border-red-500/30 transition-colors group mt-2"
-          >
-            <div class="flex items-center gap-3 text-red-600 dark:text-red-400">
-              <div
-                class="p-2 rounded-lg bg-white dark:bg-red-500/20 shadow-sm border border-red-100 dark:border-red-500/30 group-hover:scale-105 transition-transform text-red-500"
-              >
-                <svg
-                  class="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                  ></path>
-                </svg>
+            <button
+              class="w-full flex items-center justify-between p-4 bg-white dark:bg-transparent hover:bg-slate-50 dark:hover:bg-white/[0.04] transition-colors group text-left cursor-pointer"
+              onclick="
+                openGenericModal(
+                  'Pusat Bantuan',
+                  '<div class=\'space-y-4\'><p>Butuh bantuan? Tim dukungan jagoCV siap membantu Anda 24/7. Anda dapat mengirimkan email ke support@jagocv.com atau melihat halaman dokumentasi kami.</p><ul class=\'list-disc pl-5 space-y-1\'><li>Cara membuat CV ATS</li><li>Cara menambahkan Portofolio</li><li>Pengaturan Privasi</li></ul></div>',
+                )
+              ">
+              <div class="flex items-center gap-3 text-slate-700 dark:text-slate-200">
+                <div
+                  class="p-2.5 rounded-xl bg-slate-100 dark:bg-[#1A2137] text-slate-600 dark:text-slate-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 group-hover:bg-blue-50 dark:group-hover:bg-blue-500/10 transition-colors">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                    </path>
+                  </svg>
+                </div>
+                <span class="text-left">
+                  <span class="block font-bold text-[15px] text-slate-900 dark:text-white">Pusat Bantuan &amp;
+                    Tutorial</span>
+                  <span class="block text-xs text-slate-500 dark:text-slate-400 mt-0.5">Panduan lolos seleksi ATS &amp;
+                    FAQ</span>
+                </span>
               </div>
-              <span
-                class="font-bold text-[15px] group-hover:text-red-700 dark:group-hover:text-red-300 transition-colors"
-                >Keluar Akun</span
-              >
-            </div>
-          </button>
+              <svg
+                class="w-4 h-4 text-slate-300 dark:text-slate-500 group-hover:text-slate-500 transition-colors shrink-0"
+                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </button>
+
+            <!-- Keluar Akun — di dalam panel Pengaturan (mockup v2), logic router tetap -->
+            <button id="btn-logout"
+              class="w-full flex items-center justify-between p-4 bg-red-50/60 hover:bg-red-100 dark:bg-red-500/10 dark:hover:bg-red-500/20 transition-colors group text-left cursor-pointer">
+              <div class="flex items-center gap-3 text-red-600 dark:text-red-400">
+                <div
+                  class="p-2.5 rounded-xl bg-white dark:bg-red-500/20 shadow-sm border border-red-100 dark:border-red-500/30 group-hover:scale-105 transition-transform text-red-500">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
+                    </path>
+                  </svg>
+                </div>
+                <span class="text-left">
+                  <span class="block font-bold text-[15px] text-red-600 dark:text-red-400">Keluar Akun</span>
+                  <span class="block text-xs text-red-500/80 dark:text-red-400/70 mt-0.5">Selesaikan sesi aktif di
+                    perangkat ini</span>
+                </span>
+              </div>
+              <svg class="w-4 h-4 text-red-300 dark:text-red-400/60 group-hover:text-red-500 transition-colors shrink-0"
+                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Tips Karir -->
+          <div
+            class="flex items-start gap-3 p-4 mt-2 rounded-2xl bg-amber-50 dark:bg-amber-400/[0.06] border border-amber-200 dark:border-amber-400/20">
+            <span class="shrink-0 text-amber-500 pt-0.5">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z">
+                </path>
+              </svg>
+            </span>
+            <p class="text-xs leading-relaxed text-amber-700 dark:text-amber-300/90">
+              <b class="font-bold">Tips Karir:</b> Pastikan tautan LinkedIn dan portofolio Anda selalu
+              mutakhir untuk meningkatkan impresi rekruter hingga 2.4x lipat.
+            </p>
+          </div>
         </div>
       </div>
     </div>

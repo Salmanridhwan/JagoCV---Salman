@@ -50,8 +50,12 @@ export interface PointsState {
 
 /** Perbarui angka poin di chip topbar. */
 export function setPointsDisplay(points: number): void {
+  const value = String(Math.max(0, points));
   const el = document.getElementById("points-value");
-  if (el) el.textContent = String(Math.max(0, points));
+  if (el) el.textContent = value;
+  // Kartu "Poin Aktif Tersedia" di halaman profil ikut diperbarui.
+  const pf = document.getElementById("profile-page-points");
+  if (pf) pf.textContent = value;
 }
 
 /** Ambil poin terakhir yang diketahui (cache localStorage) untuk sinkron UI awal. */
