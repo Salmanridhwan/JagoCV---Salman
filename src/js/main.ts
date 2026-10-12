@@ -22,7 +22,12 @@ import {
 import { bindGalleryEvents } from "./views/gallery";
 import { bindChatWidget } from "./views/chat";
 import { bindModalEvents, registerModalGlobals } from "./views/modal";
+import {
+  bindEditProfileEvents,
+  prepareEditProfileForm,
+} from "./views/edit-profile";
 import { bindPricingEvents } from "./views/pricing";
+import { bindPointHistoryEvents } from "./views/point-history";
 import {
   bindPointsChip,
   cachePoints,
@@ -60,9 +65,13 @@ document.addEventListener("DOMContentLoaded", () => {
   bindGalleryEvents();
   bindChatWidget();
   bindModalEvents();
+  // Halaman Edit Profil (form + simpan + sinkron ke profil/topbar)
+  bindEditProfileEvents();
 
   // Payment gateway: halaman pricing/topup & chip poin di topbar
   bindPricingEvents();
+  // Mutasi & Riwayat Top Up Poin AI (filter, unduh laporan, mock data)
+  bindPointHistoryEvents();
   bindPointsChip();
 
   // Bind auth forms & buttons (login, register, Google Sign-In)

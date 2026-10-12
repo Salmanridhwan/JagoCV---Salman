@@ -4,6 +4,7 @@ import { clearPointsCache, clearSession } from "../utils/auth";
 import { spendPointForGenerate } from "../utils/points";
 import { clearCvFormDom, resetCvDraftSession, generateCvFromManualForm, renderCvResult } from "../utils/cvData";
 import { rememberLastView } from "../utils/navigation";
+import { prepareEditProfileForm } from "./edit-profile";
 
 const ALL_VIEW_IDS = [
   "view-dashboard",
@@ -14,7 +15,9 @@ const ALL_VIEW_IDS = [
   "view-resume-result",
   "view-portfolio-result",
   "view-profile",
+  "view-edit-profile",
   "view-pricing",
+  "view-point-history",
   "view-preview-gallery",
 ] as const;
 
@@ -124,6 +127,17 @@ export function bindRouterEvents(): void {
   // Profile / pricing
   const btnNavProfile = document.getElementById("btn-nav-profile");
   const btnBackFromProfile = document.getElementById("btn-back-from-profile");
+  // Edit Profil (dari Profil Akun → view-edit-profile)
+  const btnEditProfile = document.getElementById("btn-edit-profile");
+  const btnBackFromEditProfile = document.getElementById(
+    "btn-back-from-edit-profile",
+  );
+  // Mutasi & Riwayat Top Up Poin AI (kembali ke profil akun)
+  const btnBackFromPointHistory = document.getElementById(
+    "btn-back-from-point-history",
+  );
+  // Profil → "Lebih Banyak" (riwayat top up) → halaman mutasi poin
+  const btnMorePointHistory = document.getElementById("btn-more-point-history");
   const btnUpgradePlan = document.getElementById("btn-upgrade-plan");
   const btnBackFromPricing = document.getElementById("btn-back-from-pricing");
   const btnLogout = document.getElementById("btn-logout");
@@ -158,6 +172,8 @@ export function bindRouterEvents(): void {
   const viewResumeResult = document.getElementById("view-resume-result");
   const viewPortfolioResult = document.getElementById("view-portfolio-result");
   const viewProfile = document.getElementById("view-profile");
+  const viewEditProfile = document.getElementById("view-edit-profile");
+  const viewPointHistory = document.getElementById("view-point-history");
   const viewPricing = document.getElementById("view-pricing");
   const viewLanding = document.getElementById("view-landing");
   const appWrapper = document.getElementById("app-wrapper");
@@ -196,6 +212,21 @@ export function bindRouterEvents(): void {
       showView(viewProfile);
     });
   }
+  // ── Edit Profil ────────────────────────
+  if (btnEditProfile) {
+    btnEditProfile.addEventListener("click", () => {
+      // Isi ulang form dari data user terbaru sebelum form ditampilkan.
+      prepareEditProfileForm();
+      hideAllViews();
+      showView(viewEditProfile);
+    });
+  }
+  if (btnBackFromEditProfile) {
+    btnBackFromEditProfile.addEventListener("click", () => {
+      hideAllViews();
+      showView(viewProfile);
+    });
+  }
   if (btnUpgradePlan) {
     btnUpgradePlan.addEventListener("click", () => {
       hideAllViews();
@@ -212,6 +243,18 @@ export function bindRouterEvents(): void {
     btnBackFromProfile.addEventListener("click", () => {
       hideAllViews();
       showView(viewDashboard);
+    });
+  }
+  if (btnBackFromPointHistory) {
+    btnBackFromPointHistory.addEventListener("click", () => {
+      hideAllViews();
+      showView(viewProfile);
+    });
+  }
+  if (btnMorePointHistory) {
+    btnMorePointHistory.addEventListener("click", () => {
+      hideAllViews();
+      showView(viewPointHistory);
     });
   }
 

@@ -1,4 +1,12 @@
 <div class="max-w-3xl mx-auto mt-6">
+  <!-- Trigger navigasi tak terlihat: tombol "Top Up Saldo" pada halaman profil
+       memicu klik tombol ini (btn-upgrade-plan → router.ts → view-pricing).
+       Harus TETAP DIRANGKAI dalam layout (bukan display:none) agar addEventListener
+       tetap dapat dipasang dan click() tetap menghasilkan event.
+       JANGAN dihapus — profil, mutasi poin, chip poin, dan modal top up bergantung padanya. -->
+  <button id="btn-upgrade-plan" class="sr-only" aria-hidden="true" tabindex="-1"
+    type="button">Top Up Poin</button>
+
   <!-- Back button -->
   <button
     id="btn-back-from-pricing"

@@ -1,6 +1,23 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Utility sr-only (tersembunyi secara visual, tetap dirangkai di layout):
+   dipakai tombol trigger tak terlihat (mis. btn-upgrade-plan di view-pricing)
+   yang diklik programatik oleh tombol halaman lain. */
+@layer utilities {
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+}
+
 @layer utilities {
   .custom-scrollbar::-webkit-scrollbar {
     width: 6px;

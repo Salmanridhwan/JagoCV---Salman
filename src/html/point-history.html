@@ -1,0 +1,174 @@
+<!-- =============================================================
+     VIEW: POINT HISTORY — Mutasi & Riwayat Top Up Poin AI
+     Logical ids:
+       - btn-back-from-point-history  (router.ts → view-profile)
+       - btn-point-history-topup      (→ view-pricing / Top Up)
+       - btn-download-report          (point-history.ts)
+       - point-history-filter-date    / Terapkan / Reset
+       - point-history-list           (dirender oleh point-history.ts)
+     Topbar tetap milik index.html. Tanpa footer.
+     ============================================================= -->
+<div class="max-w-7xl mx-auto mt-2">
+  <!-- Back + badge -->
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+    <button id="btn-back-from-point-history"
+      class="flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 px-3 py-2 rounded-xl transition-colors font-semibold w-fit cursor-pointer">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+      </svg>
+      Kembali ke Profil Akun
+    </button>
+
+    <span
+      class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/30 text-blue-700 dark:text-blue-400 text-xs font-semibold w-fit">
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+      </svg>
+      Sistem Kredit Token AI
+    </span>
+  </div>
+
+  <!-- Header -->
+  <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-8">
+    <div class="min-w-0">
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+        Mutasi &amp; Riwayat Top Up Poin AI
+      </h1>
+      <p class="mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-2xl">
+        Pantau seluruh histori pengisian token dan pemakaian kredit asisten AI untuk
+        optimasi resume dan portofolio Anda.
+      </p>
+    </div>
+
+    <!-- Tombol unduh laporan (desktop di kanan header; mobile pindah ke bawah judul) -->
+    <div class="shrink-0">
+      <button id="btn-download-report"
+        class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-sm font-bold transition-colors shadow-md shadow-blue-500/30 cursor-pointer w-full sm:w-auto">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+        </svg>
+        Unduh Laporan PDF
+      </button>
+    </div>
+  </div>
+
+  <!-- ── Tiga card ringkasan ── -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 mb-8">
+
+    <!-- 1. Saldo Poin AI Aktif (latar biru) -->
+    <div
+      class="bg-gradient-to-br from-blue-600 to-cyan-500 rounded-2xl border border-blue-500/40 p-5 shadow-lg shadow-blue-500/25 text-white overflow-hidden relative">
+      <div class="absolute -top-16 -right-16 w-40 h-40 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+      <div class="flex items-start justify-between gap-3 relative">
+        <p class="text-[11px] font-bold uppercase tracking-widest text-white/80">Saldo Poin AI Aktif</p>
+        <span
+          class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/20 border border-white/25 text-white text-[10px] font-bold uppercase tracking-wide shrink-0">
+          <span class="w-1.5 h-1.5 rounded-full bg-green-300 animate-pulse"></span>
+          Siap Digunakan
+        </span>
+      </div>
+      <div class="flex items-baseline gap-2 mt-3 relative">
+        <span id="point-history-balance" class="text-4xl font-extrabold tracking-tight">2</span>
+        <span class="text-sm font-semibold text-white/85">Poin Tersisa</span>
+      </div>
+      <p class="mt-1.5 text-xs text-white/80 relative">1 Poin &asymp; 1x Optimasi AI</p>
+      <button id="btn-point-history-topup"
+        class="mt-4 inline-flex items-center gap-1.5 px-4 py-2 bg-white hover:bg-blue-50 text-blue-700 rounded-xl text-xs font-bold transition-colors shadow-md cursor-pointer relative">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+        </svg>
+        + Top Up Cepat
+      </button>
+    </div>
+
+    <!-- 2. Total Poin Diisi -->
+    <div
+      class="bg-white dark:bg-[#0B1221] rounded-2xl border border-slate-200 dark:border-[#2A3143] p-5 shadow-xl shadow-slate-200/50 dark:shadow-none">
+      <div class="flex items-start justify-between gap-3">
+        <p class="text-[11px] font-bold uppercase tracking-widest text-slate-400">Total Poin Diisi</p>
+        <div
+          class="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/30 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+          </svg>
+        </div>
+      </div>
+      <div class="flex items-baseline gap-2 mt-3">
+        <span id="point-history-total-points" class="text-4xl font-extrabold text-blue-600 dark:text-blue-400 tracking-tight">35</span>
+        <span class="text-sm font-semibold text-slate-500 dark:text-slate-400">Poin AI</span>
+      </div>
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1.5">
+        <p class="text-xs text-slate-500 dark:text-slate-400">Akumulasi seumur hidup</p>
+        <span class="hidden sm:block w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-600"></span>
+        <p class="text-xs font-semibold text-slate-600 dark:text-slate-300"><span id="point-history-topup-count">4</span>
+          Transaksi Top Up</p>
+      </div>
+    </div>
+
+    <!-- 3. Total Pengeluaran -->
+    <div
+      class="bg-white dark:bg-[#0B1221] rounded-2xl border border-slate-200 dark:border-[#2A3143] p-5 shadow-xl shadow-slate-200/50 dark:shadow-none">
+      <div class="flex items-start justify-between gap-3">
+        <p class="text-[11px] font-bold uppercase tracking-widest text-slate-400">Total Pengeluaran</p>
+        <!-- Ikon indikator hijau -->
+        <div
+          class="w-9 h-9 rounded-xl bg-green-50 dark:bg-green-500/10 border border-green-200 dark:border-green-500/30 flex items-center justify-center text-green-500 shrink-0">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+          </svg>
+        </div>
+      </div>
+      <div class="flex items-baseline gap-2 mt-3">
+        <span id="point-history-total-spend" class="text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">Rp175.000</span>
+      </div>
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1.5">
+        <p class="text-xs text-slate-500 dark:text-slate-400">Metode favorit</p>
+        <span class="hidden sm:block w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-600"></span>
+        <p class="text-xs font-semibold text-slate-600 dark:text-slate-300">QRIS Instan &amp; GoPay</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Daftar Transaksi ── -->
+  <div
+    class="bg-white dark:bg-[#0B1221] rounded-2xl border border-slate-200 dark:border-[#2A3143] shadow-xl shadow-slate-200/50 dark:shadow-none overflow-hidden">
+    <!-- Header list + filter -->
+    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 p-5 sm:p-6">
+      <div class="min-w-0">
+        <h2 class="text-lg font-bold text-slate-900 dark:text-white">Daftar Transaksi</h2>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">Riwayat pengisian poin AI Anda.</p>
+      </div>
+
+      <!-- Filter satu tanggal (satu baris ringkas) -->
+      <div class="flex flex-wrap items-center gap-2 lg:shrink-0">
+        <div class="relative flex-1 sm:flex-none min-w-0">
+          <span
+            class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+          </span>
+          <input id="point-history-filter-date" type="date" aria-label="Pilih tanggal"
+            class="w-full sm:w-48 pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 dark:border-[#2A3143] bg-white dark:bg-[#131B2E] text-sm text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-colors" />
+        </div>
+        <button id="btn-apply-filter"
+          class="inline-flex items-center gap-1.5 px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition-colors shadow-md shadow-blue-500/30 cursor-pointer">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+          </svg>
+          Terapkan Filter
+        </button>
+        <button id="btn-reset-filter"
+          class="inline-flex items-center px-4 py-2.5 bg-slate-100 dark:bg-[#1A2137] hover:bg-slate-200 dark:hover:bg-[#232C42] border border-slate-200 dark:border-[#2A3143] text-slate-700 dark:text-slate-200 rounded-xl text-xs font-bold transition-colors cursor-pointer">
+          Reset
+        </button>
+      </div>
+    </div>
+
+    <!-- List transaksi (dirender point-history.ts) -->
+    <div id="point-history-list" class="px-5 sm:px-6 pb-2"></div>
+  </div>
+</div>

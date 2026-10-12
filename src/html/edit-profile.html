@@ -1,0 +1,125 @@
+<!-- =============================================================
+     VIEW: EDIT PROFILE — halaman edit profil (hall profile → Edit Profil)
+     Consistent dengan profil: panel putih, aksen biru, sudut membulat,
+     bayangan halus, tipografi Inter.
+     Logical ids:
+       - btn-back-from-edit-profile   (router.ts → view-profile)
+       - btn-save-edit-profile        (edit-profile.ts)
+       - btn-cancel-edit-profile      (edit-profile.ts → kembali ke profil)
+       - edit-first-name / edit-last-name / edit-email / edit-role /
+         edit-location / edit-avatar-preview / edit-avatar-url
+       - edit-email-hint              (preview kecil di bawah email)
+     Tidak ada field tambahan di luar yang tampil di Profil Akun.
+     ============================================================= -->
+<div class="max-w-5xl mx-auto mt-2 mb-10">
+  <!-- Back + badge -->
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+    <button id="btn-back-from-edit-profile"
+      class="flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 px-3 py-2 rounded-xl transition-colors font-semibold w-fit cursor-pointer">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+      </svg>
+      Kembali ke Profil Akun
+    </button>
+
+    <span
+      class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/30 text-blue-700 dark:text-blue-400 text-xs font-semibold w-fit">
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+      </svg>
+      Edit Profil
+    </span>
+  </div>
+
+  <!-- Header -->
+  <div class="text-center mb-8">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+      Edit Profil Akun
+    </h1>
+    <p class="mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-400">
+      Perbarui data yang tampil di Profil Akun dan topbar jagoCV.
+    </p>
+  </div>
+
+  <!-- Kartu utama -->
+  <div
+    class="bg-white dark:bg-[#0B1221] rounded-2xl border border-slate-200 dark:border-[#2A3143] shadow-xl shadow-slate-200/50 dark:shadow-none overflow-hidden">
+
+    <!-- ── Avatar ── -->
+    <div class="flex flex-col sm:flex-row items-center gap-5 p-6 sm:p-8 border-b border-slate-100 dark:border-[#1A2137]">
+      <div class="p-1 bg-white dark:bg-white/10 rounded-[1.2rem] shadow-lg shadow-slate-300/50 dark:shadow-black/30 shrink-0">
+        <img id="edit-avatar-preview" src="" alt="Pratinjau avatar"
+          class="w-20 h-20 rounded-[1rem] object-cover bg-slate-200 dark:bg-[#1A2137]" />
+      </div>
+      <div class="w-full">
+        <label for="edit-avatar-url"
+          class="block text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-2">URL Foto Profil</label>
+        <input id="edit-avatar-url" type="url" placeholder="https://... (kosongkan = avatar default)"
+          class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-[#2A3143] bg-white dark:bg-[#131B2E] text-sm text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-colors" />
+        <p class="text-xs text-slate-400 dark:text-slate-500 mt-2">Tempel tautan foto baru untuk mengganti avatar.</p>
+      </div>
+    </div>
+
+    <!-- ── Form fields ── -->
+    <div class="p-6 sm:p-8 space-y-5">
+      <!-- Nama depan & belakang -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label for="edit-first-name"
+            class="block text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-2">Nama Depan</label>
+          <input id="edit-first-name" type="text" placeholder="cth: Salman"
+            class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-[#2A3143] bg-white dark:bg-[#131B2E] text-sm text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-colors" />
+        </div>
+        <div>
+          <label for="edit-last-name"
+            class="block text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-2">Nama Belakang</label>
+          <input id="edit-last-name" type="text" placeholder="cth: Uyat"
+            class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-[#2A3143] bg-white dark:bg-[#131B2E] text-sm text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-colors" />
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label for="edit-email"
+          class="block text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-2">Email</label>
+        <input id="edit-email" type="email" placeholder="nama@email.com"
+          class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-[#2A3143] bg-white dark:bg-[#131B2E] text-sm text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-colors" />
+        <p id="edit-email-hint" class="text-xs text-slate-400 dark:text-slate-500 mt-2"></p>
+      </div>
+
+      <!-- Profesi -->
+      <div>
+        <label for="edit-role"
+          class="block text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-2">Profesi</label>
+        <input id="edit-role" type="text" placeholder="cth: Junior Frontend"
+          class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-[#2A3143] bg-white dark:bg-[#131B2E] text-sm text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-colors" />
+        <p class="text-xs text-slate-400 dark:text-slate-500 mt-2">Tampil sebagai role di topbar &amp; Profil Akun.</p>
+      </div>
+
+      <!-- Lokasi -->
+      <div>
+        <label for="edit-location"
+          class="block text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-2">Lokasi</label>
+        <input id="edit-location" type="text" placeholder="cth: Jakarta, Indonesia"
+          class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-[#2A3143] bg-white dark:bg-[#131B2E] text-sm text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-colors" />
+        <p class="text-xs text-slate-400 dark:text-slate-500 mt-2">Tampil sebagai chip lokasi di bagian informasi profil.</p>
+      </div>
+    </div>
+
+    <!-- ── Aksi ── -->
+    <div class="flex flex-col-reverse sm:flex-row justify-end gap-3 px-6 sm:px-8 py-5 border-t border-slate-100 dark:border-[#1A2137] bg-slate-50/60 dark:bg-[#0e1526]">
+      <button id="btn-cancel-edit-profile"
+        class="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 bg-white dark:bg-[#1A2137] hover:bg-slate-50 dark:hover:bg-[#232C42] border border-slate-200 dark:border-[#2A3143] text-slate-700 dark:text-slate-200 rounded-xl text-sm font-bold transition-colors cursor-pointer">
+        Batal
+      </button>
+      <button id="btn-save-edit-profile"
+        class="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-sm font-bold transition-colors shadow-md shadow-blue-500/30 cursor-pointer">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+        </svg>
+        Simpan Perubahan
+      </button>
+    </div>
+  </div>
+</div>

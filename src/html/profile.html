@@ -126,14 +126,8 @@
           <!-- Kanan: tombol aksi — di dalam container putih,
                sejajar vertikal dengan tengah blok identitas -->
           <div class="flex flex-wrap gap-2.5 sm:justify-end lg:items-center shrink-0">
-            <button
-              class="inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-slate-100 dark:bg-[#1A2137] hover:bg-slate-200 dark:hover:bg-[#232C42] text-slate-700 dark:text-slate-100 rounded-xl text-xs font-bold transition-colors border border-slate-200 dark:border-[#2A3143] cursor-pointer"
-              onclick="
-                openGenericModal(
-                  'Edit Profil',
-                  '<div class=\'space-y-4\'><div class=\'space-y-1.5\'><label class=\'text-xs font-bold text-slate-500 uppercase\'>Nama Lengkap</label><input type=\'text\' class=\'w-full p-2 border rounded bg-slate-50 dark:bg-slate-800\' value=\'Salman\'></div><div class=\'space-y-1.5\'><label class=\'text-xs font-bold text-slate-500 uppercase\'>Profesi</label><input type=\'text\' class=\'w-full p-2 border rounded bg-slate-50 dark:bg-slate-800\' value=\'Junior Frontend\'></div></div>',
-                )
-              ">
+            <button id="btn-edit-profile"
+              class="inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-slate-100 dark:bg-[#1A2137] hover:bg-slate-200 dark:hover:bg-[#232C42] text-slate-700 dark:text-slate-100 rounded-xl text-xs font-bold transition-colors border border-slate-200 dark:border-[#2A3143] cursor-pointer">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
@@ -223,14 +217,8 @@
                   <span class="w-2 h-2 rounded-full bg-green-500 shrink-0"></span>
                   <span class="text-sm font-bold text-slate-900 dark:text-white truncate">Riwayat Top Up Terakhir</span>
                 </div>
-                <button
-                  class="inline-flex items-center gap-1 text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors shrink-0 cursor-pointer"
-                  onclick="
-                    openGenericModal(
-                      'Riwayat Tagihan &amp; Pembelian',
-                      '<div class=\'space-y-4\'><p class=\'text-slate-700 dark:text-slate-200\'>Riwayat pembelian paket poin &amp; faktur akan tampil di sini setelah Anda melakukan top up pertama.</p><button class=\'w-full mt-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-sm font-bold\' onclick=\'document.getElementById(&quot;btn-upgrade-plan&quot;)?.click()\'>Isi Poin Sekarang</button></div>',
-                    )
-                  ">
+                <button id="btn-more-point-history"
+                  class="inline-flex items-center gap-1 text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors shrink-0 cursor-pointer">
                   Lebih Banyak
                   <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3">
