@@ -1,0 +1,23 @@
+<!DOCTYPE html><html lang="id"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Center — jagoCV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/index.css">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .admin-view { animation: fadeIn .25s ease forwards; }
+  </style>
+</head>
+<body class="bg-[#f6f7f9] text-slate-700 min-h-screen antialiased">
+  <!-- Shell admin (sidebar + topbar + kontain view) dirender oleh src/admin/shell.ts -->
+  <div id="admin-root"></div>
+
+  <!-- Modal generik admin -->
+  <div id="admin-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-sm px-4"></div>
+
+  <script type="module" src="/src/admin/main-admin.ts"></script>
+</body></html>

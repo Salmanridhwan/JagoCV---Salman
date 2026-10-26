@@ -119,6 +119,108 @@ function require_user(): array
 }
 
 /** Bentuk payload user yang aman dikirim ke frontend (tanpa hash password). */
+function issue_admin_token(array $user): string
+{
+    // Token admin: masa berlaku 8 jam (rekomendasi sesi pendek, ADMIN_IMPLEMENTATION.md Bagian 1.3).
+    $header  = ['alg' => 'HS256', 'typ' => 'JWT'];
+    $payload = [
+        'sub'      => (int) $user['id'],
+        'email'    => $user['email'],
+        'iat'      => time(),
+        'exp'      => time() + 8 * 3600,
+        'is_admin' => 1,
+    ];
+
+    $b64 = static fn (array $part): string =>
+        rtrim(strtr(base64_encode(json_encode($part)), '+/', '-_'), '=');
+
+    $unsigned = $b64($header) . '.' . $b64($payload);
+    $sig      = rtrim(strtr(base64_encode(hash_hmac('sha256', $unsigned, APP_JWT_SECRET, true)), '+/', '-_'), '=');
+
+    return $unsigned . '.' . $sig;
+}
+
+/**
+ * Guard SEMUA endpoint admin (Bagian 1.4): wajib dipanggil di awal file.
+ * Token harus ber payload is_admin=1, user harus masih admin & status aktif.
+ * $perm disiapkan untuk model permission granular (PERLU KEPUTUSAN) — saat ini
+ * single-flag is_admin sehingga permission apa pun longitudinal lolos.
+ */
+function require_admin(?string $perm = null): array
+{
+    $header  = $_SERVER['HTTP_AUTHORIZATION'] ?? ($_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ?? '');
+    $headers = function_exists('getallheaders') ? array_change_key_case((array) getallheaders(), CASE_LOWER) : [];
+    $bearer  = $headers['authorization'] ?? $header;
+
+    if (!preg_match('/Bearer\\s+(\\S+)/i', (string) $bearer, $m)) {
+        json_fail('Tidak terautentikasi. Silakan login admin terlebih dahulu.', 401);
+    }
+
+    $payload = verify_token($m[1]);
+    if ($payload === null || (int) ($payload['is_admin'] ?? 0) !== 1) {
+        json_fail('Token admin tidak valid. Silakan login kembali.', 401);
+    }
+
+    $stmt = db()->prepare(
+        'SELECT id, first_name, last_name, email, avatar_url, points, is_admin, status
+         FROM users WHERE id = ?'
+    );
+    $stmt->execute([(int) $payload['sub']]);
+    $admin = $stmt->fetch();
+
+    if (!$admin) {
+        json_fail('Akun admin tidak ditemukan.', 401);
+    }
+    if ((int) $admin['is_admin'] !== 1) {
+        json_fail('Akses admin ditolak.', 403);
+    }
+    if (($admin['status'] ?? 'active') !== 'active') {
+        json_fail('Akun admin dinonaktifkan.', 403);
+    }
+
+    return $admin;
+}
+
+/** Bentuk payload admin untuk frontend (tanpa data sensitif). */
+function public_admin(array $admin): array
+{
+    return [
+        'id'         => (int) $admin['id'],
+        'first_name' => (string) $admin['first_name'],
+        'last_name'  => (string) $admin['last_name'],
+        'email'      => (string) $admin['email'],
+        'avatar_url' => $admin['avatar_url'] ?? null,
+        'role_label' => 'Super Admin',
+    ];
+}
+
+/**
+ * Catat jejak aksi admin ke audit_logs (Bagian 2, wajib pada aksi write).
+ * Gagal mencatat JANGAN menggagalkan operasi utama — hanya error_log.
+ */
+function log_audit(int $adminId, string $action, string $table, $targetId, ?array $before, ?array $after, ?string $reason = null): void
+{
+    try {
+        $stmt = db()->prepare(
+            'INSERT INTO audit_logs (admin_id, action, target_table, target_id, before_json, after_json, reason, ip, user_agent)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
+        );
+        $stmt->execute([
+            $adminId,
+            $action,
+            $table,
+            (string) $targetId,
+            $before === null ? null : json_encode($before, JSON_UNESCAPED_UNICODE),
+            $after === null ? null : json_encode($after, JSON_UNESCAPED_UNICODE),
+            $reason,
+            $_SERVER['REMOTE_ADDR'] ?? null,
+            substr((string) ($_SERVER['HTTP_USER_AGENT'] ?? ''), 0, 255),
+        ]);
+    } catch (PDOException $e) {
+        error_log('log_audit: ' . $e->getMessage());
+    }
+}
+
 function public_user(array $user): array
 {
     return [

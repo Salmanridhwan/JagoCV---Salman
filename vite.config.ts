@@ -152,6 +152,10 @@ export default defineConfig(({mode}) => {
           main: 'index.html',
           // Halaman simulasi payment gateway (dibuka checkout.php)
           paymentGateway: 'src/html/payment-gateway.html',
+          // Halaman admin (ADMIN_IMPLEMENTATION.md Bagian 1.1 — opsi A:
+          // SPA admin terpisah dari app user)
+          admin: 'admin.html',
+          adminLogin: 'admin-login.html',
         },
       },
     },
