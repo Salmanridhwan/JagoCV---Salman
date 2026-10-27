@@ -10,6 +10,7 @@ import { renderShell, restoreLastAdminView, onActivate } from "./shell";
 import { mountDashboardView } from "./views/dashboard";
 import { mountTemplatesView } from "./views/templates";
 import { mountUsersView } from "./views/users";
+import { mountTransactionsView } from "./views/transactions";
 import { mountStub } from "./views/stubs";
 
 void (async () => {
@@ -23,8 +24,10 @@ void (async () => {
   onActivate("view-templates", () => mountTemplatesView());
   onActivate("view-users", () => mountUsersView());
 
+  // Transaksi & Komersial — Monitoring Transaksi sudah dibangun.
+  onActivate("view-transactions", () => mountTransactionsView());
+
   // Menu lain — stub kosong (dibangun pada tahap berikutnya sesuai md).
-  onActivate("view-transactions", () => mountStub("view-transactions", "Monitoring Transaksi", "Pantau transaksi top-up (berhasil/pending/gagal) dan tangani kendala — void transaksi kedaluwarsa, koreksi poin."));
   onActivate("view-pricing-admin", () => mountStub("view-pricing-admin", "Manajemen Harga & Token", "Kelola paket top-up (basic/pro/premium): harga, poin, fitur, dan status aktif."));
   onActivate("view-ai-config", () => mountStub("view-ai-config", "Konfigurasi API AI", "Kelola kunci API generator (Gemini) di sisi server — key tidak pernah dikirim ke frontend."));
   onActivate("view-feedback", () => mountStub("view-feedback", "Feedback & Laporan", "Kelola laporan kendala pengguna (kategori bug/top-up/saran) dan status penanganannya."));

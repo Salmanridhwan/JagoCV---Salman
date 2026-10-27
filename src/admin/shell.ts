@@ -4,7 +4,7 @@
  * Item Main Menu (Dashboard/Template/User & Dokumen) penuh; menu lain stub.
  */
 import { getStoredAdmin, adminApi, logoutAdminLocal, type AdminUser } from "./api";
-import { esc, initialAvatar } from "./ui";
+import { esc } from "./ui";
 
 // ── Ikon garis (stroke, gaya desain patokan) ─────────────────────────
 
@@ -52,7 +52,7 @@ const MENU_SECTIONS: { label: string; items: MenuItem[] }[] = [
   {
     label: "TRANSAKSI & KOMERSIAL",
     items: [
-      { id: "view-transactions", label: "Monitoring Transaksi", icon: "receipt", built: false },
+      { id: "view-transactions", label: "Monitoring Transaksi", icon: "receipt", built: true },
       { id: "view-pricing-admin", label: "Manajemen Harga & Token", icon: "coin", built: false },
     ],
   },
@@ -134,43 +134,51 @@ export function renderShell(admin: AdminUser): AdminRouter {
 
     <!-- ── Konten ──────────────────────────────────────────────── -->
     <div class="md:pl-72 min-h-screen flex flex-col">
-      <!-- Topbar -->
+      <!-- Topbar (rapih mengikuti desain patokan: search kiri lebar,
+           cluster kanan rapat — ID/EN, bel, nama, lalu avatar paling ujung) -->
       <header class="sticky top-0 z-30 bg-white/90 backdrop-blur border-b border-slate-100">
-        <div class="h-[72px] px-5 md:px-8 flex items-center gap-3">
-          <button id="admin-burger" class="md:hidden p-2 rounded-lg hover:bg-slate-100">${icon("menu")}</button>
+        <div class="h-[76px] px-5 md:px-8 flex items-center">
+          <button id="admin-burger" class="md:hidden p-2 mr-2 rounded-lg hover:bg-slate-100">${icon("menu")}</button>
 
-          <div class="relative flex-1 max-w-xl">
+          <!-- Search: terletak di kiri, lebar mengikuti desain -->
+          <div class="relative flex-1 max-w-[600px]">
             ${icon("search", "w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none")}
             <input id="admin-search" type="text"
                    placeholder="Cari data, user, ID transaksi…"
                    class="w-full rounded-full bg-slate-100/80 border border-transparent focus:border-slate-300 focus:bg-white pl-11 pr-4 py-2.5 text-sm outline-none transition-colors">
           </div>
 
-          <!-- Toggle bahasa (Bagian 1.2: fase 1 hanya ID aktif, EN disable) -->
-          <div class="hidden sm:flex items-center rounded-full bg-slate-100 p-0.5 text-[11px] font-bold">
-            <span class="px-3 py-1.5 rounded-full bg-slate-900 text-white">ID</span>
-            <span class="px-3 py-1.5 rounded-full text-slate-400 cursor-not-allowed" title="Bahasa Inggris — tahap berikutnya">EN</span>
-          </div>
+          <!-- Cluster kanan: rapat melekat ke ujung kanan (jarak antar-elemen kecil) -->
+          <!-- Cluster kanan: pada md+ menempel ke ujung kanan topbar -->
+          <div class="ml-auto pl-4 md:pl-6 flex items-center shrink-0">
+            <!-- Toggle bahasa (Bagian 1.2: fase 1 hanya ID aktif, EN disable) -->
+            <div class="hidden sm:flex items-center rounded-full bg-slate-100 p-0.5">
+              <span class="px-2.5 py-1 rounded-full bg-slate-900 text-white text-[10px] font-bold leading-none">ID</span>
+              <span class="px-2.5 py-1 rounded-full text-slate-400 text-[10px] font-bold leading-none cursor-not-allowed" title="Bahasa Inggris — tahap berikutnya">EN</span>
+            </div>
 
-          <button id="admin-bell" title="Notifikasi — feedback berstatus Baru" class="relative p-2 rounded-full hover:bg-slate-100">
-            ${icon("bell")}
-            <span id="admin-bell-dot" class="hidden absolute top-1.5 right-1.5 w-2 h-2 bg-rose-500 rounded-full"></span>
-          </button>
-
-          <div class="relative">
-            <button id="admin-user-chip" class="flex items-center gap-3 rounded-full border border-slate-200 hover:border-slate-300 pl-1.5 pr-3 py-1.5 transition-colors">
-              ${getStoredAdmin()?.avatar_url
-                ? `<img src="${esc(getStoredAdmin()!.avatar_url)}" class="w-9 h-9 rounded-full object-cover" alt="">`
-                : initialAvatar(`${admin.first_name} ${admin.last_name}`, "bg-slate-200 text-slate-700")}
-              <div class="hidden sm:block text-right leading-tight pr-1">
-                <p class="text-sm font-bold text-slate-900">${esc(admin.first_name)} ${esc(admin.last_name)}</p>
-                <p class="text-[10px] font-semibold text-slate-400">${esc(admin.role_label)}</p>
-              </div>
+            <button id="admin-bell" title="Notifikasi — feedback berstatus Baru" class="relative ml-5 md:ml-9 p-2 rounded-full hover:bg-slate-100">
+              ${icon("bell")}
+              <span id="admin-bell-dot" class="absolute top-1.5 right-1.5 w-2 h-2 bg-rose-500 rounded-full"></span>
             </button>
-            <div id="admin-user-menu" class="hidden absolute right-0 mt-2 w-48 bg-white border border-slate-100 rounded-2xl shadow-xl py-2 overflow-hidden">
-              <button id="admin-logout" class="w-full flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-rose-600 hover:bg-rose-50 transition-colors">
-                ${icon("logout", "w-4 h-4")} Keluar
+
+            <div class="relative flex items-center gap-2.5 ml-4 md:ml-5">
+              <button id="admin-user-chip" class="flex items-center gap-3 rounded-full hover:bg-slate-50 py-1 pl-1 transition-colors">
+                <div class="text-right leading-tight">
+                  <p class="text-sm font-bold text-slate-900">${esc(admin.first_name)} ${esc(admin.last_name)}</p>
+                  <p class="text-[11px] font-semibold text-slate-400">${esc(admin.role_label)}</p>
+                </div>
+                ${getStoredAdmin()?.avatar_url
+                  ? `<img src="${esc(getStoredAdmin()!.avatar_url)}" class="w-10 h-10 rounded-full object-cover shrink-0" alt="">`
+                  : `<span class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center shrink-0">
+                      <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M16 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    </span>`}
               </button>
+              <div id="admin-user-menu" class="hidden absolute right-0 top-full mt-2 w-48 bg-white border border-slate-100 rounded-2xl shadow-xl py-2 overflow-hidden">
+                <button id="admin-logout" class="w-full flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-rose-600 hover:bg-rose-50 transition-colors">
+                  ${icon("logout", "w-4 h-4")} Keluar
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -227,10 +235,9 @@ export function renderShell(admin: AdminUser): AdminRouter {
   const fire = (): void => searchCb?.(searchInput?.value.trim() ?? "");
   searchInput?.addEventListener("input", debounce(fire, 350));
 
-  // Dot bel: butuh jumlah feedback Baru — endpoint feedback belum ada (PERLU DIBUAT
-  // di Menu 8). Saat ini tanpa endpoint → dot disembunyikan. Setelah Menu 8 hidup,
-  // isi di sini: fetch count → tampilkan dot.
-  document.getElementById("admin-bell-dot")?.classList.add("hidden");
+  // Dot bel: ditampilkan statis mengikuti desain patokan. Setelah Menu 8
+  // (Feedback & Laporan) hidup, ganti jadi jumlah riil feedback Baru via fetch.
+  void document.getElementById("admin-bell-dot");
 
   return {
     showAdminView,
