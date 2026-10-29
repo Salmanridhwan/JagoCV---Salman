@@ -34,6 +34,17 @@ function json_body(): array
     return $data;
 }
 
+/** Ambil dan decode body JSON; kembalikan [] bila body kosong/tidak valid. */
+function json_body_optional(): array
+{
+    $raw = file_get_contents('php://input') ?: '';
+    if (trim($raw) === '') {
+        return [];
+    }
+    $data = json_decode($raw, true);
+    return is_array($data) ? $data : [];
+}
+
 /** Ambil nilai string dari array, lalu trim. */
 function field_str(array $data, string $key): string
 {

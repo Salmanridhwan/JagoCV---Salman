@@ -53,7 +53,7 @@ const MENU_SECTIONS: { label: string; items: MenuItem[] }[] = [
     label: "TRANSAKSI & KOMERSIAL",
     items: [
       { id: "view-transactions", label: "Monitoring Transaksi", icon: "receipt", built: true },
-      { id: "view-pricing-admin", label: "Manajemen Harga & Token", icon: "coin", built: false },
+      { id: "view-tokens", label: "Manajemen Token", icon: "coin", built: true },
     ],
   },
   {
@@ -190,7 +190,7 @@ export function renderShell(admin: AdminUser): AdminRouter {
         <div id="view-templates" class="admin-view hidden"></div>
         <div id="view-users" class="admin-view hidden"></div>
         <div id="view-transactions" class="admin-view hidden"></div>
-        <div id="view-pricing-admin" class="admin-view hidden"></div>
+        <div id="view-tokens" class="admin-view hidden"></div>
         <div id="view-ai-config" class="admin-view hidden"></div>
         <div id="view-feedback" class="admin-view hidden"></div>
         <div id="view-audit" class="admin-view hidden"></div>

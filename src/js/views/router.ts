@@ -2,7 +2,7 @@
 
 import { clearPointsCache, clearSession } from "../utils/auth";
 import { spendPointForGenerate } from "../utils/points";
-import { clearCvFormDom, resetCvDraftSession, generateCvFromManualForm, renderCvResult } from "../utils/cvData";
+import { clearCvFormDom, resetCvDraftSession, generateCvFromManualForm, renderCvResult, readSelectedLayout } from "../utils/cvData";
 import { rememberLastView } from "../utils/navigation";
 import { prepareEditProfileForm } from "./edit-profile";
 
@@ -351,7 +351,8 @@ export function bindRouterEvents(): void {
       btnGenerateCv.addEventListener("click", async () => {
       // Alur sama dengan tombol di builder: pakai 1 poin, simpan ke server,
       // lalu render hasil. Bila poin habis → modal top up ditampilkan.
-      const allowed = await spendPointForGenerate();
+      // `layout` diteruskan agar token template yang dipakai ikut tervalidasi.
+      const allowed = await spendPointForGenerate(readSelectedLayout());
       if (!allowed) return;
       const original = btnGenerateCv.innerHTML;
       btnGenerateCv.innerHTML = `<svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg> Membuat...`;

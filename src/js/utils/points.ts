@@ -195,7 +195,7 @@ export async function initPointsUi(): Promise<void> {
  * modal yang sama ditampilkan.
  * Mengembalikan true bila poin berhasil dipakai (generate boleh lanjut).
  */
-export async function spendPointForGenerate(): Promise<boolean> {
+export async function spendPointForGenerate(layout?: string): Promise<boolean> {
   const token = getToken();
   if (!token) {
     showToast("Silakan login terlebih dahulu.");
@@ -212,15 +212,25 @@ export async function spendPointForGenerate(): Promise<boolean> {
     const res = await fetch(`${API_BASE}/consume.php`, {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-      body: JSON.stringify({}),
+      body: JSON.stringify(layout ? { layout } : {}),
     });
     const data = (await res.json().catch(() => null)) as
-      | { ok: boolean; points?: number; message?: string }
+      | {
+          ok: boolean;
+          points?: number;
+          message?: string;
+          token?: { name: string; cost_per_generate: number };
+        }
       | null;
 
     if (res.status === 402) {
       // Backend memastikan poin benar-benar habis → modal pengarah ke topup.
       openTopUpModal();
+      return false;
+    }
+    if (res.status === 403) {
+      // Template memakai token yang dinonaktifkan admin.
+      showToast(data?.message ?? "Template ini sedang tidak tersedia untuk generate.");
       return false;
     }
     if (!data || !data.ok) {
@@ -231,7 +241,12 @@ export async function spendPointForGenerate(): Promise<boolean> {
     const points = data.points ?? 0;
     setPointsDisplay(points);
     cachePoints(points);
-    showToast(`Berhasil! 1 poin dipakai. Sisa poin: ${points}.`);
+
+    // Tampilkan token & biaya yang berlaku (bila template punya token terpasang).
+    const cost = data.token
+      ? ` · ${data.token.name} (Rp ${new Intl.NumberFormat("id-ID").format(data.token.cost_per_generate)}/generate)`
+      : "";
+    showToast(`Berhasil! 1 token dipakai${cost}. Sisa token: ${points}.`);
     return true;
   } catch {
     showToast(

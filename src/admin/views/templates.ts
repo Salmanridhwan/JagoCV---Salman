@@ -5,7 +5,7 @@
  */
 import { adminApi } from "../api";
 import { esc, initialAvatar, showToast, openModal, closeModal, confirmDialog, setButtonLoading } from "../ui";
-import { formatAngka, formatTanggal } from "../format";
+import { formatAngka, formatRupiah, formatTanggal } from "../format";
 
 interface Template {
   id: number;
@@ -20,6 +20,22 @@ interface Template {
   created_at: string;
   updated_at: string;
   config: Record<string, unknown>;
+  token_package_id: number | null;
+  token: {
+    id: number;
+    name: string;
+    token_amount: number;
+    cost_per_generate: number;
+    is_active: boolean;
+  } | null;
+}
+
+interface TokenOption {
+  id: number;
+  name: string;
+  token_amount: number;
+  cost_per_generate: number;
+  is_active: boolean;
 }
 
 interface TemplateList {
@@ -42,10 +58,25 @@ const state = {
   chip: "all" as "all" | "CV ATS" | "Resume" | "Portfolio" | "nonaktif",
   list: null as TemplateList | null,
   loading: false,
+  /** Daftar token aktif+nonaktif untuk dropdown di form (dimuat sekali). */
+  tokens: [] as TokenOption[],
 };
 
 export function mountTemplatesView(): void {
+  state.tokens = []; // selalu segarkan daftar token saat menu dibuka
   void load();
+}
+
+/** Ambil daftar token untuk pilihan di form Tambah/Edit template. */
+async function loadTokenOptions(): Promise<TokenOption[]> {
+  if (state.tokens.length > 0) return state.tokens;
+  try {
+    const data = await adminApi<{ tokens: TokenOption[] }>("tokens.php", { query: { status: "" } });
+    state.tokens = data.tokens ?? [];
+  } catch {
+    state.tokens = [];
+  }
+  return state.tokens;
 }
 
 async function load(): Promise<void> {
@@ -189,6 +220,14 @@ function cardHtml(t: Template): string {
           <p class="text-slate-400 tracking-wide">RENDERER</p>
           <p class="text-slate-800 text-sm mt-0.5">${t.layout_key ? esc(t.layout_key) : "Kustom"}</p>
         </div>
+        <div class="rounded-xl ${t.token ? "bg-emerald-50 border-emerald-100" : "bg-amber-50 border-amber-100"} border p-3 col-span-2">
+          <p class="${t.token ? "text-emerald-700/70" : "text-amber-700/70"} tracking-wide">TOKEN / BIAYA GENERATE</p>
+          ${t.token
+            ? `<p class="text-slate-800 text-sm mt-0.5">${esc(t.token.name)} · ${formatRupiah(t.token.cost_per_generate)}/generate</p>
+               <p class="text-[10px] font-medium ${t.token.is_active ? "text-emerald-700" : "text-rose-600"} mt-0.5">${t.token.is_active ? `${formatAngka(t.token.token_amount)} token tersedia` : "Token nonaktif — generate diblokir"}</p>`
+            : `<p class="text-amber-800 text-sm mt-0.5">Belum dipasang</p>
+               <p class="text-[10px] font-medium text-amber-700 mt-0.5">Generate tidak dibatasi token</p>`}
+        </div>
       </div>
 
       <p class="mt-3 text-[11px] text-slate-400">Diperbarui ${esc(formatTanggal(t.updated_at))}</p>
@@ -263,6 +302,7 @@ function payloadOf(t: Template): Record<string, unknown> {
     thumbnail_url: t.thumbnail_url ?? "",
     engine_version: t.engine_version,
     layout_key: t.layout_key ?? "",
+    token_package_id: t.token_package_id ?? null,
     config_json: JSON.stringify(t.config ?? {}),
     status: t.status,
   };
@@ -271,8 +311,13 @@ function payloadOf(t: Template): Record<string, unknown> {
 // ── Form modal (Tambah/Edit) ─────────────────────────────────────────
 
 function openForm(t: Template | null): void {
+  void openFormAsync(t);
+}
+
+async function openFormAsync(t: Template | null): Promise<void> {
   const isEdit = t !== null;
   const cfgText = t ? JSON.stringify(t.config ?? {}, null, 2) : "{\n  \"layout\": \"standar\"\n}";
+  const tokenOpts = await loadTokenOptions();
 
   const modal = openModal({
     title: isEdit ? `Edit Template — ${t!.name}` : "Tambah Template Baru",
@@ -313,6 +358,23 @@ function openForm(t: Template | null): void {
           <input id="tf-thumb" value="${esc(t?.thumbnail_url ?? "")}" placeholder="https://…" class="w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-sm focus:outline-none focus:border-slate-400">
         </div>
         <div class="md:col-span-2">
+          <label class="block text-xs font-semibold text-slate-600 mb-1.5">Token untuk generate dokumen *</label>
+          <select id="tf-token" class="w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-sm bg-white focus:outline-none focus:border-slate-400">
+            <option value="">— Tanpa token (generate tidak dibatasi) —</option>
+            ${tokenOpts
+              .map(
+                (tk) =>
+                  `<option value="${tk.id}" ${t?.token_package_id === tk.id ? "selected" : ""}>${esc(tk.name)} · ${formatAngka(tk.token_amount)} token · Rp ${formatAngka(tk.cost_per_generate)}/generate${tk.is_active ? "" : " (nonaktif)"}</option>`,
+              )
+              .join("")}
+          </select>
+          <p class="text-[11px] text-slate-400 mt-1">
+            Biaya &amp; kuota generate mengikuti token ini. Atur daftar token di menu
+            <b class="text-slate-500">Transaksi &amp; Komersial → Manajemen Token</b>.
+            ${tokenOpts.length === 0 ? `<span class="text-amber-600">Belum ada token — buat dulu di Manajemen Token.</span>` : ""}
+          </p>
+        </div>
+        <div class="md:col-span-2">
           <label class="block text-xs font-semibold text-slate-600 mb-1.5">Deskripsi "Dokumen didukung"</label>
           <input id="tf-desc" value="${esc(t?.description ?? "")}" class="w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-sm focus:outline-none focus:border-slate-400" maxlength="255">
         </div>
@@ -341,6 +403,7 @@ function openForm(t: Template | null): void {
       layout_key: (modal.querySelector("#tf-layout") as HTMLSelectElement).value,
       thumbnail_url: (modal.querySelector("#tf-thumb") as HTMLInputElement).value.trim(),
       description: (modal.querySelector("#tf-desc") as HTMLInputElement).value.trim(),
+      token_package_id: (modal.querySelector("#tf-token") as HTMLSelectElement).value || null,
     };
     const cfgRaw = (modal.querySelector("#tf-config") as HTMLTextAreaElement).value.trim();
     let config: Record<string, unknown> = {};

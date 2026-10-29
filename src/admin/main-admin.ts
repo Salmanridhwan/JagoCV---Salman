@@ -11,6 +11,7 @@ import { mountDashboardView } from "./views/dashboard";
 import { mountTemplatesView } from "./views/templates";
 import { mountUsersView } from "./views/users";
 import { mountTransactionsView } from "./views/transactions";
+import { mountTokensView } from "./views/tokens";
 import { mountStub } from "./views/stubs";
 
 void (async () => {
@@ -24,11 +25,11 @@ void (async () => {
   onActivate("view-templates", () => mountTemplatesView());
   onActivate("view-users", () => mountUsersView());
 
-  // Transaksi & Komersial — Monitoring Transaksi sudah dibangun.
+  // Transaksi & Komersial — Monitoring Transaksi & Manajemen Token sudah dibangun.
   onActivate("view-transactions", () => mountTransactionsView());
+  onActivate("view-tokens", () => mountTokensView());
 
   // Menu lain — stub kosong (dibangun pada tahap berikutnya sesuai md).
-  onActivate("view-pricing-admin", () => mountStub("view-pricing-admin", "Manajemen Harga & Token", "Kelola paket top-up (basic/pro/premium): harga, poin, fitur, dan status aktif."));
   onActivate("view-ai-config", () => mountStub("view-ai-config", "Konfigurasi API AI", "Kelola kunci API generator (Gemini) di sisi server — key tidak pernah dikirim ke frontend."));
   onActivate("view-feedback", () => mountStub("view-feedback", "Feedback & Laporan", "Kelola laporan kendala pengguna (kategori bug/top-up/saran) dan status penanganannya."));
   onActivate("view-audit", () => mountStub("view-audit", "Audit Log Aktivitas", "Jejak seluruh aksi admin: siapa, kapan, apa yang berubah (before/after), dan alasannya."));

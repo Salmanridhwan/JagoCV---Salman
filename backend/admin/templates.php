@@ -68,6 +68,21 @@ function validate_template_payload(array $body, bool $withId = false): array
     }
     $data['thumbnail_url'] = $thumb !== '' ? $thumb : null;
 
+    // token_package_id: token yang dipasang ke template (nullable).
+    // Saat user generate dengan template ini, biaya generate mengikuti token tsb.
+    $tokenRaw = $body['token_package_id'] ?? null;
+    if ($tokenRaw === null || $tokenRaw === '' || $tokenRaw === 'null' || (int) $tokenRaw === 0) {
+        $data['token_package_id'] = null;
+    } else {
+        $tokenId = (int) $tokenRaw;
+        $check   = db()->prepare('SELECT 1 FROM token_packages WHERE id = ?');
+        $check->execute([$tokenId]);
+        if (!$check->fetch()) {
+            json_fail('Token yang dipilih tidak ditemukan.', 422);
+        }
+        $data['token_package_id'] = $tokenId;
+    }
+
     // config_json HARUS object JSON valid (disimpan sebagai JSON, bukan string).
     $cfgRaw = trim((string) ($body['config_json'] ?? ''));
     $cfg    = json_decode($cfgRaw === '' ? '{}' : $cfgRaw, true);
@@ -105,10 +120,13 @@ if ($method === 'GET') {
     // usage_count dihitung dari dokumen yang layout payload-nya cocok (F8).
     $sql = "SELECT t.id, t.name, t.category, t.description, t.thumbnail_url, t.config_json,
                    t.layout_key, t.engine_version, t.status, t.created_at, t.updated_at,
+                   t.token_package_id, tk.name AS token_name, tk.token_amount AS token_amount,
+                   tk.cost_per_generate AS token_cost_per_generate, tk.is_active AS token_is_active,
                    (SELECT COUNT(*) FROM document_details dd
                      WHERE JSON_UNQUOTE(JSON_EXTRACT(dd.payload, '$.\"layout\"')) = t.layout_key
                        AND t.layout_key IS NOT NULL) AS usage_count
             FROM templates t
+            LEFT JOIN token_packages tk ON tk.id = t.token_package_id
             WHERE " . implode(' AND ', $where) . '
             ORDER BY t.updated_at DESC';
 
@@ -119,6 +137,17 @@ if ($method === 'GET') {
         $t['usage_count'] = (int) $t['usage_count'];
         $t['config']      = json_decode((string) $t['config_json'], true) ?: [];
         unset($t['config_json']);
+
+        // Ringkasan token yang terpasang (null bila belum dipilih).
+        $t['token_package_id'] = $t['token_package_id'] !== null ? (int) $t['token_package_id'] : null;
+        $t['token'] = $t['token_package_id'] === null ? null : [
+            'id'                => (int) $t['token_package_id'],
+            'name'              => (string) ($t['token_name'] ?? ''),
+            'token_amount'      => (int) ($t['token_amount'] ?? 0),
+            'cost_per_generate' => (int) ($t['token_cost_per_generate'] ?? 0),
+            'is_active'         => (int) ($t['token_is_active'] ?? 0) === 1,
+        ];
+        unset($t['token_name'], $t['token_amount'], $t['token_cost_per_generate'], $t['token_is_active']);
         return $t;
     }, $stmt->fetchAll());
 
@@ -147,13 +176,13 @@ if ($method === 'POST') {
     }
 
     $stmt = $pdo->prepare(
-        'INSERT INTO templates (name, category, description, thumbnail_url, config_json, layout_key, engine_version, status, created_by)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
+        'INSERT INTO templates (name, category, description, thumbnail_url, config_json, layout_key, token_package_id, engine_version, status, created_by)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
     );
     $stmt->execute([
         $d['name'], $d['category'], $d['description'], $d['thumbnail_url'],
         json_encode($d['config_json'], JSON_UNESCAPED_UNICODE), $d['layout_key'],
-        $d['engine_version'], $d['status'], (int) $admin['id'],
+        $d['token_package_id'], $d['engine_version'], $d['status'], (int) $admin['id'],
     ]);
     $id = (int) $pdo->lastInsertId();
 
@@ -182,13 +211,13 @@ if ($method === 'PUT') {
 
     $stmt = $pdo->prepare(
         'UPDATE templates SET name = ?, category = ?, description = ?, thumbnail_url = ?,
-                                config_json = ?, layout_key = ?, engine_version = ?, status = ?
+                                config_json = ?, layout_key = ?, token_package_id = ?, engine_version = ?, status = ?
          WHERE id = ?'
     );
     $stmt->execute([
         $d['name'], $d['category'], $d['description'], $d['thumbnail_url'],
         json_encode($d['config_json'], JSON_UNESCAPED_UNICODE), $d['layout_key'],
-        $d['engine_version'], $d['status'], $id,
+        $d['token_package_id'], $d['engine_version'], $d['status'], $id,
     ]);
 
     $after = $d;

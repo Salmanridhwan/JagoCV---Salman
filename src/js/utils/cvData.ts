@@ -984,7 +984,9 @@ export async function generateCvFromManualForm(): Promise<void> {
   }
 
   // Payment gate: pakai 1 poin; bila habis, modal top up ditampilkan.
-  const allowed = await spendPointForGenerate();
+  // `layout` dikirim agar server tahu token mana yang terpasang pada
+  // template terpilih (biaya generate mengikuti Manajemen Token).
+  const allowed = await spendPointForGenerate(readSelectedLayout());
   if (!allowed) return;
 
   // Simpan ke MySQL via backend PHP (gagal tidak menghentikan pratinjau).
