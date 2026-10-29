@@ -3,7 +3,7 @@
  *
  * UI dikunci ke desain patokan "Monitoring Transaksi - JagoCV Admin.png":
  * header + chip status webhook + judul, 3 kartu KPI (mint / pink / navy),
- * baris filter (status, periode, metode, jenis, pencarian), tabel 7 kolom
+ * baris filter (status, periode, metode, pencarian), tabel 7 kolom
  * (tanpa kolom checkbox — sesuai patokan), dan footer paginasi.
  *
  * Sumber data: /backend/admin/transactions.php (tabel `point_transactions`).
@@ -67,8 +67,6 @@ interface TrxDetail {
     payment_ref: string | null;
     type: string;
     type_label: string;
-    package_code: string | null;
-    package_name: string | null;
     description: string;
     points: number;
     amount: number | null;
@@ -111,7 +109,6 @@ const state = {
   q: "",
   status: "all" as "all" | UiStatus,
   method: "all",
-  type: "all",
   period: "all" as "all" | "today" | "7d" | "30d" | "month",
   page: 1,
   data: null as TransactionsPage | null,
@@ -166,7 +163,6 @@ async function loadTransactions(silent = false): Promise<void> {
         q: state.q,
         status: state.status === "all" ? undefined : state.status,
         method: state.method === "all" ? undefined : state.method,
-        type: state.type === "all" ? undefined : state.type,
         period: state.period === "all" ? undefined : state.period,
         page: state.page,
         per_page: PER_PAGE,
@@ -286,10 +282,6 @@ function frame(): string {
           { value: "all", label: "Semua Metode" },
           ...(state.data?.filters.methods ?? []).map((m) => ({ value: m.code, label: `${m.label} (${m.total})` })),
         ], "card")}
-        ${dropdown("type", typeLabel(), [
-          { value: "all", label: "Semua Jenis" },
-          ...(state.data?.filters.types ?? []).map((t) => ({ value: t.code, label: `${t.label} (${t.total})` })),
-        ], "tag")}
         <div class="relative ml-auto flex-1 sm:flex-none sm:w-[15rem] min-w-[9rem] max-w-[16rem]">
           <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z"></path></svg>
           <input id="trx-search" type="text" placeholder="ID TRX / Pengguna..." value="${esc(state.q)}"
@@ -354,7 +346,7 @@ function paintPanel(): void {
 /** Empty state: bedakan "belum ada data sama sekali" dari "filter tidak ketemu". */
 function emptyState(): string {
   const filtered =
-    state.q !== "" || state.status !== "all" || state.method !== "all" || state.type !== "all" || state.period !== "all";
+    state.q !== "" || state.status !== "all" || state.method !== "all" || state.period !== "all";
 
   return `<tr><td colspan="7" class="text-center py-14">
     <div class="w-12 h-12 mx-auto rounded-2xl bg-slate-100 flex items-center justify-center text-slate-400 mb-3">
@@ -519,11 +511,11 @@ function statusPill(value: "all" | UiStatus, label: string): string {
 
 interface Option { value: string; label: string }
 
-type FilterGroup = "status" | "period" | "method" | "type";
+type FilterGroup = "status" | "period" | "method";
 
 /** Nilai filter yang sedang aktif per grup. */
 function currentValue(group: FilterGroup): string {
-  return group === "status" ? state.status : group === "period" ? state.period : group === "method" ? state.method : state.type;
+  return group === "status" ? state.status : group === "period" ? state.period : state.method;
 }
 
 /** Pill dropdown dengan menu; label aktif dihitung ulang di frame(). */
@@ -591,10 +583,6 @@ function methodLabel(): string {
   return state.data.filters.methods.find((m) => m.code === state.method)?.label ?? "Metode Pembayaran";
 }
 
-function typeLabel(): string {
-  if (state.type === "all" || !state.data) return "Jenis Transaksi";
-  return state.data.filters.types.find((t) => t.code === state.type)?.label ?? "Jenis Transaksi";
-}
 
 // ── Paginasi ─────────────────────────────────────────────────────────
 
@@ -641,7 +629,7 @@ function bind(): void {
     }),
   );
 
-  // Dropdown (periode / metode / jenis)
+  // Dropdown (status / periode / metode)
   host.querySelectorAll<HTMLButtonElement>("[data-dd-toggle]").forEach((b) =>
     b.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -655,9 +643,9 @@ function bind(): void {
   host.querySelectorAll<HTMLButtonElement>("[data-dd-pick]").forEach((b) =>
     b.addEventListener("click", () => {
       const [group, value] = (b.dataset.ddPick || "/").split("/");
-      if (group === "period") state.period = value as typeof state.period;
+      if (group === "status") state.status = value as typeof state.status;
+      else if (group === "period") state.period = value as typeof state.period;
       else if (group === "method") state.method = value;
-      else if (group === "type") state.type = value;
       state.page = 1;
       closeDropdowns();
       void loadTransactions();
@@ -700,7 +688,6 @@ function bind(): void {
         q: state.q,
         status: state.status === "all" ? undefined : state.status,
         method: state.method === "all" ? undefined : state.method,
-        type: state.type === "all" ? undefined : state.type,
         period: state.period === "all" ? undefined : state.period,
       },
       "jagocv-monitoring-transaksi.csv",
@@ -738,7 +725,7 @@ async function openDetail(id: number): Promise<void> {
 
   const modal = openModal({
     title: `${t.trx_code} — ${t.method}`,
-    subtitle: `${t.type_label}${t.package_name ? ` · Paket ${t.package_name}` : ""} · ${formatWaktu(t.created_at)}`,
+    subtitle: `${t.type_label} · ${formatWaktu(t.created_at)}`,
     wide: true,
     body: `
       <div class="grid sm:grid-cols-4 gap-3 text-center text-xs mb-5">
@@ -766,7 +753,6 @@ async function openDetail(id: number): Promise<void> {
           <div class="flex justify-between gap-3"><dt class="text-slate-400">ID transaksi</dt><dd class="font-bold text-slate-700">${esc(t.trx_code)}</dd></div>
           <div class="flex justify-between gap-3"><dt class="text-slate-400">Referensi gateway</dt><dd class="font-mono text-slate-700">${esc(t.payment_ref ?? "—")}</dd></div>
           <div class="flex justify-between gap-3"><dt class="text-slate-400">Jenis</dt><dd class="font-semibold text-slate-700">${esc(t.type_label)}</dd></div>
-          <div class="flex justify-between gap-3"><dt class="text-slate-400">Paket</dt><dd class="font-semibold text-slate-700">${esc(t.package_name ?? "—")}</dd></div>
           <div class="flex justify-between gap-3"><dt class="text-slate-400">Metode</dt><dd class="font-semibold text-slate-700">${esc(t.method)}</dd></div>
           <div class="flex justify-between gap-3"><dt class="text-slate-400">Status tersimpan (DB)</dt><dd class="font-mono text-slate-500">${esc(t.stored_status)}</dd></div>
           <div class="flex justify-between gap-3 sm:col-span-2"><dt class="text-slate-400">Keterangan</dt><dd class="font-medium text-slate-700 text-right">${esc(t.description || "—")}</dd></div>

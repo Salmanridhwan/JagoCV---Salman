@@ -2,7 +2,7 @@
 /**
  * Endpoint Monitoring Transaksi & Pembayaran Masuk (Menu "TRANSAKSI & KOMERSIAL").
  *
- *    GET  ?q=&status=&method=&type=&period=&page=&per_page=  — list + ringkasan kartu
+ *    GET  ?q=&status=&method=&period=&page=&per_page=  — list + ringkasan kartu
  *    GET  ?id=N                                              — detail 1 transaksi + riwayat user
  *    GET  ?export=csv&…                                      — CSV (kolom mengikuti tabel UI)
  *    POST { id, action:'void', reason }                      — void transaksi pending → failed (+audit)
@@ -120,9 +120,8 @@ function trxMethodIcon(?string $code): string
  *
  * @param bool $withStatus false → kartu ringkasan tidak ikut Zero-in saat
  *                         admin memilih satu status.
- * @param bool $withType   false → kartu ringkasan selalu lingkup pembayaran.
  */
-function buildTrxFilters(bool $withStatus = true, bool $withType = true): array
+function buildTrxFilters(bool $withStatus = true): array
 {
     $where  = [];
     $params = [];
@@ -155,14 +154,6 @@ function buildTrxFilters(bool $withStatus = true, bool $withType = true): array
     if ($method !== '') {
         $where[]              = 'trx.payment_method = :method';
         $params[':method']    = $method;
-    }
-
-    if ($withType) {
-        $type = trim((string) ($_GET['type'] ?? ''));
-        if (in_array($type, ['purchase', 'usage', 'signup_bonus'], true)) {
-            $where[]         = 'trx.type = :type';
-            $params[':type'] = $type;
-        }
     }
 
     switch (trim((string) ($_GET['period'] ?? ''))) {
@@ -237,7 +228,7 @@ if ($httpMethod === 'GET' && ($_GET['export'] ?? '') === 'csv') {
         'point_transactions',
         'csv',
         null,
-        ['filters' => array_intersect_key($_GET, array_flip(['q', 'status', 'method', 'type', 'period']))],
+        ['filters' => array_intersect_key($_GET, array_flip(['q', 'status', 'method', 'period']))],
         'Ekspor CSV Monitoring Transaksi'
     );
     exit;
@@ -252,7 +243,7 @@ if ($httpMethod === 'GET' && isset($_GET['id'])) {
     }
 
     $stmt = $pdo->prepare(
-        'SELECT trx.id, trx.type, trx.points, trx.description, trx.package_code, pkg.name AS package_name,
+        'SELECT trx.id, trx.type, trx.points, trx.description,
                 trx.payment_method, trx.payment_ref, trx.amount, trx.status,
                 ' . TRX_UI_STATUS_SQL . ' AS ui_status,
                 ' . TRX_EXPIRES_SQL . ' AS expires_effective,
@@ -295,8 +286,6 @@ if ($httpMethod === 'GET' && isset($_GET['id'])) {
             'payment_ref'       => $trx['payment_ref'] ?? null,
             'type'              => $trx['type'],
             'type_label'        => trxTypeLabel((string) $trx['type']),
-            'package_code'      => $trx['package_code'] ?? null,
-            'package_name'      => $trx['package_name'] ?? null,
             'description'       => $trx['description'],
             'points'            => (int) $trx['points'],
             'amount'            => $trx['amount'] === null ? null : (int) $trx['amount'],
@@ -381,12 +370,16 @@ if ($httpMethod === 'POST') {
     ]);
 }
 
-// ── Ringkasan kartu (lingkup pembayaran paket) ────────────────────────
+// ── Ringkasan kartu (seluruh jenis transaksi) ────────────────────────
 // Kartu memakai filter periode/metode/pencarian yang aktif, tapi MENGABAIKAN
-// filter status & jenis transaksi supaya angkanya tidak nol saat admin
-// memfilter satu status — angka tetap bermakna.
+// filter status supaya angkanya tidak nol saat admin memilih satu status —
+// angka tetap bermakna.
+// Lingkupnya SEMUA type (bukan hanya 'purchase'): JagoCV tidak punya paket
+// poin, sehingga baris nyata di ledger adalah signup_bonus & usage. Dibatasi
+// ke 'purchase' akan membuat ketiga kartu selalu 0 padahal tabel berisi
+// transaksi sukses.
 
-[$sumWhere, $sumParams] = buildTrxFilters(false, false);
+[$sumWhere, $sumParams] = buildTrxFilters(false);
 
 $sumStmt = $pdo->prepare(
     'SELECT
@@ -395,7 +388,7 @@ $sumStmt = $pdo->prepare(
         COALESCE(SUM(CASE WHEN " . TRX_UI_STATUS_SQL . " = 'pending' THEN 1 ELSE 0 END), 0) AS pending_count,
         COALESCE(SUM(CASE WHEN " . TRX_UI_STATUS_SQL . " = 'expired' THEN 1 ELSE 0 END), 0) AS expired_count,
         COALESCE(SUM(CASE WHEN " . TRX_UI_STATUS_SQL . " = 'failed'  THEN 1 ELSE 0 END), 0) AS failed_count
-     " . TRX_FROM_SQL . ' ' . trxWhereSql($sumWhere, ["trx.type = 'purchase'"])
+     " . TRX_FROM_SQL . ' ' . trxWhereSql($sumWhere)
 );
 $sumStmt->execute($sumParams);
 $agg = $sumStmt->fetch() ?: [];
@@ -425,18 +418,6 @@ $methods = array_map(static function (array $r): array {
         'total' => (int) $r['total'],
     ];
 }, $methodRows);
-
-$typeRows = $pdo->query(
-    'SELECT type, COUNT(*) AS total FROM point_transactions GROUP BY type ORDER BY total DESC'
-)->fetchAll();
-
-$types = array_map(static function (array $r): array {
-    return [
-        'code'  => (string) $r['type'],
-        'label' => trxTypeLabel((string) $r['type']),
-        'total' => (int) $r['total'],
-    ];
-}, $typeRows);
 
 // ── Daftar transaksi (paginasi server-side) ───────────────────────────
 
@@ -501,7 +482,7 @@ $transactions = array_map(static function (array $r): array {
 
 json_response(true, [
     'summary'      => $summary,
-    'filters'      => ['methods' => $methods, 'types' => $types],
+    'filters'      => ['methods' => $methods],
     'transactions' => $transactions,
     'page'         => $page,
     'per_page'     => $perPage,
