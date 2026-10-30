@@ -21,6 +21,7 @@ import {
 } from "./views/portfolio-builder";
 import { bindGalleryEvents } from "./views/gallery";
 import { bindChatWidget } from "./views/chat";
+import { initLandingMotion } from "./views/landing-motion";
 import { bindModalEvents, registerModalGlobals } from "./views/modal";
 import {
   bindEditProfileEvents,
@@ -64,6 +65,8 @@ document.addEventListener("DOMContentLoaded", () => {
   bindPortfolioBuilderEvents();
   bindGalleryEvents();
   bindChatWidget();
+  // Animasi landing page: parallax hero, tilt mockup CV, float kartu CTA.
+  initLandingMotion();
   bindModalEvents();
   // Halaman Edit Profil (form + simpan + sinkron ke profil/topbar)
   bindEditProfileEvents();
