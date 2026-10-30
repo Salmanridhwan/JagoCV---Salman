@@ -89,7 +89,7 @@ function experienceList(accent: string, compact = false): string {
     .join("");
 }
 
-function educationList(accent: string): string {
+function educationList(_accent: string): string {
   return SAMPLE.education
     .map(
       (x) => `

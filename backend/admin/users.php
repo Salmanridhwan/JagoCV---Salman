@@ -3,7 +3,7 @@
  * Endpoint Manajemen User (Menu 3, ADMIN_IMPLEMENTATION.md).
  *   GET  ?q=&status=&has_topup=&page=&per_page=   — daftar + summary kartu
  *   GET  ?id=                                     — detail user + dokumen + transaksi
- *   GET  ?export=csv&…                            — ekspor CSV (kolom mengikuti tabel UI)
+ *   GET  ?export=csv&…[&ids=1,2,3]                — ekspor CSV (8 kolom laporan)
  *   POST { action:'set_status', user_id, status, reason }
  *   DELETE ?id=                                   — hapus akun (cascade FK), type-to-confirm di UI
  */
@@ -23,6 +23,25 @@ $pdo   = db();
 $docCountSql = '(SELECT COUNT(*) FROM documents d WHERE d.user_id = u.id)';
 const TOPUP_SQL = "(SELECT COUNT(*) FROM point_transactions pt WHERE pt.user_id = u.id AND pt.type = 'purchase')";
 
+/**
+ * Aktivitas terakhir = waktu terbaru dari: profil diperbarui, dokumen dibuat,
+ * atau transaksi poin. Dipakai kolom "Terakhir Aktivitas" di tabel & CSV.
+ */
+const LAST_ACTIVITY_SQL = "GREATEST(
+    u.updated_at,
+    COALESCE((SELECT MAX(d2.created_at) FROM documents d2 WHERE d2.user_id = u.id), u.updated_at),
+    COALESCE((SELECT MAX(pt2.created_at) FROM point_transactions pt2 WHERE pt2.user_id = u.id), u.updated_at)
+)";
+
+/** Label status akun untuk laporan CSV (Aktif / Ditangguhkan / Banned). */
+function status_label(string $status): string
+{
+    if ($status === 'active') {
+        return 'Aktif';
+    }
+    return $status === 'banned' ? 'Banned' : 'Ditangguhkan';
+}
+
 /** Bangun WHERE + params dari filter query string. */
 function build_user_filters(PDO $pdo): array
 {
@@ -31,8 +50,13 @@ function build_user_filters(PDO $pdo): array
 
     $q = trim((string) ($_GET['q'] ?? ''));
     if ($q !== '') {
-        $where[]        = '(u.first_name LIKE :q OR u.last_name LIKE :q OR u.email LIKE :q)';
-        $params[':q']   = '%' . $q . '%';
+        // MySQL/PDO tidak mengizinkan satu placeholder dipakai berulang dalam
+        // satu statement → pakai tiga parameter terpisah.
+        $where[]        = '(u.first_name LIKE :q1 OR u.last_name LIKE :q2 OR u.email LIKE :q3)';
+        $like           = '%' . $q . '%';
+        $params[':q1']  = $like;
+        $params[':q2']  = $like;
+        $params[':q3']  = $like;
     }
 
     $status = trim((string) ($_GET['status'] ?? ''));
@@ -68,10 +92,35 @@ $summary['active_pct'] = $summary['total'] > 0
 // ══ Ekspor CSV ═══════════════════════════════════════════════════════
 if ($method === 'GET' && (($_GET['export'] ?? '') === 'csv')) {
     [$where, $params] = build_user_filters($pdo);
+
+    // `ids` (opsional): ekspor hanya baris yang dicentang admin di tabel.
+    // PDO tidak mengizinkan campuran parameter bernama (:q) dan posisional (?),
+    // jadi id juga dikirim sebagai parameter bernama.
+    $idsRaw = trim((string) ($_GET['ids'] ?? ''));
+    $ids    = [];
+    if ($idsRaw !== '') {
+        $placeholders = [];
+        foreach (explode(',', $idsRaw) as $chunk) {
+            $n = (int) trim($chunk);
+            if ($n > 0) {
+                $ids[]              = $n;
+                $key                = ':uid' . count($ids);
+                $placeholders[]     = $key;
+                $params[$key]       = $n;
+            }
+        }
+        if ($placeholders !== []) {
+            $where[] = 'u.id IN (' . implode(',', $placeholders) . ')';
+        }
+    }
+
+    // 8 kolom laporan (sesuai permintaan admin): ID, Nama, Email, Status Akun,
+    // Saldo Poin AI, Total Dokumen, Tanggal Terdaftar, Terakhir Aktivitas.
     $stmt = $pdo->prepare(
-        "SELECT u.id, CONCAT(u.first_name, ' ', u.last_name) AS nama, u.email, u.auth_provider,
-                u.plan, u.points, u.status, {$docCountSql} AS docs_count, u.created_at
-         FROM users u WHERE " . $WHERE_SQL($where) . '
+        "SELECT u.id, CONCAT(u.first_name, ' ', u.last_name) AS nama, u.email, u.status,
+                u.points, {$docCountSql} AS docs_count, u.created_at,
+                " . LAST_ACTIVITY_SQL . ' AS last_activity
+         FROM users u WHERE ' . $WHERE_SQL($where) . '
          ORDER BY u.created_at DESC'
     );
     $stmt->execute($params);
@@ -79,18 +128,55 @@ if ($method === 'GET' && (($_GET['export'] ?? '') === 'csv')) {
     header('Content-Type: text/csv; charset=utf-8');
     header('Content-Disposition: attachment; filename="jagocv-users.csv"');
     $out = fopen('php://output', 'w');
-    fputcsv($out, ['ID', 'Nama', 'Email', 'Provider', 'Plan', 'Poin', 'Status Akun', 'Total Dokumen', 'Terdaftar']);
+    // BOM UTF-8 agar Excel membaca aksen & simbol dengan benar.
+    fwrite($out, "\xEF\xBB\xBF");
+    fputcsv($out, [
+        'ID Pengguna',
+        'Nama Lengkap',
+        'Email',
+        'Status Akun',
+        'Saldo Poin AI',
+        'Total Dokumen Dibuat',
+        'Tanggal Terdaftar',
+        'Terakhir Aktivitas',
+    ]);
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $row['nama'] = trim($row['nama']);
-        fputcsv($out, $row);
+        fputcsv($out, [
+            'USR-' . str_pad((string) $row['id'], 4, '0', STR_PAD_LEFT),
+            trim((string) $row['nama']),
+            $row['email'],
+            status_label((string) $row['status']),
+            (int) $row['points'],
+            (int) $row['docs_count'],
+            $row['created_at'],
+            $row['last_activity'],
+        ]);
     }
     fclose($out);
-    log_audit((int) $admin['id'], 'EXPORT', 'users', 'csv', null, ['filters' => array_intersect_key($_GET, array_flip(['q', 'status', 'has_topup']))], null);
+    log_audit(
+        (int) $admin['id'],
+        'EXPORT',
+        'users',
+        'csv',
+        null,
+        [
+            'filters' => array_intersect_key($_GET, array_flip(['q', 'status', 'has_topup'])),
+            'selected_ids' => $ids,
+            'rows' => $stmt->rowCount(),
+        ],
+        null
+    );
     exit;
 }
 
 // ══ GET list ═════════════════════════════════════════════════════════
 if ($method === 'GET' && !isset($_GET['id'])) {
+    // `only=summary` → hanya kembalikan angka kartu metrik. Dipakai UI untuk
+    // menyegarkan counter (mis. AKUN DITANGGUHKAN) tanpa memuat ulang tabel.
+    if (($_GET['only'] ?? '') === 'summary') {
+        json_response(true, ['summary' => $summary]);
+    }
+
     [$where, $params] = build_user_filters($pdo);
 
     $page    = max(1, (int) ($_GET['page'] ?? 1));
@@ -105,11 +191,12 @@ if ($method === 'GET' && !isset($_GET['id'])) {
         "SELECT u.id, u.first_name, u.last_name, u.email, u.avatar_url, u.auth_provider,
                 u.plan, u.points, u.status, u.created_at,
                 {$docCountSql} AS docs_count,
-                (" . TOPUP_SQL . " > 0) AS has_topup
+                (" . TOPUP_SQL . ") > 0 AS has_topup,
+                " . LAST_ACTIVITY_SQL . ' AS last_activity
          FROM users u
-         WHERE " . $WHERE_SQL($where) . "
+         WHERE ' . $WHERE_SQL($where) . '
          ORDER BY u.created_at DESC
-         LIMIT $perPage OFFSET $offset"
+         LIMIT ' . $perPage . ' OFFSET ' . $offset
     );
 
     $stmt->execute($params);
@@ -170,11 +257,28 @@ if ($method === 'GET' && isset($_GET['id'])) {
         'status'     => $user['status'],
         'is_admin'   => $isSelfAdmin,
         'created_at' => $user['created_at'],
+        'docs_count' => count($documents),
     ];
+
+    // Aktivitas terakhir (dipakai header halaman detail).
+    $actStmt = $pdo->prepare('SELECT ' . LAST_ACTIVITY_SQL . ' AS last_activity FROM users u WHERE u.id = ?');
+    $actStmt->execute([$id]);
+    $userPayload['last_activity'] = (string) ($actStmt->fetchColumn() ?: $user['updated_at']);
+
+    // Rekap dokumen per jenis (tab "Dokumen" di halaman detail).
+    $typeStmt = $pdo->prepare(
+        'SELECT type, COUNT(*) AS total FROM documents WHERE user_id = ? GROUP BY type'
+    );
+    $typeStmt->execute([$id]);
+    $docTypes = [];
+    foreach ($typeStmt->fetchAll() as $row) {
+        $docTypes[(string) $row['type']] = (int) $row['total'];
+    }
 
     json_response(true, [
         'user'         => $userPayload,
         'documents'    => $documents,
+        'doc_types'    => $docTypes,
         'transactions' => $transactions,
     ]);
 }
