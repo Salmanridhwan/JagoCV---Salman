@@ -2,9 +2,17 @@
 /**
  * GET /backend/admin/analytics.php
  * Data Dashboard & Analytics (Menu 1, ADMIN_IMPLEMENTATION.md).
- * Query: ?period=7d|30d&page=N&per_page=KabiliaK (default 5, max 100)
+ * Query: ?period=7d|30d&page=N&per_page=K (default 5, max 100)
+ *        &only=all|overview|activities
  *
- * Respons: { ok, period, cards, chart, template_usage, transactions, activities }
+ * `only` memungkinkan frontend mengambil potongan respons saja:
+ *   overview   → kartu + chart + distribusi template + ringkasan transaksi
+ *   activities → tabel aktivitas (paged) saja
+ * Dipakai agar ganti periode / ganti halaman tidak memuat ulang seluruh data
+ * (payload kecil → transisi di UI mulus, tanpa reload halaman).
+ *
+ * Respons: { ok, period, cards, chart, template_usage, transactions, activities, generated_at }
+ * Bagian yang tidak diminta tidak disertakan (key hilang dari JSON).
  * Angka riil dari DB (users/documents/point_transactions) — bukan mockup PNG.
  */
 
@@ -26,8 +34,23 @@ $page     = max(1, (int) ($_GET['page'] ?? 1));
 $perPage  = min(100, max(1, (int) ($_GET['per_page'] ?? 5)));
 $offset   = ($page - 1) * $perPage;
 
+// ── Potongan respons yang diminta (hemat payload untuk update parsial) ──
+$only = (string) ($_GET['only'] ?? 'all');
+if (!in_array($only, ['all', 'overview', 'activities'], true)) {
+    $only = 'all';
+}
+$needOverview   = $only !== 'activities';
+$needActivities = $only !== 'overview';
+
 try {
 $pdo = db();
+
+$payload = ['period' => $period];
+
+// ═════════════════════════════════════════════════════════════════════
+// OVERVIEW — kartu, grafik, distribusi template, ringkasan transaksi
+// ═════════════════════════════════════════════════════════════════════
+if ($needOverview) {
 
 // ── Kartu: pengguna ──────────────────────────────────────────────────
 $usersTotal    = (int) $pdo->query('SELECT COUNT(*) FROM users WHERE is_admin = 0')->fetchColumn();
@@ -173,8 +196,11 @@ $stmt = $pdo->prepare(
 $stmt->execute([$days]);
 $trx = ['success' => 0, 'pending' => 0, 'failed' => 0, 'amount_success' => 0, 'by_method' => []];
 foreach ($stmt->fetchAll() as $r) {
-    $trx[$r['status']] = (int) $r['n'];
-    if ($r['status'] === 'success') {
+    $statusKey = (string) $r['status'];
+    if (in_array($statusKey, ['success', 'pending', 'failed'], true)) {
+        $trx[$statusKey] = (int) $r['n'];
+    }
+    if ($statusKey === 'success') {
         $trx['amount_success'] = (int) $r['amount'];
     }
 }
@@ -188,6 +214,28 @@ $stmt->execute([$days]);
 foreach ($stmt->fetchAll() as $r) {
     $trx['by_method'][] = ['method' => $r['method'], 'count' => (int) $r['n'], 'amount' => (int) $r['amount']];
 }
+
+$payload['cards'] = [
+    'users_total'     => $usersTotal,
+    'users_active'    => $usersActive,
+    'users_suspended' => $usersSuspended,
+    'users_new'       => $curNew,
+    'users_growth'    => $usersGrowth,
+    'docs_total'      => $docsTotal,
+    'docs_new'        => $docsCur,
+    'docs_growth'     => $docsGrowth,
+    'revenue_month'   => $revenueMonth,
+];
+$payload['chart']          = $chart;
+$payload['template_usage'] = ['total' => $usageTotal, 'items' => $usage];
+$payload['transactions']   = $trx;
+
+} // end if ($needOverview)
+
+// ═════════════════════════════════════════════════════════════════════
+// ACTIVITIES — tabel Aktivitas Platform & Transaksi Terkini (paged)
+// ═════════════════════════════════════════════════════════════════════
+if ($needActivities) {
 
 // ── Tabel Aktivitas Platform & Transaksi Terkini (paged) ─────────────
 // Sumber data yang BENAR-BENAR direkam backend saja (FAKTA F12) —
@@ -247,31 +295,21 @@ foreach ($rows as $r) {
 }
 $totalPages = max(1, (int) ceil($totalActivities / $perPage));
 
-json_response(true, [
-    'period' => $period,
-    'cards'  => [
-        'users_total'     => $usersTotal,
-        'users_active'    => $usersActive,
-        'users_suspended' => $usersSuspended,
-        'users_new'       => $curNew,
-        'users_growth'    => $usersGrowth,
-        'docs_total'      => $docsTotal,
-        'docs_new'        => $docsCur,
-        'docs_growth'     => $docsGrowth,
-        'revenue_month'   => $revenueMonth,
-    ],
-    'chart'          => $chart,
-    'template_usage' => ['total' => $usageTotal, 'items' => $usage],
-    'transactions'   => $trx,
-    'activities'     => [
-        'rows' => $activities,
-        'total' => $totalActivities,
-        'page' => $page,
-        'per_page' => $perPage,
-        'total_pages' => $totalPages,
-    ],
-    'generated_at'   => date('c'),
-]);
+// Halaman di luar jangkauan (mis. data menyusut) dikembalikan ke halaman
+// terakhir agar pager tidak menampilkan posisi yang mustahil.
+$payload['activities'] = [
+    'rows' => $activities,
+    'total' => $totalActivities,
+    'page' => min($page, $totalPages),
+    'per_page' => $perPage,
+    'total_pages' => $totalPages,
+];
+
+} // end if ($needActivities)
+
+$payload['generated_at'] = date('c');
+
+json_response(true, $payload);
 } catch (PDOException $e) {
     error_log('analytics.php: ' . $e->getMessage());
     json_fail('Gagal mengambil data analitik dari database.', 500);

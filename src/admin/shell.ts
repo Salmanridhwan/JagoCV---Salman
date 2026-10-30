@@ -27,6 +27,7 @@ function icon(name: string, cls = "w-[18px] h-[18px]"): string {
     wifi: "M5 12.55a11 11 0 0114.08 0M8.53 16.11a6 6 0 016.95 0M12 20h.01",
     coin_dot: "M12 8v4l2 2",
     check: "M20 6L9 17l-5-5",
+    close: "M6 18L18 6M6 6l12 12",
   };
   return `<svg class="${cls}" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="${paths[name] ?? paths.grid}"></path></svg>`;
 }
@@ -85,16 +86,28 @@ export function renderShell(admin: AdminUser): AdminRouter {
   const root = document.getElementById("admin-root") as HTMLElement;
 
   root.innerHTML = `
-    <!-- ── Sidebar ─────────────────────────────────────────────── -->
-    <aside id="admin-sidebar" class="fixed inset-y-0 left-0 z-40 w-72 bg-white border-r border-slate-100 flex flex-col -translate-x-full md:translate-x-0 transition-transform duration-300">
+    <!-- ── Sidebar ───────────────────────────────────────────────
+         Mobile & tablet (< xl): drawer tersembunyi, dibuka lewat burger.
+         Desktop (≥ xl): menetap. Pada layar medium sidebar otomatis
+         tersembunyi agar area konten utama lebih luas. -->
+    <div id="admin-sidebar-backdrop"
+         class="hidden fixed inset-0 z-30 bg-slate-900/50 backdrop-blur-[2px] opacity-0 transition-opacity duration-300 xl:hidden"></div>
+
+    <aside id="admin-sidebar"
+           class="fixed inset-y-0 left-0 z-40 w-[18rem] max-w-[85vw] bg-white border-r border-slate-100 flex flex-col
+                  -translate-x-full transition-transform duration-300 ease-out
+                  shadow-2xl xl:shadow-none xl:translate-x-0">
       <div class="flex items-center gap-3 px-6 py-6">
         <div class="w-11 h-11 rounded-xl bg-slate-900 flex items-center justify-center shrink-0">
           <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3zM12 12l8-4.5M12 12v9m0-9L4 7.5"></path></svg>
         </div>
-        <div class="leading-tight">
+        <div class="leading-tight min-w-0">
           <div class="font-extrabold text-slate-900">JagoCV</div>
           <div class="text-[10px] tracking-[0.22em] text-slate-500 font-semibold">ADMIN CENTER</div>
         </div>
+        <button id="admin-sidebar-close" class="ml-auto p-2 -mr-2 rounded-full text-slate-400 hover:bg-slate-100 hover:text-slate-700 xl:hidden" aria-label="Tutup menu">
+          ${icon("close", "w-5 h-5")}
+        </button>
       </div>
 
       <nav class="flex-1 overflow-y-auto px-4 pb-4 custom-scrollbar">
@@ -110,8 +123,8 @@ export function renderShell(admin: AdminUser): AdminRouter {
                         class="admin-nav w-full flex items-center gap-3 px-3.5 py-2.5 rounded-full text-sm font-semibold transition-colors
                                text-slate-600 hover:bg-slate-50 hover:text-slate-900">
                   ${icon(item.icon)}
-                  <span>${esc(item.label)}</span>
-                  ${item.built ? "" : `<span class="ml-auto text-[10px] font-medium text-slate-300">Segera</span>`}
+                  <span class="truncate">${esc(item.label)}</span>
+                  ${item.built ? "" : `<span class="ml-auto text-[10px] font-medium text-slate-300 shrink-0">Segera</span>`}
                 </button>
               </li>`,
               )
@@ -124,7 +137,7 @@ export function renderShell(admin: AdminUser): AdminRouter {
       <!-- Kartu status gateway (Bagian 1.2: payment masih simulasi F7 → tampilkan simpanan jujur) -->
       <div class="mx-4 mb-5 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3.5 flex items-center gap-3">
         <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0"></span>
-        <div class="flex-1 leading-tight">
+        <div class="flex-1 leading-tight min-w-0">
           <p class="text-xs font-bold text-slate-800">Gateway Terkoneksi</p>
           <p class="text-[10px] text-slate-500">Mode Simulasi — Midtrans / Xendit belum terpasang</p>
         </div>
@@ -133,45 +146,44 @@ export function renderShell(admin: AdminUser): AdminRouter {
     </aside>
 
     <!-- ── Konten ──────────────────────────────────────────────── -->
-    <div class="md:pl-72 min-h-screen flex flex-col">
+    <div class="xl:pl-[18rem] min-h-screen flex flex-col">
       <!-- Topbar (rapih mengikuti desain patokan: search kiri lebar,
            cluster kanan rapat — ID/EN, bel, nama, lalu avatar paling ujung) -->
-      <header class="sticky top-0 z-30 bg-white/90 backdrop-blur border-b border-slate-100">
-        <div class="h-[76px] px-5 md:px-8 flex items-center">
-          <button id="admin-burger" class="md:hidden p-2 mr-2 rounded-lg hover:bg-slate-100">${icon("menu")}</button>
+      <header class="sticky top-0 z-20 bg-white/90 backdrop-blur border-b border-slate-100">
+        <div class="h-[64px] sm:h-[76px] px-3 sm:px-5 md:px-8 flex items-center gap-2">
+          <button id="admin-burger" class="xl:hidden p-2 rounded-lg hover:bg-slate-100 shrink-0" aria-label="Buka menu" aria-controls="admin-sidebar" aria-expanded="false">${icon("menu")}</button>
 
           <!-- Search: terletak di kiri, lebar mengikuti desain -->
-          <div class="relative flex-1 max-w-[600px]">
-            ${icon("search", "w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none")}
+          <div class="relative flex-1 min-w-0 max-w-[600px]">
+            ${icon("search", "w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none")}
             <input id="admin-search" type="text"
-                   placeholder="Cari data, user, ID transaksi…"
-                   class="w-full rounded-full bg-slate-100/80 border border-transparent focus:border-slate-300 focus:bg-white pl-11 pr-4 py-2.5 text-sm outline-none transition-colors">
+                   placeholder="Cari data, user…"
+                   class="w-full rounded-full bg-slate-100/80 border border-transparent focus:border-slate-300 focus:bg-white pl-10 pr-3 py-2.5 text-sm outline-none transition-colors">
           </div>
 
           <!-- Cluster kanan: rapat melekat ke ujung kanan (jarak antar-elemen kecil) -->
-          <!-- Cluster kanan: pada md+ menempel ke ujung kanan topbar -->
-          <div class="ml-auto pl-4 md:pl-6 flex items-center shrink-0">
+          <div class="ml-auto pl-2 sm:pl-4 md:pl-6 flex items-center shrink-0">
             <!-- Toggle bahasa (Bagian 1.2: fase 1 hanya ID aktif, EN disable) -->
-            <div class="hidden sm:flex items-center rounded-full bg-slate-100 p-0.5">
+            <div class="hidden lg:flex items-center rounded-full bg-slate-100 p-0.5">
               <span class="px-2.5 py-1 rounded-full bg-slate-900 text-white text-[10px] font-bold leading-none">ID</span>
               <span class="px-2.5 py-1 rounded-full text-slate-400 text-[10px] font-bold leading-none cursor-not-allowed" title="Bahasa Inggris — tahap berikutnya">EN</span>
             </div>
 
-            <button id="admin-bell" title="Notifikasi — feedback berstatus Baru" class="relative ml-5 md:ml-9 p-2 rounded-full hover:bg-slate-100">
+            <button id="admin-bell" title="Notifikasi — feedback berstatus Baru" class="relative ml-1.5 sm:ml-5 md:ml-9 p-2 rounded-full hover:bg-slate-100">
               ${icon("bell")}
               <span id="admin-bell-dot" class="absolute top-1.5 right-1.5 w-2 h-2 bg-rose-500 rounded-full"></span>
             </button>
 
-            <div class="relative flex items-center gap-2.5 ml-4 md:ml-5">
-              <button id="admin-user-chip" class="flex items-center gap-3 rounded-full hover:bg-slate-50 py-1 pl-1 transition-colors">
-                <div class="text-right leading-tight">
-                  <p class="text-sm font-bold text-slate-900">${esc(admin.first_name)} ${esc(admin.last_name)}</p>
-                  <p class="text-[11px] font-semibold text-slate-400">${esc(admin.role_label)}</p>
+            <div class="relative flex items-center gap-2.5 ml-1.5 sm:ml-4 md:ml-5">
+              <button id="admin-user-chip" class="flex items-center gap-2 sm:gap-3 rounded-full hover:bg-slate-50 py-1 pl-1 transition-colors">
+                <div class="text-right leading-tight hidden sm:block max-w-[10rem]">
+                  <p class="text-sm font-bold text-slate-900 truncate">${esc(admin.first_name)} ${esc(admin.last_name)}</p>
+                  <p class="text-[11px] font-semibold text-slate-400 truncate">${esc(admin.role_label)}</p>
                 </div>
                 ${getStoredAdmin()?.avatar_url
-                  ? `<img src="${esc(getStoredAdmin()!.avatar_url)}" class="w-10 h-10 rounded-full object-cover shrink-0" alt="">`
-                  : `<span class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center shrink-0">
-                      <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M16 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                  ? `<img src="${esc(getStoredAdmin()!.avatar_url)}" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full object-cover shrink-0" alt="">`
+                  : `<span class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-slate-900 flex items-center justify-center shrink-0">
+                      <svg class="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M16 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                     </span>`}
               </button>
               <div id="admin-user-menu" class="hidden absolute right-0 top-full mt-2 w-48 bg-white border border-slate-100 rounded-2xl shadow-xl py-2 overflow-hidden">
@@ -185,7 +197,7 @@ export function renderShell(admin: AdminUser): AdminRouter {
       </header>
 
       <!-- Kontainer view (pola hideAllViews/showView) -->
-      <main class="flex-1 px-5 md:px-8 py-6">
+      <main class="flex-1 px-3 sm:px-5 md:px-8 py-5 sm:py-6 min-w-0">
         <div id="view-dash" class="admin-view"></div>
         <div id="view-templates" class="admin-view hidden"></div>
         <div id="view-users" class="admin-view hidden"></div>
@@ -203,14 +215,55 @@ export function renderShell(admin: AdminUser): AdminRouter {
   root.querySelectorAll<HTMLButtonElement>(".admin-nav").forEach((btn) => {
     btn.addEventListener("click", () => {
       showAdminView(btn.dataset.nav || "");
-      // Tutup drawer mobile setelah memilih menu.
-      document.getElementById("admin-sidebar")?.classList.add("-translate-x-full");
+      // Tutup drawer setelah memilih menu (mobile & tablet).
+      closeSidebar();
     });
   });
 
+  const sidebar = document.getElementById("admin-sidebar");
+  const backdrop = document.getElementById("admin-sidebar-backdrop");
   const burger = document.getElementById("admin-burger");
+
+  const openSidebar = (): void => {
+    if (!sidebar) return;
+    sidebar.classList.remove("-translate-x-full");
+    sidebar.classList.add("shadow-2xl");
+    backdrop?.classList.remove("hidden");
+    // frame berikutnya → transisi opacity berjalan
+    requestAnimationFrame(() => backdrop?.classList.add("opacity-100"));
+    document.body.classList.add("overflow-hidden", "xl:overflow-auto");
+    burger?.setAttribute("aria-expanded", "true");
+  };
+
+  const closeSidebar = (): void => {
+    if (!sidebar) return;
+    sidebar.classList.add("-translate-x-full");
+    backdrop?.classList.remove("opacity-100");
+    const hide = (): void => backdrop?.classList.add("hidden");
+    if (prefersReducedMotion()) hide();
+    else window.setTimeout(hide, 300);
+    document.body.classList.remove("overflow-hidden", "xl:overflow-auto");
+    burger?.setAttribute("aria-expanded", "false");
+  };
+
   burger?.addEventListener("click", () => {
-    document.getElementById("admin-sidebar")?.classList.toggle("-translate-x-full");
+    if (sidebar?.classList.contains("-translate-x-full")) openSidebar();
+    else closeSidebar();
+  });
+  document.getElementById("admin-sidebar-close")?.addEventListener("click", closeSidebar);
+  backdrop?.addEventListener("click", closeSidebar);
+
+  // Escape menutup drawer; saat layar melebar ke desktop drawer otomatis
+  // dinormalkan supaya tidak menyisakan body terkunci.
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && sidebar && !sidebar.classList.contains("-translate-x-full")) {
+      closeSidebar();
+    }
+  });
+  window.addEventListener("resize", () => {
+    if (window.innerWidth >= 1280 && sidebar && !sidebar.classList.contains("-translate-x-full")) {
+      closeSidebar();
+    }
   });
 
   // Dropdown user + logout.
@@ -250,8 +303,19 @@ export function renderShell(admin: AdminUser): AdminRouter {
 
 // ── Router admin (pola showView + histori localStorage) ──────────────
 
+/**
+ * Penjaga navigasi per-view (mis. halaman Edit Template dengan perubahan
+ * belum disimpan). Guard dipanggil SEBELUM view berganti; mengembalikan
+ * `true` berarti navigasi ditahan (view menampilkan konfirmasinya sendiri).
+ */
+let navGuard: ((nextId: string) => boolean) | null = null;
+export function setAdminNavGuard(fn: ((nextId: string) => boolean) | null): void {
+  navGuard = fn;
+}
+
 export function showAdminView(id: string): void {
   if (!MENU_SECTIONS.some((s) => s.items.some((i) => i.id === id))) return;
+  if (id !== activeId && navGuard?.(id)) return;
 
   document.querySelectorAll<HTMLElement>(".admin-view").forEach((el) => {
     el.classList.toggle("hidden", el.id !== id);
@@ -297,6 +361,10 @@ export function restoreLastAdminView(): void {
 }
 
 // ── Util kecil ───────────────────────────────────────────────────────
+
+function prefersReducedMotion(): boolean {
+  return window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+}
 
 function debounce(fn: () => void, ms: number): () => void {
   let t: number | undefined;

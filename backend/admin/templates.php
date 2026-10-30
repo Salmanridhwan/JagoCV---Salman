@@ -54,10 +54,31 @@ function validate_template_payload(array $body, bool $withId = false): array
     $data['description']   = mb_substr(field_str($body, 'description'), 0, 255);
     $data['engine_version'] = mb_substr(field_str($body, 'engine_version') ?: 'v2.4', 0, 10);
 
-    // layout_key: mapping ke renderer user yang sudah ada (F8) atau kustom (NULL).
+    // layout_key: mapping ke tema visual yang benar-benar dipakai halaman
+    // pengguna, atau NULL untuk template kustom. Daftar key WAJIB selaras
+    // dengan registry admin `src/admin/views/templateLayouts.ts`:
+    //   CV ATS    → cvData.ts  (`layout`: standar | tech | entry)
+    //   Resume    → design-resume.html langkah 5 (6 tema)
+    //   Portfolio → build-portfolio.html langkah 7 (6 tema)
     $layout = field_str($body, 'layout_key');
-    if ($layout !== '' && !in_array($layout, ['standar', 'tech', 'entry'], true)) {
-        json_fail('Layout hanya boleh standar, tech, entry, atau kosong (kustom).', 422);
+    $allowedLayouts = [
+        // CV ATS
+        'standar', 'tech', 'entry',
+        // Resume — design-resume.html
+        'prisma-modern', 'dua-kolom-klasik', 'mode-gelap-kreatif',
+        'grid-portofolio', 'banner-korporat', 'timeline-akademik',
+        // Portfolio — build-portfolio.html
+        'bento-gelap', 'linktree-neon', 'standar-klasik',
+        'dev-terminal', 'editorial-serif', 'aura-kaca',
+    ];
+    if ($layout !== '' && !in_array($layout, $allowedLayouts, true)) {
+        json_fail(
+            'Layout tidak dikenal. CV ATS: standar, tech, entry. Resume: prisma-modern, dua-kolom-klasik, '
+            . 'mode-gelap-kreatif, grid-portofolio, banner-korporat, timeline-akademik. '
+            . 'Portfolio: bento-gelap, linktree-neon, standar-klasik, dev-terminal, editorial-serif, aura-kaca. '
+            . 'Atau kosongkan untuk template kustom.',
+            422
+        );
     }
     $data['layout_key'] = $layout !== '' ? $layout : null;
 

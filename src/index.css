@@ -65,6 +65,133 @@
   }
 }
 
+/* ───────────────────────────────────────────────────────────────────────
+   Pratinjau layout template (Manajemen Template admin)
+   Halaman preview digambar pada kanvas 380×520 lalu diskalakan oleh
+   fitPreviews() → tajam di thumbnail kartu maupun panel detail.
+   ─────────────────────────────────────────────────────────────────────── */
+
+/* Kontainer pratinjau. Sengaja TIDAK mengunci `position` agar utility
+   `absolute`/`relative` dari Tailwind (pemanggil) tetap berlaku. */
+.tpl-preview {
+  overflow: hidden;
+  background: #f1f5f9;
+}
+
+.tpl-preview-page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 380px;
+  height: 520px;
+  transform-origin: top left;
+  transform: scale(var(--tpl-scale, 0.4));
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12);
+  transition: transform 0.18s ease;
+}
+
+/* Kerangka ponsel pada preview portfolio sudah digambar di dalam renderer,
+   jadi tidak perlu bingkai tambahan di sini. */
+
+/* Input seragam pada form Edit Template. */
+.tf-input {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid rgb(226, 232, 240);
+  background: #fff;
+  padding: 0.625rem 0.875rem;
+  font-size: 0.875rem;
+  color: rgb(30, 41, 59);
+  outline: none;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.tf-input:focus {
+  border-color: rgb(148, 163, 184);
+  box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.06);
+}
+
+textarea.tf-input {
+  line-height: 1.6;
+  resize: vertical;
+}
+
+/* ───────────────────────────────────────────────────────────────────────
+   Dashboard & Analytics admin — transisi asinkron tanpa lompatan layout
+   ─────────────────────────────────────────────────────────────────────── */
+
+/* Wadah yang isinya diganti lewat JS: opacity ditransisikan, bukan
+   dihancurkan, sehingga tinggi elemen tetap & posisi scroll stabil. */
+.dash-swap {
+  transition:
+    opacity 0.17s ease,
+    transform 0.17s ease;
+  will-change: opacity;
+}
+
+.dash-swap.is-fading {
+  opacity: 0;
+  transform: translateY(4px);
+}
+
+/* Toggle periode: redup sebentar selama request berjalan (tanpa menggeser layout). */
+#dash-period-toggle.is-busy {
+  opacity: 0.55;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+
+/* Garis grafik digambar ulang saat periode berganti (dash-reveal). */
+.dash-chart-reveal polyline,
+.dash-chart-reveal polygon {
+  animation: dashReveal 0.45s ease both;
+}
+
+@keyframes dashReveal {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dash-swap,
+  .dash-chart-reveal polyline,
+  .dash-chart-reveal polygon {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Wrapper scroll horizontal tabel: tipis & tidak memotong bayangan kartu. */
+.table-scroll {
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.table-scroll::-webkit-scrollbar-thumb {
+  background-color: rgb(226, 232, 240);
+  border-radius: 9999px;
+}
+
+/* Layar sempit: label sumbu-X grafik yang rapat disembunyikan bergantian. */
+@media (max-width: 560px) {
+  .dash-x-odd {
+    display: none;
+  }
+}
+
 /* Premium AI Design Styles */
 .ai-premium-card {
   background: linear-gradient(135deg, rgba(13, 21, 38, 0.9), rgba(15, 23, 42, 0.9));
